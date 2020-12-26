@@ -23,3 +23,24 @@ const editor = new EditorJS({
         image: SimpleImage
     }
 });
+
+postBlogData = async (url = '', data = {}) => {
+    const postOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    }
+    const responce = await fetch(url, postOptions);
+
+    return responce.json();
+}
+
+const svBtn = document.getElementById('editorjs');
+
+svBtn.addEventListener('click', async () => {
+    const data = await editor.save();
+    const responce = await postBlogData('', data);
+    //do something with responce...
+});
