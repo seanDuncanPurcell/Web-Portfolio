@@ -1,0 +1,2 @@
+1) Form validation for sign in/up @ cient & server side.
+2) implement some form of front end dependency tracking.

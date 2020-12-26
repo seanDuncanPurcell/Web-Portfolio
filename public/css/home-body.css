@@ -1,0 +1,17 @@
+main > section {
+  position: relative;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  background-color: khaki;
+}
+
+main > section > section {
+  background-color: lightcoral;
+  margin: 3px;
+  height: 75vh;
+  /*Delet after content has been added*/
+}
+/*# sourceMappingURL=home-body.css.map */

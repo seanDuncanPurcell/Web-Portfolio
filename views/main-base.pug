@@ -1,0 +1,20 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    block style
+      link(rel="stylesheet", href="/css/main-base.css")
+    title #{title || "Alcodeimy"}
+  body
+    header
+      h1 Welcome!
+    main
+      nav#sideNav
+        block localNav
+      section.main-content
+        block content
+    footer
+      block foot
+        p This is the foot
+    block scripts
+      script(src="/scripts/main-base.js")

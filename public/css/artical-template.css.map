@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAC;EACV,gBAAgB,EAAE,UAAU;CAC/B;;AACD,AAAA,CAAC,CAAC;EACE,MAAM,EAAE,GAAG;EACX,WAAW,EAAE,GAAG;EAChB,WAAW,EAAE,GAAG;CACnB",
+    "sources": [
+        "../../sass/artical-template.scss"
+    ],
+    "names": [],
+    "file": "artical-template.css"
+}

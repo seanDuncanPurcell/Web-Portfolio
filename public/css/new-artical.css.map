@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,CAAC;EACJ,MAAM,EAAE,eAAe;CAC1B",
+    "sources": [
+        "../../sass/new-artical.scss"
+    ],
+    "names": [],
+    "file": "new-artical.css"
+}

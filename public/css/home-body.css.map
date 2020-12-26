@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,GAAG,OAAO,CAAC;EACX,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,OAAO;EAC9B,gBAAgB,EAAE,KAAK;CAC1B;;AAED,AAAA,IAAI,GAAG,OAAO,GAAG,OAAO,CAAC;EACrB,gBAAgB,EAAE,UAAU;EAC5B,MAAM,EAAE,GAAG;EACX,MAAM,EAAE,IAAI;EAAE,sCAAsC;CACvD",
+    "sources": [
+        "../../sass/home-body.scss"
+    ],
+    "names": [],
+    "file": "home-body.css"
+}
