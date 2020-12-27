@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,SAAS,CAAC;EACN,MAAM,EAAE,eAAe;EACvB,gBAAgB,EAAE,OAAkB;CACvC",
+    "mappings": "AAAA,AAAA,SAAS,CAAC;EACN,MAAM,EAAE,eAAe;EACvB,gBAAgB,EAAE,OAAkB;CACvC;;AAED,AAAA,uBAAuB,CAAC;EACpB,OAAO,EAAE,eAAe;CAC3B",
     "sources": [
         "../../sass/new-artical.scss"
     ],

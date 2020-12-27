@@ -24,23 +24,19 @@ const editor = new EditorJS({
     }
 });
 
-postBlogData = async (url = '', data = {}) => {
-    const postOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: data
-    }
-    const responce = await fetch(url, postOptions);
-
-    return responce.json();
-}
-
-const svBtn = document.getElementById('editorjs');
+const svBtn = document.getElementById('textsave');
 
 svBtn.addEventListener('click', async () => {
     const data = await editor.save();
-    const responce = await postBlogData('', data);
+    console.log(data);
+    const options = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    };
+    fetch('/blog/new_artical', options);
+
     //do something with responce...
 });
+
