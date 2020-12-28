@@ -1,0 +1,23 @@
+#editorjs {
+  border: 1px solid black;
+  background-color: #a7a7c9;
+}
+
+.codex-editor__redactor {
+  padding: 20px !important;
+  margin: 20px;
+}
+
+.simple-image {
+  padding: 20px 0;
+}
+
+.simple-image input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e4e4e4;
+  border-radius: 3px;
+  outline: none;
+  font-size: 14px;
+}
+/*# sourceMappingURL=article-display.css.map */

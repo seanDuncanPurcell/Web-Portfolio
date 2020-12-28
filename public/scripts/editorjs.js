@@ -1,12 +1,12 @@
-const editor = (async (articalID) => {
-  const articalData = {};
-  if (articalID) {
-    console.log(articalID);
-    const responce = await fetch(`/blog/articals_db/${articalID}`);
+const editor = (async (articleID) => {
+  const articleData = {};
+  if (articleID) {
+    console.log(articleID);
+    const responce = await fetch(`/blog/articles_db/${articleID}`);
     const jsonRes = await responce.json();
-    articalData.time = jsonRes.time;
-    articalData.blocks = jsonRes.blocks;
-    articalData.version = jsonRes.version;
+    articleData.time = jsonRes.time;
+    articleData.blocks = jsonRes.blocks;
+    articleData.version = jsonRes.version;
   }
   const edJS = await new EditorJS({
     autofocus: true,
@@ -33,23 +33,25 @@ const editor = (async (articalID) => {
         shortcut: 'CTRL+SHIFT+M',
       }
     },
-    data: articalData,
+    data: articleData,
   });
 
   const svBtn = document.getElementById('textsave');
   svBtn.addEventListener('click', async () => {
-    const newArtical = await edJS.save();
-    newArtical.id = articalID;
-    console.log(newArtical);
+    const newarticle = await edJS.save();
+    console.log(newarticle);
     const options = {
         method: 'POST',
         mode: 'cors',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newArtical)
+        body: JSON.stringify(newarticle)
     };
-    const responce = await fetch('/blog/artical', options);
-    const newID = await responce.json();
-    window.location.href = `/blog/artical/${newID}`;
+    if(articleID) fetch(`/blog/article/${articleID}`, options);
+    else {
+      const responce = await fetch(`/blog/article`, options);
+      const newID = await responce.json();
+      window.location.href = `/blog/article/${newID}`;
+    }
   });
   return edJS;
-})(articalID);
+})(articleID);
