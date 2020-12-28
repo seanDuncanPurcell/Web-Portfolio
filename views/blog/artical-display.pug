@@ -1,0 +1,23 @@
+extends ../main-base.pug
+
+block append style
+    link(rel="stylesheet", href="/css/new-artical.css")
+
+block localNav
+    ul
+        li test 1
+        li test 2
+        li test 3
+
+block content
+    #editorjs
+    button#textsave Save
+
+block append scripts
+    script(src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest")
+    script(src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest")
+    script(src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest")
+    script(src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest")
+    script(src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest")
+    script const articalID = '#{articalID}';
+    script(src="/scripts/editorjs.js")

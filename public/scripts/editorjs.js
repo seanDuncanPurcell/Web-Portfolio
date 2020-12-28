@@ -1,33 +1,45 @@
-class SimpleImage {
-    static get toolbox() {
-      return {
-        title: 'Image',
-        icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>'
-      };
-    }
-  
-    render(){
-      return document.createElement('input');
-    }
-  
-    save(blockContent){
-      return {
-        url: blockContent.value
-      }
-    }
+const editor = (async (articalID) => {
+  const articalData = {};
+  if (articalID) {
+    console.log(articalID);
+    const responce = await fetch(`/blog/articals_db/${articalID}`);
+    const jsonRes = await responce.json();
+    articalData.time = jsonRes.time;
+    articalData.blocks = jsonRes.blocks;
+    articalData.version = jsonRes.version;
   }
-
-const editor = new EditorJS({
+  const edJS = await new EditorJS({
     autofocus: true,
     tools: {
-        image: SimpleImage
-    }
-});
+      image: {
+        class: SimpleImage,      
+        inlineToolbar: true
+      },
+      header: {
+        class: Header,
+        shortcut: 'CTRL+SHIFT+H',
+        config: {
+          placeholder: 'Enter a header',
+          levels: [1, 2, 3, 4],
+          defaultLevel: 1
+        }
+      },
+      list: {
+        class: List,
+        inlineToolbar: true,
+      },
+      Marker: {
+        class: Marker,
+        shortcut: 'CTRL+SHIFT+M',
+      }
+    },
+    data: articalData,
+  });
 
-const svBtn = document.getElementById('textsave');
-
-svBtn.addEventListener('click', async () => {
-    const data = await editor.save();
+  const svBtn = document.getElementById('textsave');
+  svBtn.addEventListener('click', async () => {
+    const data = await edJS.save();
+    data.id = articalID;
     console.log(data);
     const options = {
         method: 'POST',
@@ -35,8 +47,7 @@ svBtn.addEventListener('click', async () => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     };
-    fetch('/blog/new_artical', options);
-
-    //do something with responce...
-});
-
+    fetch('/blog/artical', options);
+  });
+  return edJS;
+})(articalID);
