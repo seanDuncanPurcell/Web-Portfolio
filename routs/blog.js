@@ -16,12 +16,25 @@ router.route('/artical')
 .post(async(req, res) => {
   const data = req.body;
   console.log('Here is your data: ');
-  console.log(data);
 
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const articalStore = client.db('blogsystem').collection('articals');
+  if(data.id) {
+    console.log('id found');
+    const objectId = new db.ObjectId(data.id);
+    try{
+      const result = await articalStore.replaceOne({ _id: objectId}, data);
+    }catch(err){
+      console.log(err);
+    }
 
-  // articalStore.insertOne(data);
+  } else {
+    console.log('id not found');
+    const newArtical = await articalStore.insertOne(data);
+    const jData = JSON.stringify(newArtical.insertedId);
+    console.log('new id: ' + jData);
+    res.send(jData);
+  }
 });
 
 router.route('/artical/:id')

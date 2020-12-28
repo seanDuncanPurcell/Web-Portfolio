@@ -38,16 +38,18 @@ const editor = (async (articalID) => {
 
   const svBtn = document.getElementById('textsave');
   svBtn.addEventListener('click', async () => {
-    const data = await edJS.save();
-    data.id = articalID;
-    console.log(data);
+    const newArtical = await edJS.save();
+    newArtical.id = articalID;
+    console.log(newArtical);
     const options = {
         method: 'POST',
         mode: 'cors',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(newArtical)
     };
-    fetch('/blog/artical', options);
+    const responce = await fetch('/blog/artical', options);
+    const newID = await responce.json();
+    window.location.href = `/blog/artical/${newID}`;
   });
   return edJS;
 })(articalID);
