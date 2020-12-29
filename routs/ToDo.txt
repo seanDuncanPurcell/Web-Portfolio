@@ -1,2 +1,4 @@
 1) Form validation for sign in/up @ cient & server side.
-2) implement some form of front end dependency tracking.
+2) Implement some form of front end dependency tracking.
+3) set-up seperate routing for bd access
+4) use quary params in artical-get reqs to return exsisting artical.
