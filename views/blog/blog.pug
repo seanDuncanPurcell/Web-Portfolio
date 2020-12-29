@@ -10,7 +10,7 @@ block localNav
         li test 3
 
 block content
-    .brief-blog test test
-    .brief-blog test test
-    .brief-blog test test
-    .brief-blog test test
+    each item in articles
+        a.brief-blog(href='/blog/article/' + item.id)
+            h1 #{item.title}
+            p #{item.summery}

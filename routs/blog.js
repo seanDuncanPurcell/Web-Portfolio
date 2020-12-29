@@ -5,8 +5,25 @@ const db = require('mongodb');
 const router = express.Router();
 
 router.route('/')
-.get((req, res) => {
-  res.render('blog/blog');
+.get( async(req, res) => {
+  const briefs = [];
+  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+  client.db('blogsystem').collection('articles').find({}).toArray(function(err, result) {
+    if (err) throw err;
+
+    result.forEach( (doc) => {
+      const textBlock = doc.blocks[1].data.text;
+      const element = {
+        id: doc._id.toString(), 
+        title: doc.blocks[0].data.text,
+        summery: textBlock
+      }
+      briefs.push(element);
+    });
+    res.render('blog/blog', {articles: briefs});
+    client.close();
+  });
+  
 });
 
 router.route('/article')
@@ -15,14 +32,11 @@ router.route('/article')
 })
 .post(async(req, res) => {
   const data = req.body;
-  console.log('Here is your data: ');
-  console.log(data);
 
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const articleStore = client.db('blogsystem').collection('articles');
   const newarticle = await articleStore.insertOne(data);
   const jData = JSON.stringify(newarticle.insertedId);
-  console.log('new id: ' + jData);
   res.send(jData);
 });
 
@@ -32,13 +46,9 @@ router.route('/article/:id')
 })
 .post(async(req, res) => {
   const data = req.body;
-  console.log('Here is your data: ');
-  console.log(data);
-
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const articleStore = client.db('blogsystem').collection('articles');
   if(req.params.id) {
-    console.log('id found: ' + req.params.id);
     const objectId = new db.ObjectId(req.params.id);
     try{
       const result = await articleStore.replaceOne({ _id: objectId}, data);
@@ -60,7 +70,6 @@ router.route('/articles_db/:id')
   const ObjectId = new db.ObjectId(req.params.id);
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const article = await client.db('blogsystem').collection('articles').findOne({ _id: ObjectId});
-  console.log(article);
   const jsonArticle = JSON.stringify(article);
   res.send(jsonArticle);
 });
