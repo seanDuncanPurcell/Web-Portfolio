@@ -4,6 +4,7 @@ TODO
 2) set up .env file
   -handle db url in that file
 3) Consider seperating all db routing in to seperate router
+4) Use connect-mongodb-session to store session data in mongodb
 */
 
 //declarations
