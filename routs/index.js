@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const db_url = 'mongodb://localhost:27017';
+const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
 const salt = parseInt(process.env.SALT_ONE);
 const mongoClient = require('mongodb').MongoClient;
