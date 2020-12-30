@@ -12,6 +12,7 @@ header, main, section, footer {
 
 header {
     @include flexCenter;
+    justify-content: space-between;
     left: 0;
     right: 0;
     top: 0;

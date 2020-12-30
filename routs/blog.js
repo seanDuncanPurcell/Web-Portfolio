@@ -1,3 +1,8 @@
+/*
+TODO
+1) Form validation for sign in/up @ cient & server side.
+2) Use quary params in artical-get reqs to return exsisting artical.
+*/
 const express = require('express');
 const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
