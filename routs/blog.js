@@ -24,7 +24,7 @@ router.route('/')
       }
       briefs.push(element);
     });
-    res.render('blog/blog', {articles: briefs});
+    res.render('blog/blog', {articles: briefs, loggedin: req.session.log, user: req.session.username});
     client.close();
   });
   
@@ -32,7 +32,7 @@ router.route('/')
 
 router.route('/article')
 .get((req, res) => {
-  res.render('blog/article-display', {articleID: undefined});
+  res.render('blog/article-display', {articleID: undefined, loggedin: req.session.log, user: req.session.username});
 })
 .post(async(req, res) => {
   const data = req.body;
@@ -45,7 +45,7 @@ router.route('/article')
 
 router.route('/article/:id')
 .get((req, res) => {
-  res.render('blog/article-display', {articleID: req.params.id});
+  res.render('blog/article-display', {articleID: req.params.id, loggedin: req.session.log, user: req.session.username});
 })
 .post(async(req, res) => {
   const data = req.body;

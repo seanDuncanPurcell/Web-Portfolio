@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.route('/')
 .get((req, res) => {  
-  res.render('home', {user: req.session.username});
+  res.render('home', {loggedin: req.session.log, user: req.session.username});
 });
 
 router.route('/register')
 .get((req, res) => {
-  res.render('user/register');
+  res.render('user/register', {loggedin: req.session.log, user: req.session.username});
 })
 .post( async (req, res) => {
   const data = req.body;
@@ -43,12 +43,11 @@ router.route('/register')
   }catch(err){
     console.error('error: ' + err);
   }
-  console.log('Point C');
 });
 
 router.route('/login')
 .get((req, res)=>{
-  res.render('user/login');
+  res.render('user/login', {loggedin: req.session.log, user: req.session.username});
 })
 .post(async (req, res)=>{  
   try{
@@ -62,7 +61,8 @@ router.route('/login')
       if (authorised) {
         req.session.log = true;
         req.session.username = foundUser.username;
-        res.redirect('/',  {error: err, loggedin: req.session.log, user: req.session.username});
+        console.log(req.session.username);
+        res.redirect('/');
       }
       else {
         client.close();

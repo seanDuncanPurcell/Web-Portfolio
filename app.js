@@ -10,17 +10,17 @@ TODO
 //declarations
 require('dotenv').config();
 const bodyParser = require('body-parser');
+const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
   const app = express();
 const hash = process.env.HASH_ONE;
 const index = require('./routs/index');
 const blog = require('./routs/blog');
-const MongoDBStore = require('connect-mongodb-session')(session);
-  const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const projects = require('./routs/projects');
 const path = require('path');
 const port = (process.env.PORT || 3000);
 const session = require('express-session');
+  const MongoDBStore = require('connect-mongodb-session')(session);
 
 //settings
 app.set('view engine', 'pug');
