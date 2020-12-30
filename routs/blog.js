@@ -1,5 +1,5 @@
 const express = require('express');
-const db_url = 'mongodb://localhost:27017';
+const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
 const db = require('mongodb');
 const router = express.Router();
@@ -10,7 +10,6 @@ router.route('/')
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   client.db('blogsystem').collection('articles').find({}).toArray(function(err, result) {
     if (err) throw err;
-
     result.forEach( (doc) => {
       const textBlock = doc.blocks[1].data.text;
       const element = {
@@ -32,7 +31,6 @@ router.route('/article')
 })
 .post(async(req, res) => {
   const data = req.body;
-
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const articleStore = client.db('blogsystem').collection('articles');
   const newarticle = await articleStore.insertOne(data);

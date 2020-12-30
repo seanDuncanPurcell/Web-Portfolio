@@ -13,4 +13,3 @@ The ToDo List
 Ideas
 *	Making all text in app editable by admin users
 *	Tracking user interest based on the tags of pages they visit.
-
