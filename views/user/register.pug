@@ -1,4 +1,4 @@
-extends main-base.pug
+extends ../main-base.pug
 
 block content
   h1 Please register as a user.
@@ -12,5 +12,5 @@ block content
     lable(for="passWrdTwo") Confirm Phrase:
     input(type="password", name="confirmpass", id="passWrdTwo", placeholder="live2Code")
     br
-    input(type="button", value="submit")
+    button(type="submit") Submit
       

@@ -1,3 +1,6 @@
+-var welcome = 'Welcome '
+-var title = welcome + user + '!'
+
 html(lang="en")
   head
     meta(charset="UTF-8")
@@ -11,7 +14,16 @@ html(lang="en")
       a(href="/blog") Blog
       a(href="/projects") Projects
       a(href="/bio") Bio
-      h1 Welcome!
+      h1= title
+      if (loggedin)
+        p log out
+      else
+        .logOpsBox
+          a(href='/login') Log In
+          p |
+          a(href='/register') Creat a New Account
+
+
     main
       nav#sideNav
         block localNav

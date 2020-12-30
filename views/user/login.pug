@@ -1,0 +1,12 @@
+extends ../main-base.pug
+
+block content
+  h1 Please register as a user.
+  form(action="/login", method="post")
+    label(for="userName") User Name:
+    input(type="text", name="username", placeholder="AwsomeSause99")
+    br
+    label(for="passWrdOne") Pass Phrase:
+    input(type="password", name="password", placeholder="live2Code")
+    br
+    button(type="submit") Submit

@@ -12,16 +12,14 @@ header, main, section, footer {
 
 header {
     @include flexCenter;
-    justify-content: space-between;
+    justify-content: space-around;
     left: 0;
     right: 0;
     top: 0;
     height: 75px;
     background-color: grey;
-    .box{
-        border: 1px solid red;
-        height: 100px;
-        width: 100px;
+    .logOpsBox{
+        display: flex;
     }
 }
 
@@ -42,6 +40,7 @@ main {
             right: 0;
             li {
                 border: 1px solid blue;
+                margin: 2px;
             }
         }
     }
