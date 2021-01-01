@@ -2,9 +2,15 @@
 TODO
 1) try converting declarations to ES6
 2) set up .env file
-  -handle db url in that file
+  -handle db url in that file <<done
+  -
 3) Consider seperating all db routing in to seperate router
-4) Use connect-mongodb-session to store session data in mongodb
+4) Consider establishing user roles with bubble up privliages.
+  -only admin can delete any db enty but non-admin can delet their own db entries.
+  --maybe some add some form of signature to articales.
+5) Implement mongoose
+6) Implement node-rate-limiter-flexible
+7) Implement Helmet
 */
 
 //declarations
