@@ -6,47 +6,71 @@ TODO
 const bcrypt = require('bcrypt');
 const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
+const Joi = require('joi');
 const salt = parseInt(process.env.SALT_ONE);
 const mongoClient = require('mongodb').MongoClient;
 const router = express.Router();
 
 router.route('/')
 .get((req, res) => {  
-  res.render('home', {loggedin: req.session.log, user: req.session.username});
+  if (req.query.out){
+    req.session.destroy();
+    res.render('home');
+  }else{
+    res.render('home', {loggedin: req.session.loggedin, user: req.session.username});
+  }
 });
 
 router.route('/register')
 .get((req, res) => {
-  res.render('user/register', {loggedin: req.session.log, user: req.session.username});
+  res.render('user/register', {loggedin: req.session.loggedin, user: req.session.username});
 })
 .post( async (req, res) => {
   const data = req.body;
+  const schema = Joi.object({
+    username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required(),
+    email: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    password: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9]{4,30}$'))
+      .required(),
+    repeat_password: Joi.ref('password'),
+  });
+  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+  const collection = client.db('blogsystem').collection('users');
 
   try{
-    const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
-    const collection = client.db('blogsystem').collection('users');
-    const foundName = await collection.findOne({username: data.userName});
+    const foundName = await collection.findOne({username: data.username});
+    const foundemail = await collection.findOne({username: data.email});
+    const joiResponce = schema.validate(data);
 
-    if (foundName){
-      let resString;
-      if (foundName) resString = 'That name is already in use, please select another';
-      client.close();
-      res.send(resString);
-    } else {
-      const encrypt = await bcrypt.hash(req.body.password, salt);
-      collection.insertOne({
-        username: req.body.username,
-        email: req.body.email,
-        password: encrypt
-      }, (err, result) => {
-        if(err) throw new Error(err);
-        client.close();
-      });
+    if (foundName) throw new Error('That username is already in use.');
+    else if (foundemail) throw new Error('That email is already in use.');
+    else if (joiResponce.error) throw new Error(joiResponce.error.details[0].message);
 
-      res.redirect('/')
-    }
+    const encrypt = await bcrypt.hash(req.body.password, salt);
+    const newUser = await collection.insertOne({
+      username: req.body.username,
+      email: req.body.email,
+      password: encrypt
+    });
+    console.log();
+    
+    req.session.loggedin = true;
+    req.session.username = newUser.ops[0].username;
+    res.redirect('/');
+
+    
+    console.log(`Logged in: ${req.session.loggedin}  User: ${req.session.username}`);
   }catch(err){
-    console.error('error: ' + err);
+    res.status('400').send(err);
+    console.error(err);
+  }finally{
+    client.close();
   }
 });
 
@@ -64,9 +88,8 @@ router.route('/login')
     if (foundUser){
       const authorised = await bcrypt.compare(data.password, foundUser.password);
       if (authorised) {
-        req.session.log = true;
+        req.session.loggedin = true;
         req.session.username = foundUser.username;
-        console.log(req.session.username);
         res.redirect('/');
       }
       else {

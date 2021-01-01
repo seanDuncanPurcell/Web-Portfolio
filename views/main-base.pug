@@ -18,7 +18,7 @@ html(lang="en")
       a(href="/bio") Bio
       h1= title
       if (loggedin)
-        p log out
+        a(href='/?out=true') Log Out
       else
         .logOpsBox
           a(href='/login') Log In
