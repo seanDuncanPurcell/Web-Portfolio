@@ -25,15 +25,14 @@ router.route('/')
       }
       briefs.push(element);
     });
-    res.render('blog/blog', {articles: briefs, loggedin: req.session.log, user: req.session.username});
+    res.render('blog/blog', {articles: briefs});
     client.close();
-  });
-  
+  });  
 });
 
 router.route('/article')
 .get((req, res) => {
-  res.render('blog/article-display', {articleID: req.query.id, loggedin: req.session.log, user: req.session.username});
+  res.render('blog/article-display', {articleID: req.query.id});
 })
 .post(async(req, res) => {
   const data = req.body;

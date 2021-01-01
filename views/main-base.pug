@@ -1,7 +1,7 @@
 -var welcome = 'Welcome '
-if(!user)
-  -var user = 'Guest'
--var title = welcome + user + '!'
+if(!username)
+  -var username = 'Guest'
+-var title = welcome + username + '!'
 
 html(lang="en")
   head
@@ -9,7 +9,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     block style
       link(rel="stylesheet", href="/css/main-base.css")
-    title #{title || "Alcodeimy"}
+    title "Alcodeimy"
   body
     header
       a(href="/") Home
@@ -24,14 +24,13 @@ html(lang="en")
           a(href='/login') Log In
           p |
           a(href='/register') Creat a New Account
-
-
     main
       nav#sideNav
         block localNav
       section.main-content
         block content
     footer
+      h1= 'admin is ' + admin
       block foot
         p This is the foot
     block scripts

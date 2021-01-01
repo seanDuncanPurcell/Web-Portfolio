@@ -17,13 +17,13 @@ router.route('/')
     req.session.destroy();
     res.render('home');
   }else{
-    res.render('home', {loggedin: req.session.loggedin, user: req.session.username});
+    res.render('home');
   }
 });
 
 router.route('/register')
 .get((req, res) => {
-  res.render('user/register', {loggedin: req.session.loggedin, user: req.session.username});
+  res.render('user/register');
 })
 .post( async (req, res) => {
   const data = req.body;
@@ -56,12 +56,14 @@ router.route('/register')
     const newUser = await collection.insertOne({
       username: req.body.username,
       email: req.body.email,
-      password: encrypt
+      password: encrypt,
+      admin: false
     });
     console.log();
     
-    req.session.loggedin = true;
     req.session.username = newUser.ops[0].username;
+    req.session.loggedin = true;
+    req.session.admin = false;
     res.redirect('/');
 
     
@@ -76,7 +78,7 @@ router.route('/register')
 
 router.route('/login')
 .get((req, res)=>{
-  res.render('user/login', {loggedin: req.session.log, user: req.session.username});
+  res.render('user/login');
 })
 .post(async (req, res)=>{  
   try{
@@ -89,13 +91,14 @@ router.route('/login')
       const authorised = await bcrypt.compare(data.password, foundUser.password);
       if (authorised) {
         req.session.loggedin = true;
-        req.session.username = foundUser.username;
+        req.session.username = foundUser.username;        
+        req.session.admin = foundUser.admin;
         res.redirect('/');
       }
       else {
         client.close();
         const err = 'That is not the correct password';
-        res.render('/login', {error: err, loggedin: req.session.log, user: req.session.username});
+        res.render('user/login', {error: err});
       }
     } else {
       client.close();
