@@ -1,3 +1,8 @@
+/*
+TODO
+1) Form validation for sign in/up @ cient & server side.
+*/
+
 const bcrypt = require('bcrypt');
 const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
@@ -28,7 +33,7 @@ router.route('/register')
       client.close();
       res.send(resString);
     } else {
-      const encrypt = await bcrypt.hash(req.body.password, 10);
+      const encrypt = await bcrypt.hash(req.body.password, salt);
       collection.insertOne({
         username: req.body.username,
         email: req.body.email,
@@ -71,7 +76,7 @@ router.route('/login')
       }
     } else {
       client.close();
-      res.send('The user name you have entered was not foun in the data base.');
+      res.send('The user name you have entered was not found in the data base.');
     }  
   }catch(err){
     console.error('error: ' + err);

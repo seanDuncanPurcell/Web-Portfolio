@@ -1,0 +1,9 @@
+@import '../../sass-mix/popMixin';
+
+.main-content {
+    background-color: chartreuse;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

@@ -46,7 +46,7 @@ const editor = (async (articleID) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newarticle)
     };
-    if(articleID) fetch(`/blog/article/${articleID}`, options);
+    if(articleID) fetch(`/blog/article?id=${articleID}`, options);
     else {
       const responce = await fetch(`/blog/article`, options);
       const newID = await responce.json();

@@ -14,6 +14,6 @@ block content
         h1 Creat New Post
         p This is the where you can go to start a new blog post
     each item in articles
-        a.brief-blog(href='/blog/article/' + item.id)
+        a.brief-blog(href='/blog/article?id=' + item.id)
             h1 #{item.title}
             p #{item.summery}

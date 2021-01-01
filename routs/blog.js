@@ -1,8 +1,9 @@
 /*
 TODO
-1) Form validation for sign in/up @ cient & server side.
-2) Use quary params in artical-get reqs to return exsisting artical.
+1) Sanitize incoming blog ariticals.
+2) DONE>> Use quary params in artical-get reqs to return exsisting artical. 
 */
+
 const express = require('express');
 const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
@@ -32,44 +33,31 @@ router.route('/')
 
 router.route('/article')
 .get((req, res) => {
-  res.render('blog/article-display', {articleID: undefined, loggedin: req.session.log, user: req.session.username});
+  res.render('blog/article-display', {articleID: req.query.id, loggedin: req.session.log, user: req.session.username});
 })
 .post(async(req, res) => {
   const data = req.body;
+  const artId =req.query.id;
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const articleStore = client.db('blogsystem').collection('articles');
-  const newarticle = await articleStore.insertOne(data);
-  const jData = JSON.stringify(newarticle.insertedId);
-  res.send(jData);
-});
-
-router.route('/article/:id')
-.get((req, res) => {
-  res.render('blog/article-display', {articleID: req.params.id, loggedin: req.session.log, user: req.session.username});
-})
-.post(async(req, res) => {
-  const data = req.body;
-  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
-  const articleStore = client.db('blogsystem').collection('articles');
-  if(req.params.id) {
-    const objectId = new db.ObjectId(req.params.id);
+  if(!artId){
+    const newarticle = await articleStore.insertOne(data);
+    const jData = JSON.stringify(newarticle.insertedId);
+    res.send(jData);
+  }else{
+    const objectId = new db.ObjectId(artId);
     try{
-      const result = await articleStore.replaceOne({ _id: objectId}, data);
+      const cmdRes = await articleStore.replaceOne({ _id: objectId}, data);
+      if(cmdRes.modifiedCount > 1) throw new Error('Database was not able to modify any documents.');
     }catch(err){
       console.log(err);
     }
-  } else {
-    console.log('id not found');
-    const newarticle = await articleStore.insertOne(data);
-    const jData = JSON.stringify(newarticle.insertedId);
-    console.log('new id: ' + jData);
-    res.send(jData);
   }
+
 });
 
 router.route('/articles_db/:id')
-.get( async(req, res) => {  
-  console.dir(req.params.id);
+.get( async(req, res) => {
   const ObjectId = new db.ObjectId(req.params.id);
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const article = await client.db('blogsystem').collection('articles').findOne({ _id: ObjectId});
