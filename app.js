@@ -50,7 +50,8 @@ const sess = {
   resave: false,
   saveUninitialized: true,  
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    name: 'sessionId', //recomened by express api doc for preventing fingerprinting of server and targeted attacks
   }
 } 
 if (app.get('env') === 'production') {
