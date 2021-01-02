@@ -37,21 +37,23 @@ const editor = (async (articleID) => {
   });
 
   const svBtn = document.getElementById('textsave');
-  svBtn.addEventListener('click', async () => {
-    const newarticle = await edJS.save();
-    console.log(newarticle);
-    const options = {
-        method: 'POST',
-        mode: 'cors',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newarticle)
-    };
-    if(articleID) fetch(`/blog/article?id=${articleID}`, options);
-    else {
-      const responce = await fetch(`/blog/article`, options);
-      const newID = await responce.json();
-      window.location.href = `/blog/article/${newID}`;
-    }
-  });
+  if (svBtn){
+    svBtn.addEventListener('click', async () => {
+      const newarticle = await edJS.save();
+      console.log(newarticle);
+      const options = {
+          method: 'POST',
+          mode: 'cors',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(newarticle)
+      };
+      if(articleID) fetch(`/blog/article?id=${articleID}`, options);
+      else {
+        const responce = await fetch(`/blog/article`, options);
+        const newID = await responce.json();
+        window.location.href = `/blog/article?id=${newID}`;
+      }
+    });
+  }
   return edJS;
 })(articleID);

@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.route('/')
 .get((req, res) => {
-  res.render('projects/project-overview', {loggedin: req.session.log, user: req.session.username});
+  res.render('projects/project-overview');
 });
 
 router.route('/sampleone')
 .get((req, res) => {
-  res.render('project-template', {loggedin: req.session.log, user: req.session.username});
+  res.render('project-template');
 });
 
 module.exports = router;

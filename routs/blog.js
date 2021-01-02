@@ -14,20 +14,46 @@ router.route('/')
 .get( async(req, res) => {
   const briefs = [];
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
-  client.db('blogsystem').collection('articles').find({}).toArray(function(err, result) {
-    if (err) throw err;
-    result.forEach( (doc) => {
-      const textBlock = doc.blocks[1].data.text;
-      const element = {
-        id: doc._id.toString(), 
-        title: doc.blocks[0].data.text,
-        summery: textBlock
-      }
-      briefs.push(element);
-    });
-    res.render('blog/blog', {articles: briefs});
-    client.close();
-  });  
+
+  const result = await client.db('blogsystem').collection('articles').find({}).toArray();
+  result.forEach( (doc) => {
+    let artSumm = '';
+    if(doc.blocks[1]){
+
+      const clnTxt = (htmlCleaner = (text) => {
+        if(typeof text === 'object') text = text.toString();
+        let arrText = text.split('');        
+        let firstIndex = arrText.indexOf('<');
+
+        while(firstIndex !== -1){
+          const secondIndex = arrText.indexOf('>');
+          const charRemove = secondIndex - firstIndex + 1;
+          let holder = arrText.splice(firstIndex, charRemove);
+          
+          firstIndex = arrText.indexOf('<');
+        }
+
+        return arrText.join('');
+      })(doc.blocks[1].data.text);
+
+      artSumm = (textLimiter = (text, limit) => {
+          const textArr = text.split(' ');
+          textArr.splice(limit);
+          return textArr.join(' ');
+      })(clnTxt, 20);
+
+    }
+    const element = {
+      id: doc._id.toString(), 
+      title: doc.blocks[0].data.text,
+      summery: (artSumm + '...')
+    }
+    briefs.push(element);
+  });
+
+  res.render('blog/blog', {articles: briefs});
+
+  client.close(); 
 });
 
 router.route('/article')

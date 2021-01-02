@@ -80,32 +80,47 @@ router.route('/login')
 .get((req, res)=>{
   res.render('user/login');
 })
-.post(async (req, res)=>{  
+.post(async (req, res)=>{
+  let client;
   try{
+    //deliration
     const data = req.body;
-    const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+    client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
     const collection = client.db('blogsystem').collection('users');
+
+    //1) validate inputs
+    const schema = Joi.object({
+      username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required(),
+      password: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9]{4,30}$'))
+      .required()
+    });
+    const joiResponce = schema.validate(data);
+    if (joiResponce.error) throw new Error(joiResponce.error.details[0].message);
+
+    //2) validate username
     const foundUser = await collection.findOne({username: data.username});
-  
-    if (foundUser){
-      const authorised = await bcrypt.compare(data.password, foundUser.password);
-      if (authorised) {
-        req.session.loggedin = true;
-        req.session.username = foundUser.username;        
-        req.session.admin = foundUser.admin;
-        res.redirect('/');
-      }
-      else {
-        client.close();
-        const err = 'That is not the correct password';
-        res.render('user/login', {error: err});
-      }
-    } else {
-      client.close();
-      res.send('The user name you have entered was not found in the data base.');
-    }  
+    if (!foundUser) throw new Error('Incorect password username combination.');
+
+    //3) validate password
+    const authorised = await bcrypt.compare(data.password, foundUser.password);
+    if (!authorised) throw new Error('Incorect password username combination.');
+
+    //4) update session informaiton
+    req.session.loggedin = true;
+    req.session.username = foundUser.username;        
+    req.session.admin = foundUser.admin;
+    res.redirect('/');
+
   }catch(err){
-    console.error('error: ' + err);
+    console.error(err);
+    res.status(401).send(err);
+  }finally{
+    client.close();
   }
 });
 
