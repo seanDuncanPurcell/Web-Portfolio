@@ -65,7 +65,7 @@ if (app.get('env') === 'production') {
   sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(sess));
-app.use((req, res, next) => { //add session locals to res for view rendering
+app.use((req, res, next) => { //add session values to res.locals for view rendering
   const {username, loggedin, admin} = req.session;
   res.locals = {username, loggedin, admin};
   next();

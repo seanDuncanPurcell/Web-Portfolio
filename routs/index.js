@@ -124,4 +124,10 @@ router.route('/login')
   }
 });
 
+router.route('/user')
+.get((req, res) => {
+  const{admin, loggedin, username} = req.session;
+  res.send(JSON.stringify({admin: admin, loggedin: loggedin, username: username}));
+});
+
 module.exports = router;

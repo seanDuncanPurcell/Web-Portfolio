@@ -1,14 +1,14 @@
 const editor = (async (articleID) => {
   const articleData = {};
+  const user = JSON.parse(sessionStorage.getItem('user'));
   if (articleID) {
-    console.log(articleID);
     const responce = await fetch(`/blog/articles_db/${articleID}`);
     const jsonRes = await responce.json();
     articleData.time = jsonRes.time;
     articleData.blocks = jsonRes.blocks;
     articleData.version = jsonRes.version;
   }
-  const edJS = await new EditorJS({
+  const options = {
     autofocus: true,
     tools: {
       image: {
@@ -34,7 +34,10 @@ const editor = (async (articleID) => {
       }
     },
     data: articleData,
-  });
+  }
+  if(!user.admin) options.readOnly = true;
+  const edJS = await new EditorJS( options );
+
 
   const svBtn = document.getElementById('textsave');
   if (svBtn){
