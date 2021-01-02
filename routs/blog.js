@@ -1,7 +1,8 @@
 /*
 TODO
 1) Sanitize incoming blog ariticals.
-2) DONE>> Use quary params in artical-get reqs to return exsisting artical. 
+2) DONE>> Use quary params in artical-get reqs to return exsisting artical.
+3) Abstract htmlCleaner & textlimmiter to text processing modula.
 */
 
 const express = require('express');
