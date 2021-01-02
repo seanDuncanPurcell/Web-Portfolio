@@ -35,10 +35,15 @@ router.route('/article')
   res.render('blog/article-display', {articleID: req.query.id});
 })
 .post(async(req, res) => {
+  if(!req.session.admin){
+    return res.status(401).send('Missing authorisation to post articals');
+  }
+
   const data = req.body;
-  const artId =req.query.id;
+  const artId = req.query.id;
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
   const articleStore = client.db('blogsystem').collection('articles');
+
   if(!artId){
     const newarticle = await articleStore.insertOne(data);
     const jData = JSON.stringify(newarticle.insertedId);
