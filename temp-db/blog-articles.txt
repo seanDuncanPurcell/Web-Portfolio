@@ -1,0 +1,15 @@
+FIRST
+The reason for creating a blog-app was to learn how to set up a MERN Stack web application, and there 
+has been a lot to learn. 
+At this point the app is not quite done. The article-display page, which is for composition, editing, and 
+displaying article has full back-end support from Express and Mongo. The summery or overview page 
+still needs a function that can take the first text blog and filter out all html and then render it down to 
+the first X number of words, but other wise it seems to be working with the back end properly.
+The ToDo List
+*	User account creation / sign-in
+*	Implement sessions
+*	Configure article- display page to offer editing to admin users
+*	Bio-Page; Skills, History, Contac, Certs, Social Media, etc.
+Ideas
+*	Making all text in app editable by admin users
+*	Tracking user interest based on the tags of pages they visit.

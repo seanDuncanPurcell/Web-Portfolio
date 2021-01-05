@@ -20,13 +20,15 @@ const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
   const app = express();
 const hash = process.env.HASH_ONE;
-const index = require('./routs/index');
-const blog = require('./routs/blog');
-const projects = require('./routs/projects');
 const path = require('path');
 const port = (process.env.PORT || 3000);
 const session = require('express-session');
   const MongoDBStore = require('connect-mongodb-session')(session);
+//Declarations, Routs
+const index = require('./routs/index');
+const bio = require('./routs/profile');
+const blog = require('./routs/blog');
+const projects = require('./routs/projects');
 
 //settings
 app.set('view engine', 'pug');
@@ -73,6 +75,7 @@ app.use((req, res, next) => { //add session values to res.locals for view render
 
 //Routing
 app.use('/', index);
+app.use('/bio', bio);
 app.use('/blog', blog);
 app.use('/projects', projects);
 app.use(express.static(path.join(__dirname, '/public')));

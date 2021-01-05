@@ -1,0 +1,13 @@
+header
+      a(href="/") Home
+      a(href="/blog") Blog
+      a(href="/projects") Projects
+      a(href="/bio") Bio
+      h1= title
+      if (loggedin)
+        a(href='/?out=true') Log Out
+      else
+        .logOpsBox
+          a(href='/login') Log In
+          p |
+          a(href='/register') Creat a New Account
