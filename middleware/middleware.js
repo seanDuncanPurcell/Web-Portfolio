@@ -21,8 +21,17 @@ async function postBriefs(req, res, next) {
     briefs.push(element);
   });
   client.close();   
-  res.locals = {postBriefs: briefs};
+  res.locals.postBriefs = briefs;
   next();
 }
 
+function sessionTwoLocal(req, res, next) {//add session values to res.locals for view rendering
+  console.log('sess2loc called');
+  const {username, loggedin, admin} = req.session;
+  res.locals.username = username;
+  res.locals.loggedin = loggedin;
+  res.locals.admin = admin;
+  next();
+}
 module.exports.postBriefs = postBriefs;
+module.exports.sessionTwoLocal = sessionTwoLocal;

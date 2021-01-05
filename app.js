@@ -24,11 +24,15 @@ const path = require('path');
 const port = (process.env.PORT || 3000);
 const session = require('express-session');
   const MongoDBStore = require('connect-mongodb-session')(session);
+
 //Declarations, Routs
 const index = require('./routs/index');
 const bio = require('./routs/profile');
 const blog = require('./routs/blog');
 const projects = require('./routs/projects');
+
+//Delclarations, Middleware
+const {sessionTwoLocal} = require('./middleware/middleware');
 
 //settings
 app.set('view engine', 'pug');
@@ -67,11 +71,7 @@ if (app.get('env') === 'production') {
   sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(sess));
-app.use((req, res, next) => { //add session values to res.locals for view rendering
-  const {username, loggedin, admin} = req.session;
-  res.locals = {username, loggedin, admin};
-  next();
-});
+app.use(sessionTwoLocal);
 
 //Routing
 app.use('/', index);
