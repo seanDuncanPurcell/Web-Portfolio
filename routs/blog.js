@@ -2,7 +2,7 @@
 TODO
 1) Sanitize incoming blog ariticals.
 2) DONE>> Use quary params in artical-get reqs to return exsisting artical.
-3) Abstract htmlCleaner & textlimmiter to text processing modula.
+3) DONE>> Abstract htmlCleaner & textlimmiter to text processing modula.
 */
 
 const express = require('express');
@@ -10,51 +10,11 @@ const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
 const db = require('mongodb');
 const router = express.Router();
+const {postBriefs} = require('../middleware/middleware');
 
 router.route('/')
-.get( async(req, res) => {
-  const briefs = [];
-  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
-
-  const result = await client.db('blogsystem').collection('articles').find({}).toArray();
-  result.forEach( (doc) => {
-    let artSumm = '';
-    if(doc.blocks[1]){
-
-      const clnTxt = (htmlCleaner = (text) => {
-        if(typeof text === 'object') text = text.toString();
-        let arrText = text.split('');        
-        let firstIndex = arrText.indexOf('<');
-
-        while(firstIndex !== -1){
-          const secondIndex = arrText.indexOf('>');
-          const charRemove = secondIndex - firstIndex + 1;
-          let holder = arrText.splice(firstIndex, charRemove);
-          
-          firstIndex = arrText.indexOf('<');
-        }
-
-        return arrText.join('');
-      })(doc.blocks[1].data.text);
-
-      artSumm = (textLimiter = (text, limit) => {
-          const textArr = text.split(' ');
-          textArr.splice(limit);
-          return textArr.join(' ');
-      })(clnTxt, 20);
-
-    }
-    const element = {
-      id: doc._id.toString(), 
-      title: doc.blocks[0].data.text,
-      summery: (artSumm + '...')
-    }
-    briefs.push(element);
-  });
-
-  res.render('blog/blog', {articles: briefs});
-
-  client.close(); 
+.get( postBriefs, async(req, res) => {
+  res.render('blog/blog');
 });
 
 router.route('/article')

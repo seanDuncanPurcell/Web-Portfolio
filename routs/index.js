@@ -10,9 +10,10 @@ const Joi = require('joi');
 const salt = parseInt(process.env.SALT_ONE);
 const mongoClient = require('mongodb').MongoClient;
 const router = express.Router();
+const {postBriefs} = require('../middleware/middleware');
 
 router.route('/')
-.get((req, res) => {  
+.get(postBriefs, (req, res) => {  
   if (req.query.out){
     req.session.destroy();
     res.render('home');
