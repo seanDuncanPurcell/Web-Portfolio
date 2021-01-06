@@ -1,11 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
+:root {
+  --mainBG-color: rgb(39, 38, 36);
+  --secondBG-color: rgb(10, 35, 63);
+  --mainHL-color: rgba(255, 255, 255, 0.377);
+  --mainTxt-color: rgb(67, 92, 175);
 }
 
-header, main, section, footer {
-  border: 1px solid red;
-  padding: 5px;
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 header {
@@ -24,7 +28,8 @@ header {
   right: 0;
   top: 0;
   height: 75px;
-  background-color: grey;
+  background-color: var(--secondBG-color);
+  color: var(--mainTxt-color);
 }
 
 header .logOpsBox {
@@ -79,3 +84,26 @@ nav > ul li {
 .main-content {
   width: 100%;
 }
+
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: var(--secondBG-color);
+  height: 200px;
+  padding: 20px;
+}
+
+footer ul {
+  list-style-type: none;
+  list-style-position: outside;
+}
+
+footer ul li {
+  text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.411);
+  font-size: 1.5em;
+  line-height: 1.5;
+}
+/*# sourceMappingURL=main-base.css.map */

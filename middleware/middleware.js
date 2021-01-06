@@ -26,7 +26,6 @@ async function postBriefs(req, res, next) {
 }
 
 function sessionTwoLocal(req, res, next) {//add session values to res.locals for view rendering
-  console.log('sess2loc called');
   const {username, loggedin, admin} = req.session;
   res.locals.username = username;
   res.locals.loggedin = loggedin;

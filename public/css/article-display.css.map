@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAC;EACN,MAAM,EAAE,eAAe;EACvB,gBAAgB,EAAE,OAAkB;CACvC;;AAED,AAAA,uBAAuB,CAAC;EACpB,OAAO,EAAE,eAAe;EACxB,MAAM,EAAE,IAAI;CACf;;AAED,AAAA,aAAa,CAAC;EACV,OAAO,EAAE,MAAM;CAClB;;AAED,AAAA,aAAa,CAAC,KAAK,CAAC;EAChB,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,MAAM,EAAE,iBAAiB;EACzB,aAAa,EAAE,GAAG;EAClB,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;CAClB",
+    "sources": [
+        "../../sass/article-display.scss"
+    ],
+    "names": [],
+    "file": "article-display.css"
+}

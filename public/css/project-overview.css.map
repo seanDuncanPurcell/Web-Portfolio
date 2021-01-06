@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAC;EACZ,gBAAgB,EAAE,UAAU;EAC5B,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,aAAa;CAC/B",
+    "sources": [
+        "../../sass/project-overview.scss"
+    ],
+    "names": [],
+    "file": "project-overview.css"
+}

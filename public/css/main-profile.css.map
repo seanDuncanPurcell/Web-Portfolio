@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,aAAa,CAAC;EACV,gBAAgB,EAAE,UAAU;EAE5B,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,aAAa;CACjC",
+    "sources": [
+        "../../sass/main-profile.scss",
+        "../../../sass-mix/_popMixin.scss"
+    ],
+    "names": [],
+    "file": "main-profile.css"
+}

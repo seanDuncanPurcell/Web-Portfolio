@@ -1,12 +1,13 @@
 @import '../../sass-mix/popMixin';
 
 .main-content {
-    background-color: chartreuse;
+    background-color: var(--mainBG-color);
+    color: var(--mainTxt-color);
 
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
+    height: 100vh;
 }
 
 .brief-blog {
@@ -16,5 +17,5 @@
     width: fit-content;
     max-width: 25vw;
     text-decoration: none;
-    color: black;
+    color: var(--mainTxt-color);
 }
