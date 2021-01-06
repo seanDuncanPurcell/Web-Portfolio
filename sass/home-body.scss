@@ -1,13 +1,22 @@
-main > section {
+.main-content {
+    background-color: khaki;
     position: relative;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    background-color: khaki;
+    display: flex;
+
+    section{            
+        background-color: lightcoral;
+        flex-basis: 100%;
+        margin: 3px;
+        justify-content: space-between;
+    }
 }
 
-main > section > section {
-    background-color: lightcoral;
+.brief-blog {
     margin: 3px;
-    height: 75vh; /*Delet after content has been added*/
+    height: fit-content;
+    width: fit-content;
+    max-width: 25vw;
+    text-decoration: none;
+    color: black;
 }

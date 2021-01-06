@@ -7,6 +7,8 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -22,4 +24,6 @@
   width: -moz-fit-content;
   width: fit-content;
   max-width: 25vw;
+  text-decoration: none;
+  color: black;
 }
