@@ -13,7 +13,9 @@ const router = express.Router();
 const {postBriefs} = require('../middleware/middleware');
 
 router.route('/')
-.get(postBriefs, (req, res) => {  
+.get( async(req, res) => {
+  res.locals.postBriefs = await postBriefs(20);
+  console.log(res.locals);
   if (req.query.out){
     req.session.destroy();
     res.render('home');

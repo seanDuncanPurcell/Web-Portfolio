@@ -11,6 +11,8 @@ TODO
 5) Implement mongoose
 6) Implement node-rate-limiter-flexible
 7) Implement Helmet
+8) PostBriefs needs to be removed from middle wear as it is no long used that way.
+  -it could be made into a microservice.
 */
 
 //declarations

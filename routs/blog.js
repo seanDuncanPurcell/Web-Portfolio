@@ -13,7 +13,8 @@ const router = express.Router();
 const {postBriefs} = require('../middleware/middleware');
 
 router.route('/')
-.get( postBriefs, async(req, res) => {
+.get( async(req, res) => {
+  res.locals.postBriefs = await postBriefs(50);
   res.render('blog/blog');
 });
 
