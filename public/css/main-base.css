@@ -10,11 +10,19 @@
   --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 
+@font-face {
+  font-family: 'roboto_slabregular';
+  src: url("robotoslab-variablefont_wght-webfont.woff2") format("woff2"), url("robotoslab-variablefont_wght-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'roboto_slabregular', 'Arial Narrow', Arial, sans-serif;
 }
 
 header {
@@ -27,9 +35,9 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -40,6 +48,9 @@ header {
 }
 
 header div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 35%;
+          flex: 1 1 35%;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -58,12 +69,18 @@ header div a {
 
 header h1 {
   color: var(--scndryTxt-color);
+  text-align: center;
 }
 
 header .logOpsBox {
+  text-align: right;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
 }
 
 main {

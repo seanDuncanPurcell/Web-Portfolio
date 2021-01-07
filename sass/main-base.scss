@@ -16,10 +16,19 @@
     --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 
+@font-face {
+    font-family: 'roboto_slabregular';
+    src: url('robotoslab-variablefont_wght-webfont.woff2') format('woff2'),
+         url('robotoslab-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'roboto_slabregular', 'Arial Narrow', Arial, sans-serif;
 }
 
 header {
@@ -29,15 +38,14 @@ header {
     height: 75px;
     background-color: var(--secondBG-color);
     color: var(--mainTxt-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexCenter;
+
     padding: 15px;
     background-color: var(--secondBG-color);
     color: var(--scndryTxt-color);
     text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-
     div{
+        flex: 1 1 35%;
         position: relative;
         display: flex;
         justify-content: start;
@@ -52,10 +60,13 @@ header {
 
     h1{
         color: var(--scndryTxt-color);
+        text-align: center;
     }
 
     .logOpsBox{
+        text-align: right;
         display: flex;
+        flex-direction: row-reverse;
     }
 }
 
