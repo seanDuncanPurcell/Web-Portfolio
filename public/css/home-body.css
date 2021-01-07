@@ -2,14 +2,28 @@
   background-color: var(--mainBG-color);
   color: var(--mainTxt-color);
   position: relative;
-  width: 100%;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 30px;
+  gap: 20px;
 }
 
 .main-content section {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 calc(50% - 20px);
+          flex: 1 1 calc(50% - 20px);
+  min-width: 40ch;
+  max-width: 80ch;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,23 +31,37 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
   border-radius: 20px;
-  margin: 20px;
   background-color: var(--mainBG-color);
   -webkit-box-shadow: 1px 1px 5px var(--mainHL-color);
           box-shadow: 1px 1px 5px var(--mainHL-color);
+  border-right: 1px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  gap: 20px;
+  padding: 20px;
 }
 
-.main-content section .linkTitle {
+.main-content section a {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 10%;
+          flex: 0 0 10%;
   text-decoration: none;
-  margin: 20px 10px 10px 10px;
+  padding: 10px;
   border-radius: 10px;
-  width: auto;
+  color: var(--mainTxt-color);
   background-color: var(--mainBG-color);
   -webkit-box-shadow: 1px 1px 5px var(--mainHL-color);
           box-shadow: 1px 1px 5px var(--mainHL-color);
+  border-right: 1px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.main-content section a:hover {
+  -webkit-box-shadow: 3px 3px 7px var(--mainHL-color);
+          box-shadow: 3px 3px 7px var(--mainHL-color);
+}
+
+.main-content section a.linkTitle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -43,46 +71,5 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.main-content section .linkTitle h2 {
-  color: var(--mainTxt-color);
-  height: 30px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin-bottom: 20px;
-  font-size: 2em;
-}
-
-.main-content section .linkTitle h2:hover {
-  font-size: 2.15em;
-  text-shadow: 1px 2px 2px var(--mainHL-color);
-}
-
-.main-content section .linkTitle:hover {
-  -webkit-box-shadow: 3px 3px 7px var(--mainHL-color);
-          box-shadow: 3px 3px 7px var(--mainHL-color);
-}
-
-.brief-blog {
-  margin: 10px;
-  height: 6vw;
-  padding: 10px;
-  text-decoration: none;
-  color: var(--mainTxt-color);
-  border-radius: 15px;
-  background-color: var(--mainBG-color);
-  -webkit-box-shadow: 1px 1px 5px var(--mainHL-color);
-          box-shadow: 1px 1px 5px var(--mainHL-color);
-}
-
-.brief-blog h1 {
-  height: 2vw;
-}
-
-.brief-blog:hover {
-  -webkit-box-shadow: 3px 3px 7px var(--mainHL-color);
-          box-shadow: 3px 3px 7px var(--mainHL-color);
 }
 /*# sourceMappingURL=home-body.css.map */

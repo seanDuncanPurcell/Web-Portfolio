@@ -4,7 +4,7 @@
     --mainBG-color: rgb(39, 38, 36);
     --secondBG-color: rgb(10, 35, 63);
     --mainHL-color: rgba(255, 255, 255, 0.377);
-    --mainTxt-color: rgb(67, 92, 175);
+    --mainTxt-color: rgb(51, 83, 189);
 }
 
 * {
@@ -32,13 +32,14 @@ main {
     display: flex;
     background-color: green;
     nav {
-        /* display: none; */
-        display: flex;
+        display: none;
+        // display: flex;
         flex-direction: column;
         min-width: 200px;
         width: 20vw;
         background-color: honeydew;
         ul {
+            list-style-type: none;
             list-style-type: none;
             left: 0;
             right: 0;
@@ -47,15 +48,6 @@ main {
                 margin: 2px;
             }
         }
-    }
-}
-
-nav > ul {
-    list-style-type: none;
-    left: 0;
-    right: 0;
-    li {
-        border: 1px solid fuchsia;
     }
 }
 

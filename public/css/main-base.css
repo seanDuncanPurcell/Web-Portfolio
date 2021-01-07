@@ -2,7 +2,7 @@
   --mainBG-color: rgb(39, 38, 36);
   --secondBG-color: rgb(10, 35, 63);
   --mainHL-color: rgba(255, 255, 255, 0.377);
-  --mainTxt-color: rgb(67, 92, 175);
+  --mainTxt-color: rgb(51, 83, 189);
 }
 
 * {
@@ -47,10 +47,7 @@ main {
 }
 
 main nav {
-  /* display: none; */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -62,6 +59,7 @@ main nav {
 
 main nav ul {
   list-style-type: none;
+  list-style-type: none;
   left: 0;
   right: 0;
 }
@@ -69,16 +67,6 @@ main nav ul {
 main nav ul li {
   border: 1px solid blue;
   margin: 2px;
-}
-
-nav > ul {
-  list-style-type: none;
-  left: 0;
-  right: 0;
-}
-
-nav > ul li {
-  border: 1px solid fuchsia;
 }
 
 .main-content {
