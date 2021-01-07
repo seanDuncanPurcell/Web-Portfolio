@@ -1,10 +1,17 @@
+@import '../../sass-mix/popMixin';
+
 #editorjs {
-    border: 1px solid black;
-    background-color: rgb(167, 167, 201);
+    color: snow;
+    background-color: var(--mainBG-color);
+    height: fit-content;
+    width: fit-content;
+    margin: 30px auto 30px auto;
+    padding: 10px;
+    border-radius: 20px;
+    @include shellOutline;
 }
 
 .codex-editor__redactor {
-    padding: 20px !important;
     margin: 20px;
 }
 

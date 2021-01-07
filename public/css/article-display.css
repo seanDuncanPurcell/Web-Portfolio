@@ -1,10 +1,23 @@
 #editorjs {
-  border: 1px solid black;
-  background-color: #a7a7c9;
+  color: snow;
+  background-color: var(--mainBG-color);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 30px auto 30px auto;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: var(--mainBG-color);
+  -webkit-box-shadow: 1px 1px 5px var(--mainHL-color);
+          box-shadow: 1px 1px 5px var(--mainHL-color);
+  border-right: 1px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
 }
 
 .codex-editor__redactor {
-  padding: 20px !important;
   margin: 20px;
 }
 

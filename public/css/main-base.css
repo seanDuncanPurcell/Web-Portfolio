@@ -3,6 +3,9 @@
   --secondBG-color: rgb(10, 35, 63);
   --mainHL-color: rgba(255, 255, 255, 0.377);
   --mainTxt-color: rgb(51, 83, 189);
+  --footer-height: 200px;
+  --header-height: 75px;
+  --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 
 * {
@@ -58,7 +61,8 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: green;
+  background-color: var(--mainBG-color);
+  min-height: var(--main-min-height);
 }
 
 main nav {

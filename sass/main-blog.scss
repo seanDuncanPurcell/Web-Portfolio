@@ -2,20 +2,26 @@
 
 .main-content {
     background-color: var(--mainBG-color);
-    color: var(--mainTxt-color);
-
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
-    height: 100vh;
-}
-
-.brief-blog {
-    border: 1px solid black;
-    margin: 3px;
     height: fit-content;
-    width: fit-content;
-    max-width: 25vw;
-    text-decoration: none;
-    color: var(--mainTxt-color);
+    margin: 30px;
+    padding: 10px;
+    border-radius: 20px;
+    @include shellOutline;
+    
+    a {
+        flex: 1 1 30%;
+        text-decoration: none;
+        margin: 20px;
+        padding: 10px;
+        border-radius: 15px;
+        color: var(--mainTxt-color);
+        @include shellOutline;
+        
+        p {
+            min-width: 30ch;
+            width: fit-content;
+        }
+    }
 }
