@@ -22,11 +22,6 @@ a h1 {
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
-  background-color: var(--mainBG-color);
-  -webkit-box-shadow: 1px 1px 5px var(--mainHL-color);
-          box-shadow: 1px 1px 5px var(--mainHL-color);
-  border-right: 1px solid rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
 }
 
 #editorjs {
@@ -41,11 +36,6 @@ a h1 {
   margin: 10px auto 30px auto;
   padding: 10px;
   border-radius: 20px;
-  background-color: var(--mainBG-color);
-  -webkit-box-shadow: 1px 1px 5px var(--mainHL-color);
-          box-shadow: 1px 1px 5px var(--mainHL-color);
-  border-right: 1px solid rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
 }
 
 .codex-editor__redactor {

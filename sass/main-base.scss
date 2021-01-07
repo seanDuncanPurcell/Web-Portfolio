@@ -3,6 +3,7 @@
 :root{
     //Back Ground Color
     --mainBG-color: rgb(39, 38, 36);
+    --mainBG-offset-color: rgb(34, 33, 31);
     --secondBG-color: rgb(11, 53, 100);
     //Text Color
     --mainTxt-color: rgb(255, 250, 250);
@@ -39,9 +40,7 @@ header {
     background-color: var(--secondBG-color);
     color: var(--mainTxt-color);
     @include flexCenter;
-
     padding: 15px;
-    background-color: var(--secondBG-color);
     color: var(--scndryTxt-color);
     text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
     div{
@@ -73,15 +72,16 @@ header {
 main {
     position: relative;
     display: flex;
-    background-color: var(--mainBG-color);
     min-height: var(--main-min-height);
+    outline: var(--mainBG-offset-color) solid 5px;
+    outline-offset: 5px;
+    background-color: var(--mainBG-offset-color);
     nav {
         display: none;
         // display: flex;
         flex-direction: column;
         min-width: 200px;
         width: 20vw;
-        background-color: honeydew;
         ul {
             list-style-type: none;
             list-style-type: none;
@@ -115,4 +115,20 @@ footer {
             line-height: 1.5;
         }
     }
+}
+
+.shadow-block {
+    color: var(--mainTxt-color);
+    background-color: var(--mainBG-color);
+    box-shadow: 1px 1px 4px var(--mainHL-color);
+    border-right: 1px solid rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+    transition-property: box-shadow, border-right, border-bottom, transform;
+    transition-duration: 300ms;
+}
+.reactive-block:hover {
+    box-shadow: 2px 3px 7px var(--mainHL-color);
+    border-right: 1px solid rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+    transform: scale(1.005);
 }

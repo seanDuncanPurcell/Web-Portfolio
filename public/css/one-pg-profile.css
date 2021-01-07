@@ -10,7 +10,6 @@
 
 .main-content > * {
   width: auto;
-  border: 1px solid black;
   margin: 3px;
   height: 75vh;
 }
@@ -32,7 +31,6 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: whitesmoke;
 }
 
 .splash-img figurecaption {
@@ -63,8 +61,15 @@
   width: 75px;
   color: blanchedalmond;
   text-decoration: none;
-  background-color: black;
   border-radius: 10px 10px 0 0;
+}
+
+section {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 2vw;
 }
 
 #bio-n-contacts > * {
@@ -73,10 +78,11 @@
 }
 
 #bio-n-contacts {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  margin: 1.5vw;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  gap: 1.5vw;
 }
 
 #bio-n-contacts figure {
@@ -119,8 +125,9 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  margin: auto 0 auto 0;
-  padding: 10px;
+  padding: 20px;
+  color: var(--mainTxt-color);
+  border-radius: 20px;
 }
 
 .infoBlob strong {
@@ -146,11 +153,33 @@
 }
 
 div.filler-b, .text-blob {
-  border-top: 1px solid black;
+  border-top: 5px solid var(--secondBG-color);
+  padding-top: 5px;
+  color: var(--mainTxt-color);
   margin-bottom: 50px;
 }
 
 div.filler-b li, .text-blob li {
   display: inline;
+}
+
+#work-history {
+  margin: 40px auto 0 auto;
+  border-radius: 25px;
+  padding: 20px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 120ch;
+}
+
+#work-history h2 {
+  margin: 0 auto 15px auto;
+}
+
+#work-history artical {
+  border-top: 5px solid var(--secondBG-color);
+  padding-top: 10px;
 }
 /*# sourceMappingURL=one-pg-profile.css.map */

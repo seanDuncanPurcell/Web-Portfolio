@@ -19,7 +19,7 @@ block content
     figure
       img(src="https://loremflickr.com/800/800", alt="picture of subject")
       figurecaption Hi! I'm #{bio.name}, a #{bio.work} from #{bio.location}.
-    article.infoBlob
+    article.infoBlob.shadow-block
       strong= aboutme.head
       div.filler
       div.filler-b
@@ -42,12 +42,11 @@ block content
         each item in interests.subjects
           li!= " &bull; " + item
 
-  section#history
-    strong Braging Rights:
-    hr
+  section.shadow-block(id='work-history')
+    h2 Braging Rights:
     figure#time-line
     each item in history
-      artical.work-history
+      artical
         p= item.year
         p=item.empoyer + ": " + item.field + " - " + item.posision
         p=item.location

@@ -11,7 +11,7 @@ block localNav
 
 block content
     if(admin)
-        a.brief-blog(href='/blog/article')
+        a(href='/blog/article' class="reactive-block brief-blog")
             h1 Creat New Post
             p This is the where you can go to start a new blog post
     include ../includes/postBriefs
