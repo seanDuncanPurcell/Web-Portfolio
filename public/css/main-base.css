@@ -16,20 +16,35 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  padding: 15px;
   left: 0;
   right: 0;
   top: 0;
   height: 75px;
   background-color: var(--secondBG-color);
   color: var(--mainTxt-color);
+}
+
+header div {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  gap: 20px;
+}
+
+header div a {
+  color: var(--mainTxt-color);
+  font-size: 1.5em;
 }
 
 header .logOpsBox {

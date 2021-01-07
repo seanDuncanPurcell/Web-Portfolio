@@ -1,7 +1,7 @@
 
 if(postBriefs)
     each item in postBriefs
-        a.brief-blog(href='/blog/article?id=' + item.id)
+        a.post-briefs(href='/blog/article?id=' + item.id)
             h1 #{item.title}
             p #{item.summery}
 else

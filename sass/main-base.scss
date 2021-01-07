@@ -14,8 +14,21 @@
 }
 
 header {
-    @include flexCenter;
-    justify-content: space-around;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+
+    div{
+        position: relative;
+        display: flex;
+        justify-content: start;
+        gap: 20px;
+        a{
+            color: var(--mainTxt-color);
+            font-size: 1.5em;
+        }
+    }
     left: 0;
     right: 0;
     top: 0;
