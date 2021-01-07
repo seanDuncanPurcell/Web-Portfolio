@@ -1,11 +1,16 @@
 @import '../../sass-mix/popMixin';
 
 :root{
+    //Back Ground Color
     --mainBG-color: rgb(39, 38, 36);
-    --secondBG-color: rgb(10, 35, 63);
+    --secondBG-color: rgb(11, 53, 100);
+    //Text Color
+    --mainTxt-color: rgb(255, 250, 250);
+    --scndryTxt-color: rgb(11, 21, 54);
+    --scndryTxt-shadow: rgba(11, 21, 54, 0.692);    
+    //Misc.
     --mainHL-color: rgba(255, 255, 255, 0.377);
-    --mainTxt-color: rgb(51, 83, 189);
-
+    //Sizing
     --footer-height: 200px;
     --header-height: 75px;
     --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
@@ -18,27 +23,37 @@
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-
-    div{
-        position: relative;
-        display: flex;
-        justify-content: start;
-        gap: 20px;
-        a{
-            color: var(--mainTxt-color);
-            font-size: 1.5em;
-        }
-    }
     left: 0;
     right: 0;
     top: 0;
     height: 75px;
     background-color: var(--secondBG-color);
     color: var(--mainTxt-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--secondBG-color);
+    color: var(--scndryTxt-color);
+    text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
+
+    div{
+        position: relative;
+        display: flex;
+        justify-content: start;
+        gap: 20px;
+
+        a{
+            color: var(--scndryTxt-color);
+            text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
+            font-size: 1.5em;
+        }
+    }
+
+    h1{
+        color: var(--scndryTxt-color);
+    }
+
     .logOpsBox{
         display: flex;
     }
@@ -83,7 +98,8 @@ footer {
         list-style-type: none;
         list-style-position: outside;
         li {
-            text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.411);
+            color: var(--scndryTxt-color);
+            text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
             font-size: 1.5em;
             line-height: 1.5;
         }

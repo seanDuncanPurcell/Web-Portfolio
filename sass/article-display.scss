@@ -1,11 +1,25 @@
 @import '../../sass-mix/popMixin';
 
+
+a{
+    text-decoration: none;
+    @include flexCenter;
+    h1{
+        color: var(--mainTxt-color);
+        width: fit-content;
+        height: fit-content;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 10px;
+        @include shellOutline;
+    }
+}
 #editorjs {
-    color: snow;
+    color: var(--mainTxt-color);
     background-color: var(--mainBG-color);
     height: fit-content;
     width: fit-content;
-    margin: 30px auto 30px auto;
+    margin: 10px auto 30px auto;
     padding: 10px;
     border-radius: 20px;
     @include shellOutline;
