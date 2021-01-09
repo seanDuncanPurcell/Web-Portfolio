@@ -1,0 +1,44 @@
+form {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 20px;
+  padding: 1.5em;
+}
+
+form h1 {
+  margin-bottom: 0.5em;
+}
+
+form .form-frame {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 5fr;
+      grid-template-columns: 2fr 5fr;
+  gap: 0.5em;
+}
+
+form button {
+  margin-top: 1em;
+  border-radius: 5px;
+  font-size: 1.5em;
+  padding: 0 0.5em 0 0.5em;
+}
+
+#userNotice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: none;
+  padding: 10px;
+  border-radius: 20px;
+  margin-left: 3vw;
+  max-width: 40ch;
+}
+/*# sourceMappingURL=form-style.css.map */

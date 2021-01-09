@@ -32,6 +32,7 @@ const index = require('./routs/index');
 const bio = require('./routs/profile');
 const blog = require('./routs/blog');
 const projects = require('./routs/projects');
+const api = require('./routs/api');
 
 //Delclarations, Middleware
 const {sessionTwoLocal} = require('./middleware/middleware');
@@ -77,6 +78,7 @@ app.use(sessionTwoLocal);
 
 //Routing
 app.use('/', index);
+app.use('/api', api);
 app.use('/bio', bio);
 app.use('/blog', blog);
 app.use('/projects', projects);

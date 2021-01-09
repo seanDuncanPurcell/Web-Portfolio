@@ -1,12 +1,14 @@
 extends ../main-base.pug
 
+block append style
+    link(rel="stylesheet", href="/css/form-style.css")
+
 block content
-  h1 Please register as a user.
-  form(action="/login", method="post")
-    label(for="userName") User Name:
-    input(type="text", name="username", placeholder="AwsomeSause99")
-    br
-    label(for="passWrdOne") Pass Phrase:
-    input(type="password", name="password", placeholder="live2Code")
-    br
+  form(action="/login", method="post" class='shadow-block')
+    h1 Please Sign In.
+    .form-frame
+      label(for="userName") User Name:
+      input(type="text", name="username", placeholder="AwsomeSause99")
+      label(for="passWrdOne") Pass Phrase:
+      input(type="password", name="password", id='passWrdOne', placeholder="live2Code")
     button(type="submit") Submit
