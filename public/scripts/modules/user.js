@@ -1,0 +1,7 @@
+const user = (()=>{
+    return{
+        logOut(){
+            
+        }
+    }
+})()

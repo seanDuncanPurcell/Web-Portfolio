@@ -15,10 +15,9 @@ const {postBriefs} = require('../middleware/middleware');
 router.route('/')
 .get( async(req, res) => {
   res.locals.postBriefs = await postBriefs(20);
-  console.log(res.locals);
   if (req.query.out){
     req.session.destroy();
-    res.render('home');
+    res.redirect('/');
   }else{
     res.render('home');
   }
@@ -62,15 +61,12 @@ router.route('/register')
       password: encrypt,
       admin: false
     });
-    console.log();
     
     req.session.username = newUser.ops[0].username;
     req.session.loggedin = true;
     req.session.admin = false;
     res.redirect('/');
-
     
-    console.log(`Logged in: ${req.session.loggedin}  User: ${req.session.username}`);
   }catch(err){
     res.status('400').send(err);
     console.error(err);
@@ -129,8 +125,12 @@ router.route('/login')
 
 router.route('/user')
 .get((req, res) => {
-  const{admin, loggedin, username} = req.session;
-  res.send(JSON.stringify({admin: admin, loggedin: loggedin, username: username}));
+  if(req.session.loggedin){
+    const{admin, loggedin, username} = req.session;
+    res.send(JSON.stringify({admin: admin, loggedin: loggedin, username: username}));
+  }else{
+    res.send(JSON.stringify({admin: false, loggedin: false, username: 'Guest'}));
+  }
 });
 
 module.exports = router;

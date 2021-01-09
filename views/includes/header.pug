@@ -5,7 +5,8 @@ header
   h1= greeting  
   .flex-holder
     if (loggedin)
-      a(href='/?out=true') Log Out
+      .logOpsBox
+        a(href='/?out=true') Log Out
     else
       .logOpsBox
         a(href='/login') Log In

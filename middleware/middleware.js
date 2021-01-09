@@ -1,6 +1,5 @@
 const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
-const db = require('mongodb');
 const text = require('../useful-funcs/text-methods');
 
 
@@ -28,9 +27,15 @@ async function postBriefs(num) {
 
 function sessionTwoLocal(req, res, next) {//add session values to res.locals for view rendering
   const {username, loggedin, admin} = req.session;
-  res.locals.username = username;
-  res.locals.loggedin = loggedin;
-  res.locals.admin = admin;
+  if(!username){
+    res.locals.username = 'Guest';
+    res.locals.loggedin = false;
+    res.locals.admin = false;
+  }else{
+    res.locals.username = username;
+    res.locals.loggedin = loggedin;
+    res.locals.admin = admin;
+  }
   next();
 }
 module.exports.postBriefs = postBriefs;
