@@ -20,6 +20,18 @@ form{
     }
 }
 
+.form-comp{
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    gap: 0.5em;
+    .error-field{
+        color: red;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 300;
+        margin-bottom: 1em;
+    }
+}
+
 #userNotice{
     @include flexCenter;
     display: none;

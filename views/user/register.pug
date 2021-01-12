@@ -4,25 +4,11 @@ block append style
     link(rel="stylesheet", href="/css/form-style.css")
 
 block content
-  form(action="/register", method="post" class='shadow-block')
-    h1 Please register as a user.
-    
-    .form-frame
-      label(for="username") User Name:
-      input(type="text", name="username", placeholder="AwsomeSause99", onchange='confirmName(this)')
-
-      label(for="eMail") E-Mail:
-      input(type="text", name="email", id="eMail" placeholder="who@where.com")
-
-      label(for="passWrdOne") Pass Phrase:
-      input(type="password", name="password", id="passWrdOne", placeholder="live2Code")
-
-      lable(for="passWrdTwo") Confirm Phrase:
-      input(type="password", name="repeat_password", id="passWrdTwo", placeholder="live2Code")
-
-    button(type="submit") Submit
-
-  #userNotice(class='shadow-block')
+  #regNewUser
   
-
+block append scripts
+  script(src="https://unpkg.com/react@17/umd/react.development.js" crossorigin)
+  script(src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin)
+  script(src='https://unpkg.com/babel-standalone@6/babel.min.js')
+  script(src="/scripts/reactLoggin.jsx" type='text/babel')
       
