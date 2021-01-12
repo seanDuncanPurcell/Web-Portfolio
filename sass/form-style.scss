@@ -5,7 +5,7 @@ form{
     border-radius: 20px;
     padding: 1.5em;
     h1{
-        margin-bottom: 0.5em;
+        margin-bottom: 1em;
     }
     .form-frame{
         display: grid;
@@ -24,6 +24,7 @@ form{
     display: grid;
     grid-template-columns: 2fr 5fr;
     gap: 0.5em;
+
     .error-field{
         color: red;
         font-family: 'Times New Roman', Times, serif;
