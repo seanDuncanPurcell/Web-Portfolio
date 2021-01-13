@@ -8,11 +8,12 @@ block content
     h1 Please Sign In.
     .form-frame
       label(for="userName") User Name:
-      input(type="text", name="username", placeholder="AwsomeSause99")
+      input(type="text", name="username", placeholder="AwsomeSause99" id="userName")
       label(for="passWrdOne") Pass Phrase:
       input(type="password", name="password", id='passWrdOne', placeholder="live2Code")
-    button(type="submit") Submit
+    button(type="submit" onclick="userLoggin()") Submit
+    p(class="error-field")= error
 
 
-block append scripts
-  script(src="/scripts/log-in.js")
+//- block append scripts
+//-   script(src="/scripts/log-in.js")

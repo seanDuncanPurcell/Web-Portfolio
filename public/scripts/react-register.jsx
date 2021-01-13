@@ -194,12 +194,11 @@ class InputPass extends React.Component {
 class NewUser extends React.Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {email: ''};
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleName = this.handleName.bind(this);
     this.handlePass = this.handlePass.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
   }
 
   async handleSubmit(event){
@@ -211,7 +210,7 @@ class NewUser extends React.Component {
         username: this.username,
         password: this.password,
         repeat_password: this.repeat_password,
-        email: this.email
+        email: this.state.email
       }
       const options = {
         method: 'POST',
@@ -220,9 +219,14 @@ class NewUser extends React.Component {
         },
         body: JSON.stringify(data)
       };
-      //do somthing with errors and let user know what happened
-      // const responce = await fetch('/register', options);
-      console.log(JSON.stringify(data));
+      const responce = await fetch('/api/new-user', options);
+      const jData = await responce.json()
+      const {errors, message} = jData
+      if(errors) this.setState({err: errors});
+      else{        
+        window.location.href = '/';
+      }
+      // console.log(JSON.stringify(data));
     }
     event.preventDefault();
   }
@@ -235,8 +239,6 @@ class NewUser extends React.Component {
     this.password = pass;
     this.repeat_password = confPass;
   }
-
-  handleEmail(){}
 
   render() {
     return(
@@ -254,11 +256,13 @@ class NewUser extends React.Component {
         />
 
         <label htmlFor="eMail" className="form-comp">
-          <div>Email</div>
+          <div>Email <em>(optional)</em></div>
 
           <input 
             type="email" name="email" id="eMail" 
-            placeholder="super@cool.com" onChange={this.handleEmail}
+            placeholder="super@cool.com" 
+            onChange={(event)=>{this.setState({email: event.target.value})}}
+            value={this.state.email}
           />
 
           <div></div>
@@ -273,7 +277,7 @@ class NewUser extends React.Component {
           handleVal={this.handlePass}
           errTest={(bool) => { this.setState({passErr: bool}) }}
         />
-        
+
         <span className="form-comp">
           <input type="button" value="Submit" onClick={this.handleSubmit}/>
           <p className="error-field" >{this.state.err}</p>

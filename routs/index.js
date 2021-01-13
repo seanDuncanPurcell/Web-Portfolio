@@ -80,6 +80,7 @@ router.route('/login')
   res.render('user/login');
 })
 .post(async (req, res)=>{
+  const errMsg = 'Incorect username and pass-phrase combination.';
   let client;
   try{
     //deliration
@@ -99,15 +100,15 @@ router.route('/login')
       .required()
     });
     const joiResponce = schema.validate(data);
-    if (joiResponce.error) throw new Error(joiResponce.error.details[0].message);
+    if (joiResponce.error) throw new Error('Improper Username or Pass-Phrase.');
 
     //2) validate username
     const foundUser = await collection.findOne({username: data.username});
-    if (!foundUser) throw new Error('Incorect password username combination.');
+    if (!foundUser) throw new Error(errMsg);
 
     //3) validate password
     const authorised = await bcrypt.compare(data.password, foundUser.password);
-    if (!authorised) throw new Error('Incorect password username combination.');
+    if (!authorised) throw new Error(errMsg);
 
     //4) update session informaiton
     req.session.loggedin = true;
@@ -117,7 +118,8 @@ router.route('/login')
 
   }catch(err){
     console.error(err);
-    res.status(401).send(err);
+    res.status(401);    
+    res.render('user/login', {error: err});
   }finally{
     client.close();
   }

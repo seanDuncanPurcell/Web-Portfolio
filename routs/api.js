@@ -24,7 +24,6 @@ router.route('/new-user')
 })
 .post( async (req, res) => {
     const data = req.body;
-    console.log(data);
 
     const schema = Joi.object({
       username: Joi.string()
@@ -61,11 +60,11 @@ router.route('/new-user')
       
       req.session.username = newUser.ops[0].username;
       req.session.loggedin = true;
-      req.session.admin = false;
-      res.redirect('/');
+      req.session.admin = false;      
+      res.status('200').send(JSON.stringify({message: 'You have been logged in!'}));
       
     }catch(err){
-      res.status('400').send(err);
+      res.status('400').send(JSON.stringify(err));
       console.error(err);
     }finally{
       client.close();
