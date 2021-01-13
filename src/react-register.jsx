@@ -8,7 +8,6 @@ function clearError() {
   this.props.errTest(false);  
 }
 async function findUser(name){
-  console.log(`api/is-user?=${name}`);
   const respons = await fetch(`api/is-user?username=${name}`);
   const nameFound = respons.json();
   return nameFound ? true : false
@@ -42,7 +41,6 @@ class InputName extends React.Component {
       this.setState({err: this.currentErr});
     } else if (value.length > 4 && value.length < 26) {
       this.clearError();
-      console.log('no error in name' + value.length )
     }
     this.props.handleVal(value);
   }
@@ -226,7 +224,6 @@ class NewUser extends React.Component {
       else{        
         window.location.href = '/';
       }
-      // console.log(JSON.stringify(data));
     }
     event.preventDefault();
   }

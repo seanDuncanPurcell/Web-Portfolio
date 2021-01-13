@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Just a project to help me practice using express and MongoDB",
   "main": "app.js",
-  "scripts": {},
+  "scripts": {
+    "build": "babel src -d public/scripts",
+    "watch": "babel src --watch -d public/scripts"
+  },
   "author": "Sean D Purcell",
   "license": "MIT",
   "dependencies": {
@@ -19,5 +22,10 @@
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
     "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-react": "^7.12.10"
   }
 }
