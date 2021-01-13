@@ -1,0 +1,14 @@
+if projectBrief
+  each item in projectBrief
+    a.project-card(href='/projects/project?id=' + item.id)
+      .card-front
+        if item.img.src
+          img.card-image(src= item.img.src, alt= item.img.alt)
+        else
+          img.card-image(src='/img/icon-svg/code.svg' , alt='angle brackets enclosing a forward slash')
+        h2= item.name
+      .card-back
+        h2= item.name
+        p!= item.description
+else
+  p Oh! this is emberissing... (⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄ there don't seem to be anything here.

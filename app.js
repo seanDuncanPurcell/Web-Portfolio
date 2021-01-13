@@ -3,7 +3,6 @@ TODO
 1) try converting declarations to ES6
 2) set up .env file
   -handle db url in that file <<done
-  -
 3) Consider seperating all db routing in to seperate router
 4) Consider establishing user roles with bubble up privliages.
   -only admin can delete any db enty but non-admin can delet their own db entries.
@@ -12,7 +11,7 @@ TODO
 6) Implement node-rate-limiter-flexible
 7) Implement Helmet
 8) PostBriefs needs to be removed from middle wear as it is no long used that way.
-  -it could be made into a microservice.
+  -it could be add to a new microservice dir.
 */
 
 //declarations
