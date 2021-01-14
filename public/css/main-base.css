@@ -1,13 +1,13 @@
 :root {
   --mainBG-color: rgb(39, 38, 36);
   --mainBG-offset-color: rgb(34, 33, 31);
-  --secondBG-color: rgb(11, 53, 100);
+  --secondBG-color: rgb(7, 57, 114);
   --mainTxt-color: rgb(255, 250, 250);
   --scndryTxt-color: rgb(11, 21, 54);
   --scndryTxt-shadow: rgba(11, 21, 54, 0.692);
   --mainHL-color: rgba(255, 255, 255, 0.377);
   --footer-height: 200px;
-  --header-height: 75px;
+  --header-height: 100px;
   --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 
@@ -26,13 +26,14 @@
   font-family: 'roboto_slabregular', 'Arial Narrow', Arial, sans-serif;
 }
 
+body {
+  background-color: var(--mainBG-color);
+  position: relative;
+}
+
 header {
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 75px;
-  background-color: var(--secondBG-color);
-  color: var(--mainTxt-color);
+  height: var(--header-height);
+  padding: 1.5em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -42,9 +43,11 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 15px;
   color: var(--scndryTxt-color);
   text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
+  background-color: var(--secondBG-color);
+  outline: var(--secondBG-color) solid 5px;
+  outline-offset: 5px;
 }
 
 header div {
@@ -84,14 +87,10 @@ header .logOpsBox {
 }
 
 main {
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   min-height: var(--main-min-height);
-  outline: var(--mainBG-offset-color) solid 5px;
-  outline-offset: 5px;
-  background-color: var(--mainBG-offset-color);
 }
 
 main nav {
@@ -116,6 +115,21 @@ main nav ul li {
   margin: 2px;
 }
 
+#background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("/img/pexels-eva-elijas-5949511_HX1500.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.1;
+  z-index: -1;
+}
+
 .main-content {
   width: 100%;
   display: -webkit-box;
@@ -135,9 +149,11 @@ footer {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  background-color: var(--secondBG-color);
-  height: 200px;
+  height: var(--footer-height);
   padding: 20px;
+  background-color: var(--secondBG-color);
+  outline: var(--secondBG-color) solid 5px;
+  outline-offset: 5px;
 }
 
 footer ul {

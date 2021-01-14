@@ -1,10 +1,16 @@
 @import '../../sass-mix/popMixin';
 
+@mixin header-footer-bar {
+    background-color: var(--secondBG-color);
+    outline: var(--secondBG-color) solid 5px;
+    outline-offset: 5px;
+}
+
 :root{
     //Back Ground Color
     --mainBG-color: rgb(39, 38, 36);
     --mainBG-offset-color: rgb(34, 33, 31);
-    --secondBG-color: rgb(11, 53, 100);
+    --secondBG-color: rgb(7, 57, 114);
     //Text Color
     --mainTxt-color: rgb(255, 250, 250);
     --scndryTxt-color: rgb(11, 21, 54);
@@ -13,7 +19,7 @@
     --mainHL-color: rgba(255, 255, 255, 0.377);
     //Sizing
     --footer-height: 200px;
-    --header-height: 75px;
+    --header-height: 100px;
     --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 
@@ -31,18 +37,21 @@
     padding: 0;
     font-family: 'roboto_slabregular', 'Arial Narrow', Arial, sans-serif;
 }
+body {
+    background-color: var(--mainBG-color);
+    position: relative;
+}
 
 header {
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 75px;
-    background-color: var(--secondBG-color);
-    color: var(--mainTxt-color);
+    height: var(--header-height);
+    padding: 1.5em;
     @include flexCenter;
-    padding: 15px;
+
     color: var(--scndryTxt-color);
     text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
+
+    @include header-footer-bar;
+
     div{
         flex: 1 1 35%;
         position: relative;
@@ -70,12 +79,9 @@ header {
 }
 
 main {
-    position: relative;
     display: flex;
     min-height: var(--main-min-height);
-    outline: var(--mainBG-offset-color) solid 5px;
-    outline-offset: 5px;
-    background-color: var(--mainBG-offset-color);
+
     nav {
         display: none;
         // display: flex;
@@ -95,6 +101,23 @@ main {
     }
 }
 
+#background{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+
+    background-image: url("/img/pexels-eva-elijas-5949511_HX1500.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.1;
+    z-index: -1;
+}
+
 .main-content {    
     width: 100%;
     @include flexCenter
@@ -103,9 +126,12 @@ main {
 footer {
     display: flex;
     justify-content: space-around;
-    background-color: var(--secondBG-color);
-    height: 200px;
+    
+    height: var(--footer-height);
     padding: 20px;
+
+    @include header-footer-bar
+
     ul {
         list-style-type: none;
         list-style-position: outside;
