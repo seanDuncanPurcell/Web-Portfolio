@@ -9,16 +9,20 @@ block localNav
     li test 2
     li test 3
 
-block content
-  figure.splash-img()
-    img(src="https://loremflickr.com/900/700", alt="filler")
-    figurecaption #{title}
-    a(href="#bio-n-contacts") MORE!
+block landing
+  figure.splash-img
+    img(src="/img/14199147_10153655596141230_7160844402555212770_n.jpg", alt="silhouette of man and dogs on beach")
+    figurecaption!= title
+    a(href="#headBar") MORE!
 
+//- header is here
+
+block content
   section#bio-n-contacts
     figure
-      img(src="https://loremflickr.com/800/800", alt="picture of subject")
+      img(src="img/2798dflkjsdl fd6g940fjsl.jpg", alt="picture of devolper with his dog")
       figurecaption Hi! I'm #{bio.name}, a #{bio.work} from #{bio.location}.
+
     article.infoBlob.shadow-block
       strong= aboutme.head
       div.filler
@@ -47,8 +51,7 @@ block content
     figure#time-line
     each item in history
       artical
-        p= item.year
-        p=item.empoyer + ": " + item.field + " - " + item.posision
-        p=item.location
-        p.work-body= "Responsible for " + item.mission
-        br
+        .text-head
+          p=item.year + " : " + item.employer
+          p=item.field
+        p= 'As a ' + item.posision + " in " + item.location + ", " + item.mission

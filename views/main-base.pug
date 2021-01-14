@@ -4,15 +4,21 @@ if(!username)
 -var greeting = welcome + username + '!'
 
 html(lang="en")
+
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     block style
       link(rel="stylesheet", href="/css/main-base.css")
     title Alcodeimy
+
   body
     #background
+
+    block landing
+
     include includes/header.pug
+    
     main
       //- img(src="/img/pexels-eva-elijas-5949511_HX1500.jpg", alt="Water Drops on Screen")
       nav#sideNav

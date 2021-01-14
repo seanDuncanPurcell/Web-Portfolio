@@ -1,13 +1,13 @@
 {
-  "title": "Place Holder Text Filling Up Space",
+  "title": "Happiness is when what you think, what you say, and what you do are in harmony. <br> -Mahatma Gandhi",
   "bio": {
     "name": "Sean Purcell",
     "location": "Southern California",
-    "work": "aspiring Fullstack Developer"
+    "work": "Aspiring Fullstack Developer"
   },
   "aboutme": {
     "head": "About me",
-    "text": "eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare lectus sit amet"
+    "text": "The only thing about coding that bums me out it that is took me so long to find it. I can and have, (accidentally) spent up to ten hours working on some of my projects before realizing my eyes hurt and my stomach was growling. Considering the vast potential of these technologies to improve the lives of people all around the world is like looking into the ocean and trying to see the bottom."
   },
   "tools": {
     "title": "I work with",
@@ -37,28 +37,28 @@
   },
   "history": [ 
     {
-      "empoyer": "NASA",
-      "field": "Emergency Communication Systems, (LMR, Satellite Internet, Emergency Brocast)",
+      "year": "2016 - Now",
+      "employer": "NASA",
+      "field": "Emergency Communication Systems",
       "posision": "Techical Systems Manager",
-      "year": "Current",
-      "location": "Pasadena, CA.",
-      "mission": "Provide command with a communications link back to the continental United States."
+      "location": "Pasadena, CA",
+      "mission": "I help to protect national security interests, and ensure continuity of the world’s Deep Space Communications relay. In addition I over saw a two million dollar project to overhaul aging coms infrastructure and integrate commutations channels between JPL and local emergency services."
     }, 
     {
-      "empoyer": "USAF",
+      "employer": "USAF",
       "field": "Land Mobile Radio",
       "posision": "Technical System Manager",
-      "year": "2013",
+      "year": "2012 - 2014",
       "location": "Washington DC.",
-      "mission": "Provide command with a communications link back to the continental United States."
+      "mission": "I provided administration for Joint Base Andrews digitally trunked radio repeats, and over six hundred radio subscribers in twelve distinct divisions to support Air Force One, and the First Airlift Squadron."
     },
     {
-      "empoyer": "USAF",
+      "employer": "USAF",
       "field": "Satellite Communicaitons",
       "posision": "Technician",
       "year": "2011",
       "location": "Republic Of South Korea",
-      "mission": "providing command with a communications link back to the continental United States."
+      "mission": "I providing command with a communications link back to the continental United States, tracked calibrations schedules for test equipment’s, and manage the local tool program as part of a Combat Communications Group."
     }
   ]
 }

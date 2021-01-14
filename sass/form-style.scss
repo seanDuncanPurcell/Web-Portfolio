@@ -1,5 +1,9 @@
 @import '../../sass-mix/popMixin';
 
+.main-content{
+    @include flexCenter
+}
+
 form{
     width: fit-content;
     border-radius: 20px;

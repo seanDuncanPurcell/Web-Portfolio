@@ -31,6 +31,13 @@ body {
   position: relative;
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
 header {
   height: var(--header-height);
   padding: 1.5em;
