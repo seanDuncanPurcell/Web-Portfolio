@@ -120,7 +120,6 @@ main {
 
 .main-content {    
     width: 100%;
-    @include flexCenter
 }
 
 footer {
@@ -130,7 +129,7 @@ footer {
     height: var(--footer-height);
     padding: 20px;
 
-    @include header-footer-bar
+    @include header-footer-bar;
 
     ul {
         list-style-type: none;
