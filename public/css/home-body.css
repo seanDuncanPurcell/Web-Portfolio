@@ -34,9 +34,6 @@
 }
 
 .main-content section a {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 10%;
-          flex: 0 0 10%;
   text-decoration: none;
   padding: 10px;
   border-radius: 10px;
@@ -53,5 +50,92 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#projectCards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 2.5vw;
+  height: 100%;
+  width: 100%;
+}
+
+#projectCards .project-card {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  height: 300px;
+  width: 200px;
+  margin: auto;
+}
+
+#projectCards .project-card div {
+  position: absolute;
+  padding: 15px;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 500ms;
+  transition: -webkit-transform 500ms;
+  transition: transform 500ms;
+  transition: transform 500ms, -webkit-transform 500ms;
+  border-radius: 5px;
+}
+
+#projectCards .project-card .card-front {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-image: radial-gradient(#f8f8f8, #575757 80%);
+}
+
+#projectCards .project-card .card-front img.card-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.50;
+  border-radius: 5px;
+}
+
+#projectCards .project-card .card-front h2 {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35%;
+}
+
+#projectCards .project-card .card-back {
+  background-color: cadetblue;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+#projectCards .project-card .card-back h2 {
+  text-decoration: underline;
+  margin-bottom: 1em;
+}
+
+#projectCards .project-card:hover .card-front {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+#projectCards .project-card:hover .card-back {
+  -webkit-transform: rotateY(360deg);
+          transform: rotateY(360deg);
 }
 /*# sourceMappingURL=home-body.css.map */

@@ -10,11 +10,12 @@ const Joi = require('joi');
 const salt = parseInt(process.env.SALT_ONE);
 const mongoClient = require('mongodb').MongoClient;
 const router = express.Router();
-const {postBriefs} = require('../middleware/middleware');
+const {postBriefs, projectCards} = require('../useful-funcs/db-methods');
 
 router.route('/')
 .get( async(req, res) => {
   res.locals.postBriefs = await postBriefs(20);
+  res.locals.projectCards = await projectCards();
   if (req.query.out){
     req.session.destroy();
     res.redirect('/');

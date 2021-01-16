@@ -129,8 +129,6 @@ main {
     width: 100%;
 }
 
-@include hover-flip-card;
-
 footer {
     display: flex;
     justify-content: space-around;
@@ -161,6 +159,7 @@ footer {
     transition-property: box-shadow, border-right, border-bottom, transform;
     transition-duration: 300ms;
 }
+
 .reactive-block:hover {
     box-shadow: 2px 3px 7px var(--mainHL-color);
     border-right: 1px solid rgba(255, 255, 255, 0.85);
