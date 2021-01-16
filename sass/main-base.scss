@@ -37,11 +37,11 @@
     padding: 0;
     font-family: 'roboto_slabregular', 'Arial Narrow', Arial, sans-serif;
 }
+
 body {
     background-color: var(--mainBG-color);
     position: relative;
 }
-
 
 .sticky{
     position: sticky;
@@ -128,6 +128,8 @@ main {
 .main-content {    
     width: 100%;
 }
+
+@include hover-flip-card;
 
 footer {
     display: flex;
