@@ -10,7 +10,7 @@ const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
 const db = require('mongodb');
 const router = express.Router();
-const {postBriefs} = require('../middleware/middleware');
+const {postBriefs} = require('../useful-funcs/db-methods.js');
 
 router.route('/')
 .get( async(req, res) => {

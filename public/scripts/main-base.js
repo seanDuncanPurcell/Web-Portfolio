@@ -1,3 +1,5 @@
+// import NavMenu from './react-nav-menubar'
+
 window.addEventListener('load',async () => {
     const res = await fetch('/user');
     const body = await res.json();
