@@ -6,9 +6,15 @@
   --scndryTxt-color: rgb(11, 21, 54);
   --scndryTxt-shadow: rgba(11, 21, 54, 0.692);
   --mainHL-color: rgba(255, 255, 255, 0.377);
-  --footer-height: 200px;
+  --footer-height: 300px;
   --header-height: 100px;
   --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
+}
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --footer-height: 500px;
+  }
 }
 
 @font-face {
@@ -59,6 +65,7 @@ header #header-left {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  width: auto;
 }
 
 header #header-center {
@@ -66,17 +73,24 @@ header #header-center {
       justify-content: space-around;
 }
 
+@media only screen and (max-width: 355px) {
+  header #header-center h1 {
+    font-size: 1.5em;
+  }
+}
+
 header #header-right {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
+  width: auto;
 }
 
 header > * {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 100%;
-          flex: 1 1 100%;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -93,12 +107,16 @@ header > * {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  gap: 5px;
+  gap: 0.75em;
   top: 0;
   right: 0;
+  z-index: 2;
+}
+
+#user-menu * {
+  width: auto;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
 }
 
 #nav-menu {
@@ -110,18 +128,22 @@ header > * {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 5px;
+  gap: 0.75em;
   top: 0;
   left: 0;
+  z-index: 2;
+}
+
+#nav-menu * {
+  width: auto;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
 }
 
 .btn-lvl-one {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   background-color: var(--mainBG-offset-color);
   border: none;
   border-radius: 5%;
@@ -131,12 +153,13 @@ header > * {
 }
 
 .btn-lvl-one img {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 }
 
 a.btn-lvl-one {
   text-decoration: none;
+  font-size: 1.5em;
   color: var(--mainTxt-color);
 }
 
@@ -158,26 +181,8 @@ main {
   min-height: var(--main-min-height);
 }
 
-main nav {
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  min-width: 200px;
-  width: 20vw;
-}
-
-main nav ul {
-  list-style-type: none;
-  list-style-type: none;
-  left: 0;
-  right: 0;
-}
-
-main nav ul li {
-  border: 1px solid blue;
-  margin: 2px;
+.main-content {
+  width: 100%;
 }
 
 #background {
@@ -195,16 +200,13 @@ main nav ul li {
   z-index: -1;
 }
 
-.main-content {
-  width: 100%;
-}
-
 footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: var(--footer-height);
   padding: 20px;
   background-color: var(--secondBG-color);
@@ -212,16 +214,56 @@ footer {
   outline-offset: 5px;
 }
 
-footer ul {
-  list-style-type: none;
-  list-style-position: outside;
+footer #innerFoot {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  margin: 10px;
 }
 
-footer ul li {
+footer #innerFoot ul {
+  list-style-position: inside;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 40%;
+          flex: 1 1 40%;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  margin: 20px;
+}
+
+footer #innerFoot ul strong {
+  text-decoration: underline;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
+}
+
+footer #innerFoot ul li {
   color: var(--scndryTxt-color);
   text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-  font-size: 1.5em;
-  line-height: 1.5;
+  line-height: 1.75;
+}
+
+footer #innerFoot ul li a {
+  text-decoration: none;
+  color: var(--scndryTxt-color);
+  text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
+  font-size: 1.15em;
+}
+
+footer #innerFoot ul li a:hover {
+  text-decoration: line-through;
+}
+
+footer #innerFoot ul li a:visited {
+  text-decoration: line-through;
 }
 
 .shadow-block {

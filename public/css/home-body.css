@@ -19,7 +19,7 @@
   -webkit-box-flex: 1;
       -ms-flex: 1 1 calc(50% - 20px);
           flex: 1 1 calc(50% - 20px);
-  min-width: 40ch;
+  min-width: 25ch;
   max-width: 80ch;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -30,7 +30,7 @@
           flex-direction: column;
   border-radius: 20px;
   gap: 20px;
-  padding: 20px;
+  padding: 20px 20px 40px 20px;
 }
 
 .main-content section a {
