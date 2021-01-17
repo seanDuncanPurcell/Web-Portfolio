@@ -1,14 +1,9 @@
 header.sticky(id='headBar')
-  .flex-holder
-    a(href="/") Home
-    a(href="/bio") Bio
-  h1= greeting  
-  .flex-holder
-    if (loggedin)
-      .logOpsBox
-        a(href='/?out=true') Log Out
-    else
-      .logOpsBox
-        a(href='/login') Log In
-        p |
-        a(href='/register') Creat a New Account
+  #header-left
+    div.btn-lvl-one
+      img(src="img/icon-svg/white/menu-icon.svg", alt="Navigation Menu Icon")
+
+  #header-center
+    h1= greeting  
+
+  #header-right

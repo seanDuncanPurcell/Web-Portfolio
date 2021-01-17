@@ -26,5 +26,9 @@ html(lang="en")
       section.main-content
         block content
     include includes/footer.pug
+
     block scripts
+      script(src="https://unpkg.com/react@17/umd/react.development.js" crossorigin)
+      script(src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin)
       script(src="/scripts/main-base.js" type='module')
+      script(src="/scripts/react-user-menu.js")

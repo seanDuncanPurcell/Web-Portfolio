@@ -50,39 +50,80 @@ body {
 }
 
 header {
+    display: flex;
     height: var(--header-height);
-    padding: 1.5em;
-    @include flexCenter;
+    padding:  1em 1.5em 1em 1.5em;
+    align-items: center;
+
+    @include header-footer-bar;
 
     color: var(--scndryTxt-color);
     text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
 
-    @include header-footer-bar;
-
-    div{
-        flex: 1 1 35%;
-        position: relative;
-        display: flex;
-        justify-content: start;
-        gap: 20px;
-
-        a{
-            color: var(--scndryTxt-color);
-            text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-            font-size: 1.5em;
-        }
+    #header-left{
+        flex-direction: row;
     }
 
-    h1{
-        color: var(--scndryTxt-color);
-        text-align: center;
+    #header-center{
+        justify-content: space-around;
     }
 
-    .logOpsBox{
-        text-align: right;
-        display: flex;
+    #header-right{
         flex-direction: row-reverse;
     }
+}
+
+header > * {
+    flex: 1 1 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+}
+
+#user-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    top: 0;
+    right: 0;
+}
+
+#nav-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    top: 0;
+    left: 0;
+}
+
+.btn-lvl-one{
+    height: fit-content;
+    width: fit-content;
+    background-color: var(--mainBG-offset-color);
+    border: none;
+    border-radius: 5%;
+    padding: 10px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
+
+    img{
+        height: 50px;
+        width: 50px;
+    }
+}
+a.btn-lvl-one{
+    text-decoration: none;
+    color: var(--mainTxt-color);
+}
+
+.btn-lvl-one:hover{
+    transform: scale(1.1, 1.1);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
+}
+.btn-lvl-one:focus{
+    outline: none;
 }
 
 main {
