@@ -1,8 +1,8 @@
 /* 
 TODO
-1) try converting declarations to ES6
-2) set up .env file
-  -handle db url in that file <<done
+1) IGNOR>>try converting declarations to ES6
+2) DONE>>set up .env file
+  -DONE>>handle db url in that file
 3) Consider seperating all db routing in to seperate router
 4) Consider establishing user roles with bubble up privliages.
   -only admin can delete any db enty but non-admin can delet their own db entries.
@@ -10,7 +10,7 @@ TODO
 5) Implement mongoose
 6) Implement node-rate-limiter-flexible
 7) Implement Helmet
-8) PostBriefs needs to be removed from middle wear as it is no long used that way.
+8) DONE>>PostBriefs needs to be removed from middle wear as it is no long used that way.
   -it could be add to a new microservice dir.
 */
 
@@ -43,7 +43,7 @@ const store = new MongoDBStore({
   uri: db_url,
   databaseName: 'blogsystem',
   collection: 'mySessions',
-  expires: 1000 * 60 * 60 * 24 * 30, // 30 days in milliseconds
+  expires: 1000 * 60 * 60 * 24, // 24hr in milliseconds
   connectionOptions: {
     useNewUrlParser: true,
     useUnifiedTopology: true,
