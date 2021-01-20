@@ -142,6 +142,7 @@ a.btn-lvl-one{
     transform: scale(1.1, 1.1);
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
 }
+
 .btn-lvl-one:focus{
     outline: none;
 }
@@ -149,6 +150,7 @@ a.btn-lvl-one{
 main {
     display: flex;
     min-height: var(--main-min-height);
+    padding: 30px;
 }
 
 .main-content {    
