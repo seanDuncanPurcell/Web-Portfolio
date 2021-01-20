@@ -21,7 +21,9 @@
     "joi": "^17.3.0",
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
-    "pug": "^3.0.0"
+    "mongoose": "^5.11.13",
+    "pug": "^3.0.0",
+    "rate-limiter-flexible": "^2.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
