@@ -6,6 +6,7 @@ const salt = parseInt(process.env.SALT_ONE);
 const mongoClient = require('mongodb').MongoClient;
 const router = express.Router();
 
+
 router.route('/is-user')
 .get( async (req, res) => {
     const name = req.query.username;
@@ -19,6 +20,7 @@ router.route('/is-user')
     }
 });
 
+//user to generate a new user into  
 router.route('/new-user')
 .get( (req, res) => {
 })
@@ -31,8 +33,6 @@ router.route('/new-user')
         .min(3)
         .max(30)
         .required(),
-      email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
       password: Joi.string()
         .pattern(new RegExp('^[a-zA-Z0-9]{4,30}$'))
         .required(),
@@ -69,6 +69,17 @@ router.route('/new-user')
     }finally{
       client.close();
     }
+});
+
+//used to inform front end about user status so that the interface can be apropreately rended.
+router.route('/get-user')
+.get((req, res) => {
+  if(req.session.loggedin){
+    const{admin, loggedin, username} = req.session;
+    res.send(JSON.stringify({admin: admin, loggedin: loggedin, username: username}));
+  }else{
+    res.send(JSON.stringify({admin: false, loggedin: false, username: 'Guest'}));
+  }
 });
 
 module.exports = router;

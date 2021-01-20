@@ -1,8 +1,3 @@
-/*
-TODO
-1) Form validation for sign in/up @ cient & server side.
-*/
-
 const bcrypt = require('bcrypt');
 const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
@@ -123,16 +118,6 @@ router.route('/login')
     res.render('user/login', {error: err});
   }finally{
     client.close();
-  }
-});
-
-router.route('/user')
-.get((req, res) => {
-  if(req.session.loggedin){
-    const{admin, loggedin, username} = req.session;
-    res.send(JSON.stringify({admin: admin, loggedin: loggedin, username: username}));
-  }else{
-    res.send(JSON.stringify({admin: false, loggedin: false, username: 'Guest'}));
   }
 });
 
