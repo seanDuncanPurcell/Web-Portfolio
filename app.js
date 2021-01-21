@@ -8,7 +8,7 @@ TODO
   -only admin can delete any db enty but non-admin can delet their own db entries.
   --maybe some add some form of signature to articales.
 5) Implement mongoose
-6) Implement node-rate-limiter-flexible
+6) DONE>>Implement node-rate-limiter-flexible
 7) Implement Helmet
 8) DONE>>PostBriefs needs to be removed from middle wear as it is no long used that way.
   -it could be add to a new microservice dir.

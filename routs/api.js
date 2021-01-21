@@ -22,17 +22,17 @@ const limiterNewAcctFromIPperDay = new RateLimiterMongo({
   duration: 60 * 60 * 24, // Store number for 24 hours
 });
 
-
+//checks if a username is currently in the db
 router.route('/is-user')
 .get( async (req, res) => {
     const name = req.query.username;
     if(name){
-        client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
-        const collection = client.db('blogsystem').collection('users');
-        const foundUser = await collection.findOne({username: name});
-        if(foundUser){
-            res.send(true);
-        }
+      client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+      const collection = client.db('blogsystem').collection('users');
+      const foundUser = await collection.findOne({username: name});
+      if(foundUser){
+        res.send(true);
+      }
     }
 });
 
@@ -56,7 +56,7 @@ router.route('/new-user')
         .required(),
       repeat_password: Joi.ref('password'),
   });
-  const rlResIp = await limiterConsecutiveFailsByUsername.get(req.ip);
+  const rlResIp = await limiterNewAcctFromIPperDay.get(req.ip);
 
   //2) Connect to DB
   const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
@@ -64,10 +64,8 @@ router.route('/new-user')
 
   try{
     //3) confirm user has remaining point for new account
-    if (rlResIp !== null && rlResIp.consumedPoints > maxConsecutiveFailsByUsername) {
-      const retrySecs = Math.round(rlResIp.msBeforeNext / 1000) || 1;
-      res.set('Retry-After', String(retrySecs));
-      res.status(429).send('Too Many Attempts');
+    if (rlResIp !== null && rlResIp.consumedPoints > maxAcctsByIP) {
+      res.status(429).send('You have created too many accounts in too short a time period.');
     } else {
       //3) Validate Inputs
       const foundName = await collection.findOne({username: data.username});
@@ -81,7 +79,7 @@ router.route('/new-user')
       else if (joiResponce.error) throw new Error(joiResponce.error.details[0].message);
   
       //5) consume on of the current IP's accounts for given period
-      await limiterNewAcctFromIPperDay.consume(req.ip);
+      await limiterNewAcctFromIPperDay.consume(req.ip, 1);
 
       //6) encrypt pass word and insert user into db
       const encrypt = await bcrypt.hash(req.body.password, salt);
