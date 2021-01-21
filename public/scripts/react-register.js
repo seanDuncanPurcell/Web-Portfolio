@@ -182,7 +182,7 @@ class InputPass extends React.Component {
   }
 
   render() {
-    return /*#__PURE__*/React.createElement("label", {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
       htmlFor: this.props.id,
       className: "form-comp"
     }, /*#__PURE__*/React.createElement("div", null, this.props.label), /*#__PURE__*/React.createElement("input", {
@@ -195,17 +195,20 @@ class InputPass extends React.Component {
       placeholder: this.props.placeholder
     }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
       className: "error-field"
-    }, this.state.err), /*#__PURE__*/React.createElement("div", null, "Confirm Phrase"), /*#__PURE__*/React.createElement("input", {
+    }, this.state.err)), /*#__PURE__*/React.createElement("label", {
+      htmlFor: `${this.props.id}b`,
+      className: "form-comp"
+    }, /*#__PURE__*/React.createElement("div", null, "Confirm Phrase"), /*#__PURE__*/React.createElement("input", {
       onChange: this.handleChange // onBlur={()=>{}}
       ,
       type: this.props.type,
       name: "confirmpass",
       value: this.state.confirmpass,
-      id: this.props.id,
+      id: `${this.props.id}b`,
       placeholder: this.props.placeholder
     }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
       className: "error-field"
-    }, this.state.confErr));
+    }, this.state.confErr)));
   }
 
 }
@@ -313,11 +316,10 @@ class NewUser extends React.Component {
       }
     }), /*#__PURE__*/React.createElement("span", {
       className: "form-comp"
-    }, /*#__PURE__*/React.createElement("input", {
-      type: "button",
-      value: "Submit",
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "submit",
       onClick: this.handleSubmit
-    }), /*#__PURE__*/React.createElement("p", {
+    }, "Submit"), /*#__PURE__*/React.createElement("p", {
       className: "error-field"
     }, this.state.err)));
   }

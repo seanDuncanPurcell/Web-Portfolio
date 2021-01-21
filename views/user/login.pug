@@ -6,10 +6,16 @@ block append style
 block content
   form(action="/login", method="post" class='shadow-block')
     h1 Please Sign In.
-    .form-frame
-      label(for="userName") User Name:
+    label(for="userName" class="form-comp") 
+      div User Name:
       input(type="text", name="username", placeholder="AwsomeSause99" id="userName")
-      label(for="passWrdOne") Pass Phrase:
+      div
+      div
+    label(for="passWrdOne" class="form-comp") 
+      div Pass Phrase:
       input(type="password", name="password", id='passWrdOne', placeholder="live2Code")
-    button(type="submit" onclick="userLoggin()") Submit
-    p(class="error-field")= error
+      div
+      div
+    .form-comp
+      button(type="submit" onclick="userLoggin()") Submit
+      p(class="error-field")= error

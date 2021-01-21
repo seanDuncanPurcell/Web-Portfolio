@@ -158,6 +158,7 @@ class InputPass extends React.Component {
 
   render() {
     return(
+      <div>
       <label htmlFor={this.props.id} className="form-comp">
         <div>{this.props.label}</div>
         <input
@@ -171,7 +172,9 @@ class InputPass extends React.Component {
         />
         <br/>
         <span className="error-field">{this.state.err}</span>
+      </label>
 
+      <label htmlFor={`${this.props.id}b`} className="form-comp">
         <div>Confirm Phrase</div>
         <input
           onChange={this.handleChange}
@@ -179,12 +182,13 @@ class InputPass extends React.Component {
           type={this.props.type} 
           name='confirmpass'
           value={this.state.confirmpass}
-          id={this.props.id}
+          id={`${this.props.id}b`}
           placeholder={this.props.placeholder}
         />
         <br/>
         <span className="error-field">{this.state.confErr}</span>
       </label>
+      </div>
     )
   }  
 }
@@ -276,7 +280,9 @@ class NewUser extends React.Component {
         />
 
         <span className="form-comp">
-          <input type="button" value="Submit" onClick={this.handleSubmit}/>
+          <button type="submit" onClick={this.handleSubmit}>
+            Submit
+          </button>
           <p className="error-field" >{this.state.err}</p>
         </span>
       </form>

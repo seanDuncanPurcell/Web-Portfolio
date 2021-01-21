@@ -22,7 +22,7 @@ form h1 {
   margin-bottom: 1em;
 }
 
-form .form-frame {
+.form-comp {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 2fr 5fr;
@@ -30,27 +30,34 @@ form .form-frame {
   gap: 0.5em;
 }
 
-form button {
-  margin-top: 1em;
-  border-radius: 5px;
-  font-size: 1.5em;
-  padding: 0 0.5em 0.5em 0.5em;
+.form-comp * {
+  min-height: 1.25em;
+  font-size: 1.25em;
+  border-radius: 4px;
+  padding: 2px;
 }
 
-.form-comp {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 2fr 5fr;
-      grid-template-columns: 2fr 5fr;
-  gap: 0.25em;
-  margin-top: 0.6em;
+.form-comp * em {
+  font-size: .9em;
+}
+
+form > button {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 5px;
+  font-size: 1.5em;
+  padding: 0.25em 0.5em 0.25em 0.5em;
 }
 
 .error-field {
   color: red;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 300;
-  margin: 0.5em;
+  margin: 0.25em;
 }
 
 #userNotice {

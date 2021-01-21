@@ -70,6 +70,11 @@ header {
 
     #header-center{
         justify-content: space-around;
+        align-items: center;
+
+        h1{
+            height: fit-content;
+        }
         @media only screen and (max-width: 355px) {
             h1{
                 font-size: 1.5em;
