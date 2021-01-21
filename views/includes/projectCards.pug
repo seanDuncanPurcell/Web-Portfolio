@@ -1,7 +1,7 @@
 #projectCards
   if projectCards
-    each item in projectCards
-      a.project-card(href='/projects/project?id=' + item.id)
+    each item in projectCards.projects
+      a.project-card(href=item.url)
         .card-front
           if item.img.src
             img.card-image(src= item.img.src, alt= item.img.alt)

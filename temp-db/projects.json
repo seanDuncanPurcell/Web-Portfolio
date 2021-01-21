@@ -1,0 +1,27 @@
+{ "projects":
+  [
+    {
+      "img": {}, 
+      "_id": "TemplateProjectDate", 
+      "name": "Create A New Project Card",
+      "url": "/",
+      "description": "This is not a project! It is, in fact, just a link to a form that will allow you to creat new project cards."
+    },
+    {
+      "img": {"src": "/img/icon-svg/blogger-svgrepo-com.svg", "alt": "simplifided representation of a blog"}, 
+      "_id": "6lstfp8qo14v09tnx6644bs64ae7iihvfh6j69g693pz192", 
+      "name": "this.Blog",
+      "url": "/blog",
+      "description": "This may seem a little silly but the very first project for this sight it the site itself, or at least part of it.",
+      "git": { "text": "GitHub Repo", "url": "https://github.com/seanDuncanPurcell/Web-Portfolio"}
+    },
+    {
+      "img": {"src": "/img/icon-svg/black-jack-poker-svgrepo-com.svg", "alt": "simplifided reprsentation of a poker table"}, 
+      "_id": "1axw24fmi5sl0vj8al10b864cljf7a3f8h220nn8dd", 
+      "name": "Black Jack",
+      "url": "/projects/black-jack",
+      "description": "Really nothing too exciting, but this was one of the most serious projects I under took after learning JS.",
+      "git": { "text": "GitHub Repo", "url": "https://github.com/seanDuncanPurcell/Cards-Games.js"}
+    }
+  ]
+}

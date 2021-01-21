@@ -1,6 +1,7 @@
 const db_url = (process.env.db_url || 'mongodb://localhost:27017');
 const mongoClient = require('mongodb').MongoClient;
 const text = require('../useful-funcs/text-methods');
+const projects = require('../temp-db/projects.json');
 
 
 //postBrieft needs to be removed from middle wear as it is no long used that way.
@@ -26,34 +27,7 @@ async function postBriefs(num) {
 }
 
 async function projectCards() {
-    const projects = [
-        {
-            img: {}, 
-            id: 'fgth', 
-            name: 'Vestibulum Ante Ipsum', 
-            description: 'Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc lacus dolor.'
-        },
-        {
-            img: {src: '/img/pexels-vladislav-murashko-6017203_X500.jpg', alt: 'forest as background'}, 
-            id: 'fgth', 
-            name: 'Vestib Ante Ipsum Erat', 
-            description: 'Aliquam erat volutpat. <b>Vestibulum</b> ante ipsum primis in faucibus <br/> orci luctus et ultrices posuere cubilia curae; Nunc lacus dolor.'
-        },
-        {
-            img: {src: '/img/pexels-vladislav-murashko-6017203_X500.jpg', alt: 'forest as background'}, 
-            id: 'fgth', 
-            name: 'Vestib Ante Ipsum Erat', 
-            description: 'Aliquam erat volutpat. <b>Vestibulum</b> ante ipsum primis in faucibus <br/> orci luctus et ultrices posuere cubilia curae; Nunc lacus dolor.'
-        },
-        {
-            img: {src: '/img/pexels-vladislav-murashko-6017203_X500.jpg', alt: 'forest as background'}, 
-            id: 'fgth', 
-            name: 'Vestib Ante Ipsum Erat', 
-            description: 'Aliquam erat volutpat. <b>Vestibulum</b> ante ipsum primis in faucibus <br/> orci luctus et ultrices posuere cubilia curae; Nunc lacus dolor.'
-        }
-    ]
-
-    return projects;
+  return projects;
 }
 
 module.exports.postBriefs = postBriefs;

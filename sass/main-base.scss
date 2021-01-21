@@ -9,7 +9,7 @@
 :root{
     //Back Ground Color
     --mainBG-color: rgb(39, 38, 36);
-    --mainBG-offset-color: rgb(34, 33, 31);
+    --mainBG-offset-color: rgb(49, 45, 38);
     --secondBG-color: rgb(7, 57, 114);
     //Text Color
     --mainTxt-color: rgb(255, 250, 250);
@@ -74,6 +74,7 @@ header {
 
         h1{
             height: fit-content;
+            font-size: 2.5em;
         }
         @media only screen and (max-width: 355px) {
             h1{

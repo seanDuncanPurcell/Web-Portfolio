@@ -1,6 +1,6 @@
 :root {
   --mainBG-color: rgb(39, 38, 36);
-  --mainBG-offset-color: rgb(34, 33, 31);
+  --mainBG-offset-color: rgb(49, 45, 38);
   --secondBG-color: rgb(7, 57, 114);
   --mainTxt-color: rgb(255, 250, 250);
   --scndryTxt-color: rgb(11, 21, 54);
@@ -80,6 +80,7 @@ header #header-center h1 {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  font-size: 2.5em;
 }
 
 @media only screen and (max-width: 355px) {

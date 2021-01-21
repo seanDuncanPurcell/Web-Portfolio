@@ -27,7 +27,8 @@ const limiterConsecutiveFailsByUsername = new RateLimiterMongo({
 router.route('/')
 .get( async(req, res) => {
   res.locals.postBriefs = await postBriefs(20);
-  res.locals.projectCards = await projectCards();
+  const projects = require('../temp-db/projects.json');
+  res.locals.projectCards = projects;
   if (req.query.out){
     req.session.destroy();
     res.redirect('/');
