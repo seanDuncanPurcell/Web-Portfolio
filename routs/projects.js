@@ -10,7 +10,7 @@ router.route('/')
 
 router.route('/sampleone')
 .get((req, res) => {
-  res.render('project-template');
+  res.render('projects/project-template');
 });
 
 module.exports = router;
