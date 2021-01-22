@@ -7,11 +7,12 @@ TODO
 4) Consider establishing user roles with bubble up privliages.
   -only admin can delete any db enty but non-admin can delet their own db entries.
   --maybe some add some form of signature to articales.
-5) Implement mongoose
+5) (!)Implement mongoose
 6) DONE>>Implement node-rate-limiter-flexible
-7) Implement Helmet
+7) DONE>>Implement Helmet
 8) DONE>>PostBriefs needs to be removed from middle wear as it is no long used that way.
   -it could be add to a new microservice dir.
+9) acquire SSL/TSL cert and apply helmet.hsts
 */
 
 //declarations
@@ -20,7 +21,9 @@ const bodyParser = require('body-parser');
 const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
 const express = require('express');
   const app = express();
+const helmet = require('helmet');
 const hash = process.env.HASH_ONE;
+const noChache = require('nocache');
 const path = require('path');
 const port = (process.env.PORT || 3000);
 const session = require('express-session');
@@ -56,6 +59,7 @@ store.on('error', function(error) {
 });
 
 //middlewear
+const production = (app.get('env') === 'production');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const sess = {
@@ -68,12 +72,30 @@ const sess = {
     name: 'sessionId', //recomened by express api doc for preventing fingerprinting of server and targeted attacks
   }
 } 
-if (app.get('env') === 'production') {
+if (production) {
   app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(sess));
 app.use(sessionTwoLocal);
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives:{
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "default-src": ["'self'"],
+      "script-src": ["'self'"],
+      "script-src-elem": ["'self'", "unpkg.com"],
+      "style-src": ["'self'"]
+    }
+  },
+  dnsPrefetchControl: false,
+  expectCt: false, //need to get ssl/tsl cert
+  frameguard: { action: 'deny' },
+  hsts: false, //need to get ssl/tsl cert
+  permittedCrossDomainPolicies: {permittedPolicies: 'none'},
+  referrerPolicy: { policy: ['origin']},
+}));
+if (!production) app.use(noChache);
 
 //Routing
 app.use('/', index);
