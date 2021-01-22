@@ -126,5 +126,10 @@
     outline: var(--secondBG-color) solid 5px;
     outline-offset: 5px;
   }
-  
+
+  footer.project-deets{
+    background-color: rgb(243, 234, 227);
+    font-size: 1em;
+    padding: 0.5em;
+  }
 }

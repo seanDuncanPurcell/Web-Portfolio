@@ -170,6 +170,12 @@ footer.mb-header-footer #innerFoot ul li a:visited {
   outline-offset: 5px;
 }
 
+footer.project-deets {
+  background-color: #f3eae3;
+  font-size: 1em;
+  padding: 0.5em;
+}
+
 :root {
   --mainBG-color: rgb(39, 38, 36);
   --mainBG-offset-color: rgb(49, 45, 38);

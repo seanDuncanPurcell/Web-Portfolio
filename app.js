@@ -80,7 +80,7 @@ app.use('/', index);
 app.use('/api', api);
 app.use('/bio', bio);
 app.use('/blog', blog);
-app.use('/projects', projects);
+app.use('/project_display', projects);
 app.use(express.static(path.join(__dirname, '/public')));
 
 

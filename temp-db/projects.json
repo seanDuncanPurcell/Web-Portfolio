@@ -19,7 +19,7 @@
       "img": {"src": "/img/icon-svg/black-jack-poker-svgrepo-com.svg", "alt": "simplifided reprsentation of a poker table"}, 
       "_id": "1axw24fmi5sl0vj8al10b864cljf7a3f8h220nn8dd", 
       "name": "Black Jack",
-      "url": "/projects/black-jack",
+      "url": "/project_display/black-jack",
       "description": "Really nothing too exciting, but this was one of the most serious projects I under took after learning JS.",
       "git": { "text": "GitHub Repo", "url": "https://github.com/seanDuncanPurcell/Cards-Games.js"}
     }
