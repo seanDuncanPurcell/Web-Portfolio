@@ -29,7 +29,7 @@ class NavMenu extends React.Component{
         return(
             <div id='nav-menu'>
                 <button  className='btn-lvl-one' onClick={this.handleClick}>
-                    <img src="img/icon-svg/white/menu-icon.svg" alt="Navigation Menu Icon"/>
+                    <img src={`http://${location.host}/img/icon-svg/white/menu-icon.svg`} alt="Navigation Menu Icon"/>
                 </button>
                 {this.state.btns}
             </div>
