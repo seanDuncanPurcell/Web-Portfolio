@@ -1,5 +1,4 @@
 *.code-workspace
 *.env
 node_modules
-**/public/img
 **/public/projects
