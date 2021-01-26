@@ -4,9 +4,15 @@
   "description": "Just a project to help me practice using express and MongoDB",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
     "build": "babel src -d public/scripts",
     "watch": "babel src --watch -d public/scripts"
   },
+  "keywords": [
+    "express",
+    "heroku",
+    "node"
+  ],
   "author": "Sean D Purcell",
   "license": "MIT",
   "dependencies": {
@@ -31,5 +37,9 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "nocache": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seanDuncanPurcell/Web-Portfolio"
   }
 }
