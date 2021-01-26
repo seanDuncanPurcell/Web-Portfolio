@@ -4,6 +4,7 @@
   "description": "Just a project to help me practice using express and MongoDB",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
     "build": "babel src -d public/scripts",
     "watch": "babel src --watch -d public/scripts"
   },

@@ -1,10 +1,6 @@
 @import '../../sass-mix/popMixin';
-
-@mixin header-footer-bar {
-    background-color: var(--secondBG-color);
-    outline: var(--secondBG-color) solid 5px;
-    outline-offset: 5px;
-}
+@import 'mainbase_header-footer';
+@include header-footer;
 
 :root{
     //Back Ground Color
@@ -44,84 +40,6 @@
 body {
     background-color: var(--mainBG-color);
     position: relative;
-}
-
-.sticky{
-    position: sticky;
-    top: 0;
-    z-index: 3;
-}
-
-header {
-    display: flex;
-    height: var(--header-height);
-    padding:  1em 1.5em 1em 1.5em;
-    align-items: center;
-
-    @include header-footer-bar;
-
-    color: var(--scndryTxt-color);
-    text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-
-    #header-left{
-        flex-direction: row;
-        width: auto;
-    }
-
-    #header-center{
-        justify-content: space-around;
-        align-items: center;
-
-        h1{
-            height: fit-content;
-            font-size: 2.5em;
-        }
-        @media only screen and (max-width: 355px) {
-            h1{
-                font-size: 1.5em;
-            }
-        }
-    }
-
-    #header-right{
-        flex-direction: row-reverse;
-        width: auto;
-    }
-}
-
-header > * {
-    flex-grow: 1;
-    height: 100%;
-    display: flex;
-    position: relative;
-}
-
-#user-menu {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75em;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    *{
-        width: auto;
-        transition-duration: 500ms;
-    }
-}
-
-#nav-menu {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75em;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    *{
-        width: auto;
-        transition-duration: 500ms;
-    }
 }
 
 .btn-lvl-one{
@@ -178,57 +96,6 @@ main {
     background-size: cover;
     opacity: 0.1;
     z-index: -1;
-}
-
-footer {
-    display: flex;
-    align-items: center;
-    
-    height: var(--footer-height);
-    padding: 20px;
-
-    @include header-footer-bar;
-    #innerFoot{
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        position: relative;
-        width: 100%;
-        padding: 20px;
-        margin: 10px;
-        // border: 1px solid lime;
-        ul {
-            list-style-position: inside;
-            flex: 1 1 40%;
-            min-width: fit-content;
-            margin: 20px;
-            // border: 1px solid lime;
-            strong{
-                text-decoration: underline;
-                font-size: 1.5em;
-                text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-            }
-            li {
-                color: var(--scndryTxt-color);
-                text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-                line-height: 1.75;
-    
-                a{
-                    text-decoration: none;
-                    color: var(--scndryTxt-color);
-                    text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
-                    font-size: 1.15em;
-                }
-    
-                a:hover{
-                    text-decoration: line-through;
-                }
-                a:visited{
-                    text-decoration: line-through;
-                }
-            }
-        }
-    }
 }
 
 .shadow-block {

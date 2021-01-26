@@ -1,4 +1,13 @@
 #projectCards
+  if admin
+    a.project-card(href='/')
+      .card-front
+        img.card-image(src='/img/icon-svg/code.svg' , alt='angle brackets enclosing a forward slash')
+        h2 Create A New Project Card
+      .card-back
+        h2 Create A New Project Card
+        p This is not a project! It is, in fact, just a link to a form that will allow you to creat new project cards.
+  
   if projectCards
     each item in projectCards.projects
       a.project-card(href=item.url)
@@ -12,4 +21,4 @@
           h2= item.name
           p!= item.description
   else
-    p Oh! this is emberissing... (⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄ there don't seem to be anything here.
+    p Oh! this is emberissing... (⁄ ⁄•⁄ω⁄•⁄ ⁄) there don't seem to be anything here.

@@ -8,9 +8,9 @@ router.route('/')
   res.render('projects/project-overview');
 });
 
-router.route('/sampleone')
+router.route('/black-jack')
 .get((req, res) => {
-  res.render('project-template');
+  res.render('projects/project_black-jack');
 });
 
 module.exports = router;
