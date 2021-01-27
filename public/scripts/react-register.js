@@ -225,16 +225,21 @@ class NewUser extends React.Component {
   }
 
   async handleSubmit(event) {
-    console.log(event);
     event.preventDefault();
     const {
       nameErr,
       passErr
     } = this.state;
+    console.log(`nameErr : ${nameErr}`);
+    console.log(`passErr : ${passErr}`);
 
-    if (nameErr || passErr) {
+    if (nameErr == undefined || passErr == undefined) {
       this.setState({
-        err: 'Please Correct the errors listed about.'
+        err: 'Please fill in the form.'
+      });
+    } else if (nameErr || passErr) {
+      this.setState({
+        err: 'Please correct the errors listed about.'
       });
     } else {
       const data = {
@@ -258,8 +263,7 @@ class NewUser extends React.Component {
       } = jData;
       if (errors) this.setState({
         err: errors
-      });else {
-        window.location.href = '/';
+      });else {// window.location.href = '/';
       }
     }
   }
@@ -318,7 +322,8 @@ class NewUser extends React.Component {
       className: "form-comp"
     }, /*#__PURE__*/React.createElement("input", {
       type: "submit",
-      value: "Submit"
+      value: "Submit",
+      onClick: evt => this.handleSubmit(evt)
     }), /*#__PURE__*/React.createElement("p", {
       className: "error-field"
     }, this.state.err)));

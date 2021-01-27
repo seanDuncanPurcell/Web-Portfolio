@@ -204,11 +204,14 @@ class NewUser extends React.Component {
   }
 
   async handleSubmit(event){
-    console.log(event);
     event.preventDefault();
     const {nameErr, passErr} = this.state;
-    if(nameErr || passErr){
-      this.setState({err: 'Please Correct the errors listed about.'});
+    console.log(`nameErr : ${nameErr}`);
+    console.log(`passErr : ${passErr}`);
+    if ((nameErr == undefined)||(passErr == undefined)){
+      this.setState({err: 'Please fill in the form.'});
+    }else if(nameErr || passErr){
+      this.setState({err: 'Please correct the errors listed about.'});
     }else{
       const data = {
         username: this.username,
@@ -228,7 +231,7 @@ class NewUser extends React.Component {
       const {errors, message} = jData
       if(errors) this.setState({err: errors});
       else{
-        window.location.href = '/';
+        // window.location.href = '/';
       }
     }
   }
@@ -281,7 +284,7 @@ class NewUser extends React.Component {
         />
 
         <span className="form-comp">
-          <input type="submit" value= "Submit" />
+          <input type="submit" value="Submit"  onClick={(evt)=>this.handleSubmit(evt)}/>
           <p className="error-field" >{this.state.err}</p>
         </span>
       </form>
