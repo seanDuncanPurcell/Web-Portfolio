@@ -225,6 +225,8 @@ class NewUser extends React.Component {
   }
 
   async handleSubmit(event) {
+    console.log(event);
+    event.preventDefault();
     const {
       nameErr,
       passErr
@@ -260,8 +262,6 @@ class NewUser extends React.Component {
         window.location.href = '/';
       }
     }
-
-    event.preventDefault();
   }
 
   handleName(name) {
@@ -316,10 +316,10 @@ class NewUser extends React.Component {
       }
     }), /*#__PURE__*/React.createElement("span", {
       className: "form-comp"
-    }, /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("input", {
       type: "submit",
-      onClick: this.handleSubmit
-    }, "Submit"), /*#__PURE__*/React.createElement("p", {
+      value: "Submit"
+    }), /*#__PURE__*/React.createElement("p", {
       className: "error-field"
     }, this.state.err)));
   }

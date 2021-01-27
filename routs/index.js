@@ -1,19 +1,15 @@
 const bcrypt = require('bcrypt');
-const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
-const db_name = 'blogsystem';
+const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
+  const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const express = require('express');
 const Joi = require('joi');
-const mongoClient = require('mongodb').MongoClient;
+const {MongoClient} = require('mongodb');
 const router = express.Router();
-const {postBriefs, projectCards} = require('../useful-funcs/db-methods');
-const mongoose = require('mongoose');
+const {postBriefs} = require('../useful-funcs/db-methods');
 const { RateLimiterMongo } = require('rate-limiter-flexible');
-const mongoConn = mongoose.createConnection(`${db_url}/${db_name}`, {
-  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
-  reconnectInterval: 100, // Reconnect every 100ms
-});
 
-//set limits for password brute force
+// //set limits for password brute force
+const mongoConn = MongoClient.connect(db_url, mongoOps);
 const maxConsecutiveFailsByUsername = 5;
 const limiterConsecutiveFailsByUsername = new RateLimiterMongo({
   storeClient: mongoConn,
@@ -62,7 +58,7 @@ router.route('/login')
     } else {
       //deliration
       const data = req.body;
-      client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+      client = await MongoClient.connect(db_url, mongoOps);
       const collection = client.db('blogsystem').collection('users');
   
       //2) validate inputs

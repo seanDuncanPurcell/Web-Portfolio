@@ -204,6 +204,8 @@ class NewUser extends React.Component {
   }
 
   async handleSubmit(event){
+    console.log(event);
+    event.preventDefault();
     const {nameErr, passErr} = this.state;
     if(nameErr || passErr){
       this.setState({err: 'Please Correct the errors listed about.'});
@@ -225,11 +227,10 @@ class NewUser extends React.Component {
       const jData = await responce.json()
       const {errors, message} = jData
       if(errors) this.setState({err: errors});
-      else{        
+      else{
         window.location.href = '/';
       }
     }
-    event.preventDefault();
   }
 
   handleName(name){
@@ -280,9 +281,7 @@ class NewUser extends React.Component {
         />
 
         <span className="form-comp">
-          <button type="submit" onClick={this.handleSubmit}>
-            Submit
-          </button>
+          <input type="submit" value= "Submit" />
           <p className="error-field" >{this.state.err}</p>
         </span>
       </form>

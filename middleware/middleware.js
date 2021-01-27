@@ -1,13 +1,8 @@
-const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
-const db_name = 'blogsystem';
-const mongoose = require('mongoose');
+const {MongoClient} = require('mongodb');
+const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
+const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
+const mongoConn = MongoClient.connect(db_url, mongoOps);
 const { RateLimiterMongo } = require('rate-limiter-flexible');
-const mongoOpts = {
-  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
-  reconnectInterval: 100, // Reconnect every 100ms
-};
-const mongoConn = mongoose.createConnection(`${db_url}/${db_name}`, mongoOpts);
-
 
 //add session values to res.locals for view rendering
 function sessionTwoLocal(req, res, next) {

@@ -6,8 +6,9 @@ TODO
 */
 
 const express = require('express');
-const db_url = (process.env.db_url || 'mongodb://localhost:27017');
-const mongoClient = require('mongodb').MongoClient;
+const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
+  const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
+const {MongoClient} = require('mongodb');
 const db = require('mongodb');
 const router = express.Router();
 const {postBriefs} = require('../useful-funcs/db-methods.js');
@@ -26,10 +27,9 @@ router.route('/article')
   if(!req.session.admin){
     return res.status(401).send('Missing authorisation to post articals');
   }
-
   const data = req.body;
   const artId = req.query.id;
-  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+  const client = await MongoClient.connect(db_url, mongoOps);
   const articleStore = client.db('blogsystem').collection('articles');
 
   if(!artId){
@@ -45,13 +45,12 @@ router.route('/article')
       console.log(err);
     }
   }
-
 });
 
 router.route('/articles_db/:id')
 .get( async(req, res) => {
   const ObjectId = new db.ObjectId(req.params.id);
-  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+  const client = await MongoClient.connect(db_url, mongoOps);
   const article = await client.db('blogsystem').collection('articles').findOne({ _id: ObjectId});
   const jsonArticle = JSON.stringify(article);
   res.send(jsonArticle);

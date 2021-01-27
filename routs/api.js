@@ -1,19 +1,15 @@
 const bcrypt = require('bcrypt');
-const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
-const db_name = 'blogsystem';
+const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
+  const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const express = require('express');
 const Joi = require('joi');
 const salt = parseInt(process.env.SALT_ONE);
-const mongoClient = require('mongodb').MongoClient;
+const {MongoClient} = require('mongodb');
 const router = express.Router();
-const mongoose = require('mongoose');
 const { RateLimiterMongo } = require('rate-limiter-flexible');
-const mongoConn = mongoose.createConnection(`${db_url}/${db_name}`, {
-  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
-  reconnectInterval: 100, // Reconnect every 100ms
-});
 
 //set limits for new user accounts
+const mongoConn = MongoClient.connect(db_url, mongoOps);
 const maxAcctsByIP = 4;
 const limiterNewAcctFromIPperDay = new RateLimiterMongo({
   storeClient: mongoConn,
@@ -27,7 +23,7 @@ router.route('/is-user')
 .get( async (req, res) => {
     const name = req.query.username;
     if(name){
-      client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+      client = await MongoClient.connect(db_url, mongoOps);
       const collection = client.db('blogsystem').collection('users');
       const foundUser = await collection.findOne({username: name});
       if(foundUser){
@@ -59,7 +55,7 @@ router.route('/new-user')
   const rlResIp = await limiterNewAcctFromIPperDay.get(req.ip);
 
   //2) Connect to DB
-  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+  const client = await MongoClient.connect(db_url, mongoOps);
   const collection = client.db('blogsystem').collection('users');
 
   try{

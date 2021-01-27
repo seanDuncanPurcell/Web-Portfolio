@@ -17,7 +17,8 @@ TODO
 //declarations
 require('dotenv').config();
 const bodyParser = require('body-parser');
-const db_url = (process.env.DB_URL || 'mongodb://localhost:27017');
+const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
+  const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const express = require('express');
   const app = express();
 const hash = process.env.HASH_ONE;
