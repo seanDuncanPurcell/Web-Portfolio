@@ -2,7 +2,11 @@
   "name": "blog-app",
   "version": "1.0.0",
   "description": "Just a project to help me practice using express and MongoDB",
-  "keywords": ["node", "express", "heroku"],
+  "keywords": [
+    "node",
+    "express",
+    "heroku"
+  ],
   "main": "app.js",
   "scripts": {
     "start": "node app",
