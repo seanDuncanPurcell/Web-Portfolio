@@ -266,7 +266,8 @@ class NewUser extends React.Component {
         this.setState({
           err: error
         });
-      } else {// window.location.href = '/';
+      } else {
+        window.location.href = '/';
       }
     }
   }

@@ -232,7 +232,7 @@ class NewUser extends React.Component {
       if(error) {
         this.setState({err: error});
       }else{
-        // window.location.href = '/';
+        window.location.href = '/';
       }
     }
   }
