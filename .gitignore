@@ -1,6 +1,5 @@
 *.code-workspace
 *.env
 node_modules
-**/public/projects
 npm-debug.log
 .DS_Store

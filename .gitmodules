@@ -1,0 +1,6 @@
+[submodule "black-jack"]
+	path = public/projects/blackJack
+  url = https://github.com/seanDuncanPurcell/Cards-Games.js.git
+[submodule "public/projects/black-jack"]
+	path = public/projects/black-jack
+	url = https://github.com/seanDuncanPurcell/Cards-Games.js.git
