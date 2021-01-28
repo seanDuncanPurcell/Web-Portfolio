@@ -47,7 +47,7 @@ class NavMenu extends React.Component {
       className: "btn-lvl-one",
       onClick: this.handleClick
     }, /*#__PURE__*/React.createElement("img", {
-      src: `http://${location.host}/img/icon-svg/white/menu-icon.svg`,
+      src: `${location.origin}/img/icon-svg/white/menu-icon.svg`,
       alt: "Navigation Menu Icon"
     })), this.state.btns);
   }

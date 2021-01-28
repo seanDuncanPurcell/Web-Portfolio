@@ -67,7 +67,7 @@ class UserMenu extends React.Component {
       className: "btn-lvl-one",
       onClick: this.handleClick
     }, /*#__PURE__*/React.createElement("img", {
-      src: `http://${location.host}/img/icon-svg/white/user-icon.svg`,
+      src: `${location.origin}/img/icon-svg/white/user-icon.svg`,
       alt: "User Menu Icon"
     })), this.state.btns);
   }

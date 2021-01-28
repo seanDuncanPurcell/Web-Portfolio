@@ -41,7 +41,7 @@ class UserMenu extends React.Component{
         return(
             <div id='user-menu'>
                 <button  className='btn-lvl-one' onClick={this.handleClick}>
-                    <img src={`http://${location.host}/img/icon-svg/white/user-icon.svg`} alt="User Menu Icon" />
+                    <img src={`${location.origin}/img/icon-svg/white/user-icon.svg`} alt="User Menu Icon" />
                 </button>
                 {this.state.btns}
             </div>
