@@ -9,7 +9,7 @@ TODO
   --maybe some add some form of signature to articales.
 5) Implement mongoose
 6) DONE>>Implement node-rate-limiter-flexible
-7) Implement Helmet
+7) DONE>>Implement Helmet
 8) DONE>>PostBriefs needs to be removed from middle wear as it is no long used that way.
   -it could be add to a new microservice dir.
 */
@@ -21,8 +21,11 @@ const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net
 const express = require('express');
   const app = express();
 const hash = process.env.HASH_ONE;
+const helmet = require('helmet');
 const path = require('path');
 const port = (process.env.PORT || 3000);
+const production = (app.get('Env') === 'production');
+console.log('env is production: ' + production);
 const session = require('express-session');
   const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -37,6 +40,31 @@ const api = require('./routs/api');
 const {sessionTwoLocal} = require('./middleware/middleware');
 
 //settings
+const helmetOps = {
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'base-uri': ["'self'"],
+      'block-all-mixed-content': [],
+      'default-src': ["'self'"],
+      'object-src': ["'none'"],
+      'script-src': ["'self'"],
+      'script-src-elem': ["'self'", "unpkg.com"],
+      'style-src': ["'self'"],
+      'upgrade-insecure-requests': [],
+    }
+  },
+  expectCt: {maxAge: 0, enforce: false },
+  referrerPolicy: { policy: 'no-referrer' },
+  hsts: { maxAge: 15552000, includeSubDomains: true },
+  // noSniff: true,
+  dnsPrefetchControls: { allow: false },
+  // ieNoOpen: true,
+  frameguard: { action: 'deny' },
+  permittedCrossDomainPolicies: { permittedPolicies: "none" },
+  // hidePowerBy: true,
+  // xssFilter: true
+}
 const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const store = new MongoDBStore({
   uri: db_url,
@@ -55,10 +83,10 @@ const sess = (() => {
       maxAge: 1000 * 60 * 60 * 24, // 24 hr
       name: 'sessionId', //recomened by express api doc for preventing fingerprinting of server and targeted attacks
     }
-  } 
-  if (app.get('env') === 'production') {
+  }
+  if (production) {
     app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
+    retObj.cookie.secure = true // serve secure cookies
   }
   return retObj;
 })()
@@ -71,7 +99,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session(sess));
 app.use(sessionTwoLocal);
-
+app.use(helmet(helmetOps));
 //Routing
 app.use('/', index);
 app.use('/api', api);
