@@ -1,13 +1,6 @@
 { "projects":
   [
     {
-      "img": {}, 
-      "_id": "TemplateProjectDate", 
-      "name": "Create A New Project Card",
-      "url": "/",
-      "description": "This is not a project! It is, in fact, just a link to a form that will allow you to creat new project cards."
-    },
-    {
       "img": {"src": "/img/icon-svg/blogger-svgrepo-com.svg", "alt": "simplifided representation of a blog"}, 
       "_id": "6lstfp8qo14v09tnx6644bs64ae7iihvfh6j69g693pz192", 
       "name": "this.Blog",
