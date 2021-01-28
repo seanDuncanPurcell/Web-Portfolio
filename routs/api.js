@@ -61,7 +61,7 @@ router.route('/new-user')
   try{
     //3) confirm user has remaining point for new account
     if (rlResIp !== null && rlResIp.consumedPoints > maxAcctsByIP) {
-      res.status(429).send('You have created too many accounts in too short a time period.');
+      res.status(429).send(JSON.stringify({'error': 'You have created too many accounts in too short a time period.'}));
     } else {
       //3) Validate Inputs
       const foundName = await collection.findOne({username: data.username});

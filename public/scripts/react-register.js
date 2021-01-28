@@ -258,12 +258,15 @@ class NewUser extends React.Component {
       const responce = await fetch('/api/new-user', options);
       const jData = await responce.json();
       const {
-        errors,
+        error,
         message
       } = jData;
-      if (errors) this.setState({
-        err: errors
-      });else {// window.location.href = '/';
+
+      if (error) {
+        this.setState({
+          err: error
+        });
+      } else {// window.location.href = '/';
       }
     }
   }

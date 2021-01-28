@@ -1,5 +1,6 @@
-const db_url = (process.env.db_url || 'mongodb://localhost:27017');
-const mongoClient = require('mongodb').MongoClient;
+const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
+  const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
+const {MongoClient} = require('mongodb');
 const text = require('../useful-funcs/text-methods');
 const projects = require('../temp-db/projects.json');
 
@@ -7,7 +8,7 @@ const projects = require('../temp-db/projects.json');
 //postBrieft needs to be removed from middle wear as it is no long used that way.
 async function postBriefs(num) {
   const briefs = [];
-  const client = await mongoClient.connect(db_url, {useUnifiedTopology: true});
+  const client = await MongoClient.connect(db_url, mongoOps);
 
   const result = await client.db('blogsystem').collection('articles').find({}).toArray();
   result.forEach( (doc) => {
