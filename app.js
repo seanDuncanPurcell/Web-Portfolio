@@ -15,10 +15,9 @@ TODO
 */
 
 //declarations
-require('dotenv').config();
+require('dotenv').config(); //reads hidden/global declarations for .env file
 const bodyParser = require('body-parser');
 const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
-  const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const express = require('express');
   const app = express();
 const hash = process.env.HASH_ONE;
@@ -38,41 +37,38 @@ const api = require('./routs/api');
 const {sessionTwoLocal} = require('./middleware/middleware');
 
 //settings
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const store = new MongoDBStore({
   uri: db_url,
   databaseName: 'blogsystem',
   collection: 'mySessions',
   expires: 1000 * 60 * 60 * 24, // 24hr in milliseconds
-  connectionOptions: {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 10000
+  connectionOptions: mongoOps
+});
+const sess = (() => {
+    const retObj = {
+    secret: hash,
+    store: store,
+    resave: false,
+    saveUninitialized: true,  
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 24 hr
+      name: 'sessionId', //recomened by express api doc for preventing fingerprinting of server and targeted attacks
+    }
+  } 
+  if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
   }
-});
-  //error cataching
-store.on('error', function(error) {
-  console.log(error);
-});
+  return retObj;
+})()
+store.on('error', error => console.log(error));//error cataching
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 //middlewear
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const sess = {
-  secret: hash,
-  store: store,
-  resave: false,
-  saveUninitialized: true,  
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 24 hr
-    name: 'sessionId', //recomened by express api doc for preventing fingerprinting of server and targeted attacks
-  }
-} 
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
 app.use(session(sess));
 app.use(sessionTwoLocal);
 
@@ -83,7 +79,6 @@ app.use('/bio', bio);
 app.use('/blog', blog);
 app.use('/projects', projects);
 app.use(express.static(path.join(__dirname, '/public')));
-
 
 //misc.
 app.listen(port, () => {
