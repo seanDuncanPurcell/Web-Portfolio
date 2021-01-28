@@ -50,6 +50,7 @@ const helmetOps = {
       'object-src': ["'none'"],
       'script-src': ["'self'"],
       'script-src-elem': ["'self'", "unpkg.com"],
+      'script-src-attr': ["'self'"],
       'style-src': ["'self'"],
       'upgrade-insecure-requests': [],
     }
