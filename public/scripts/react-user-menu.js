@@ -66,10 +66,16 @@ class UserMenu extends React.Component {
     }, /*#__PURE__*/React.createElement("button", {
       className: "btn-lvl-one",
       onClick: this.handleClick
-    }, /*#__PURE__*/React.createElement("img", {
-      src: `/img/icon-svg/white/user-icon.svg`,
-      alt: "User Menu Icon"
-    })), this.state.btns);
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "40",
+      height: "40",
+      viewBox: "0 0 16 16",
+      xmlns: "http://www.w3.org/2000/svg"
+    }, /*#__PURE__*/React.createElement("title", null, "user-icon"), /*#__PURE__*/React.createElement("path", {
+      d: "M13 5c0-2.76-2.24-5-5-5S3 2.24 3 5c0 1.52.678 2.882 1.75 3.8C2.52 9.97 1 12.306 1 15c0 .552.448 1 1 1s1-.448 1-1c0-2.76 2.24-5 5-5s5 2.24 5 5c0 .552.448 1 1 1s1-.448 1-1c0-2.693-1.52-5.03-3.75-6.2C12.323 7.88 13 6.52 13 5zM8 8C6.343 8 5 6.657 5 5s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z",
+      fill: "#FFF",
+      "fill-rule": "evenodd"
+    }))), this.state.btns);
   }
 
 }

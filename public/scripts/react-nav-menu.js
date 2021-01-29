@@ -46,10 +46,16 @@ class NavMenu extends React.Component {
     }, /*#__PURE__*/React.createElement("button", {
       className: "btn-lvl-one",
       onClick: this.handleClick
-    }, /*#__PURE__*/React.createElement("img", {
-      src: `${location.origin}/img/icon-svg/white/menu-icon.svg`,
-      alt: "Navigation Menu Icon"
-    })), this.state.btns);
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "40",
+      height: "40",
+      viewBox: "0 0 16 16",
+      xmlns: "http://www.w3.org/2000/svg"
+    }, /*#__PURE__*/React.createElement("title", null, "menu-icon"), /*#__PURE__*/React.createElement("path", {
+      d: "M1 14h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1zm0-5h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1zm0-5h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1z",
+      fill: "#FFF",
+      "fill-rule": "evenodd"
+    }))), this.state.btns);
   }
 
 }

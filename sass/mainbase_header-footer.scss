@@ -10,30 +10,30 @@
   color: var(--scndryTxt-color);
   text-shadow: 1px 1px 2px var(--scndryTxt-shadow);
 
-  #header-left{
-      flex-direction: row;
-      width: auto;
-  }
+    #header-left{
+        flex-direction: row;
+        width: auto;
+    }
 
-  #header-center{
-      justify-content: space-around;
-      align-items: center;
+    #header-center{
+        justify-content: space-around;
+        align-items: center;
 
-      h1{
-          height: fit-content;
-          font-size: 2.5em;
-      }
-      @media only screen and (max-width: 355px) {
-          h1{
-              font-size: 1.5em;
-          }
-      }
-  }
+        h1{
+            height: fit-content;
+            font-size: 2.5em;
+        }
+        @media only screen and (max-width: 355px) {
+            h1{
+                font-size: 1.5em;
+            }
+        }
+    }
 
-  #header-right{
-      flex-direction: row-reverse;
-      width: auto;
-  }
+    #header-right{
+        flex-direction: row-reverse;
+        width: auto;
+    }
   }
 
   header.mb-header-footer > * {
@@ -51,10 +51,10 @@
   top: 0;
   right: 0;
   z-index: 2;
-  *{
-      width: auto;
-      transition-duration: 500ms;
-  }
+    *{
+        width: auto;
+        transition-duration: 500ms;
+    }
   }
 
   #nav-menu {
