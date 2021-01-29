@@ -7,7 +7,7 @@
   },
   "aboutme": {
     "head": "About me",
-    "text": "The only thing about coding that bums me out it that is took me so long to find it. I can and have, (accidentally) spent up to ten hours working on some of my projects before realizing my eyes hurt and my stomach was growling. Considering the vast potential of these technologies to improve the lives of people all around the world is like looking into the ocean and trying to see the bottom."
+    "text": "The only thing about coding that bums me out is that it took me so long to find it. I can and have, (accidentally) spent up to ten hours working on some of my projects before realizing my eyes hurt and my stomach was growling. Considering the vast potential of these technologies to improve the lives of people all around the world is like looking into the ocean and trying to see the bottom."
   },
   "tools": {
     "title": "I work with",
@@ -32,7 +32,8 @@
       "Client driven experiences", 
       "Life improving applications", 
       "Entertainment that improves its constumers",
-      "Making big-data consumable and relateable"
+      "Making big-data consumable and relateable",
+      "Application Security"
     ]
   },
   "history": [ 

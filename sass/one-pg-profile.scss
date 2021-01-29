@@ -78,6 +78,7 @@ section{
   p, em{
     font-size: 0.90em;
   }
+  
   strong{
     font-size: 1.2em;
   }
@@ -98,7 +99,7 @@ section{
     figurecaption {
       box-sizing: border-box;
       padding: 5vw;
-      z-index: 2;
+      z-index: 1.5;
       display: flex;
       justify-content: center;
       align-items: center;
