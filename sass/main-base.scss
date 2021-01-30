@@ -42,34 +42,7 @@ body {
     position: relative;
 }
 
-.btn-lvl-one{
-    height: fit-content;
-    background-color: var(--mainBG-offset-color);
-    border: none;
-    border-radius: 5%;
-    padding: 10px;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
-
-    img{
-        height: 40px;
-        width: 40px;
-    }
-}
-
-a.btn-lvl-one{
-    text-decoration: none;
-    font-size: 1.5em;
-    color: var(--mainTxt-color);
-}
-
-.btn-lvl-one:hover{
-    transform: scale(1.1, 1.1);
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
-}
-
-.btn-lvl-one:focus{
-    outline: none;
-}
+@include base-btn;
 
 main {
     display: flex;
