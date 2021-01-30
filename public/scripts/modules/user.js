@@ -1,7 +1,0 @@
-const user = (()=>{
-    return{
-        logOut(){
-            
-        }
-    }
-})()

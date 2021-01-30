@@ -1,10 +1,3 @@
-/*
-TODO
-1) Sanitize incoming blog ariticals.
-2) DONE>> Use quary params in artical-get reqs to return exsisting artical.
-3) DONE>> Abstract htmlCleaner & textlimmiter to text processing modula.
-*/
-
 const express = require('express');
 const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
   const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -39,7 +32,7 @@ router.route('/')
 
 router.route('/article')
 .get( helmet.contentSecurityPolicy(blogCsp), (req, res) => {
-  res.render('blog/article-view', {articleID: req.query.id});
+  res.render('blog/article-view');
 })
 
 router.route('/article/editor')
@@ -72,15 +65,6 @@ router.route('/article/editor')
       console.log(err);
     }
   }
-});
-
-router.route('/articles_db/:id')
-.get( async(req, res) => {
-  const ObjectId = new db.ObjectId(req.params.id);
-  const client = await MongoClient.connect(db_url, mongoOps);
-  const article = await client.db('blogsystem').collection('articles').findOne({ _id: ObjectId});
-  const jsonArticle = JSON.stringify(article);
-  res.send(jsonArticle);
 });
 
 module.exports = router;
