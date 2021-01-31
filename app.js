@@ -16,6 +16,7 @@ TODO
 
 //declarations
 require('dotenv').config(); //reads hidden/global declarations for .env file
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
 const express = require('express');
@@ -40,6 +41,7 @@ const api = require('./routs/api');
 const {sessionTwoLocal} = require('./middleware/middleware');
 
 //settings
+const corsOps = {origin: 'http://localhost:3000' }
 const helmetOps = {
   contentSecurityPolicy: {
     directives: {
@@ -102,6 +104,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session(sess));
 app.use(sessionTwoLocal);
 app.use(helmet(helmetOps));
+app.use(cors(corsOps));
+
 //Routing
 app.use('/', index);
 app.use('/api', api);

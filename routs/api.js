@@ -113,25 +113,24 @@ router.route('/get-user')
 });
 
 //provides blog article data from db
-router.route('/get-article/:id')
+router.route('/get-article')
 .get( async(req, res) => {
+  const client = MongoClient(db_url, mongoOps);
   try{
     //1)Delcare req consts
-    const artId = req.params.id;
+    const artId = req.query.id;
 
     //2)Connect to DB
-    const articleStore = await MongoClient
-    .connect(db_url, mongoOps)
-    .db('blogsystem')
-    .collection('articles');
+    await client.connect();
+    const articleStore = client.db('blogsystem').collection('articles');
 
     //3)Check for ID
-    if(artId) const dbRes = await articleStore.findOne({_id: new db.ObjectId(artId)});
+    let dbRes = null;
+    if(artId) dbRes = await articleStore.findOne({_id: new db.ObjectId(artId)});
     else res.status(422).send('id required for artical search');
-    console.log(dbRes);
 
     //4)Return Data
-    if (true) res.send(dbRes)
+    res.send(dbRes);
 
   }catch(error){
     console.log(error);
@@ -169,7 +168,8 @@ router.route('/set-article')
       const idValide = await articleStore.findOne({ _id: objId });
   
       //4.a If ID valid then update db, else throw error 
-      if(idValide) const mongoRes = await articleStore.replaceOne({ _id: objectId}, data);
+      let mongoRes = null;
+      if(idValide) mongoRes = await articleStore.replaceOne({ _id: objectId}, data);
       else res.status(422).send('Failed to update article as its id could not be found in db.');
     }
   
