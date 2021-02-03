@@ -75,39 +75,6 @@ main > section > a h1 {
   margin-bottom: 3vw;
 }
 
-#compArea {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  border: none;
-}
-
-.ql-toolbar {
-  border: none !important;
-  background-color: snow;
-  border-radius: 2px;
-  padding: 15px;
-  -webkit-box-shadow: inset 2px 2px 5px #000000;
-          box-shadow: inset 2px 2px 5px #000000;
-  border: 1px solid black !important;
-  border-top: 2px solid black !important;
-  border-left: 2px solid black !important;
-}
-
-.ql-editor {
-  color: var(--mainTxt-color);
-  background-color: var(--mainBG-color);
-  width: 100%;
-  border-radius: 2px;
-  padding: 15px;
-  -webkit-box-shadow: inset 2px 2px 6px #000000e3;
-          box-shadow: inset 2px 2px 6px #000000e3;
-  border: 1px solid rgba(0, 0, 0, 0.589) !important;
-  border-top: 2px solid rgba(0, 0, 0, 0.589) !important;
-  border-left: 2px solid rgba(0, 0, 0, 0.589) !important;
-}
-
 div.button-panle {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -115,9 +82,10 @@ div.button-panle {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: var(--secondBG-color);
+  gap: 15px;
   border-radius: 2px;
   padding: 15px;
+  background-color: var(--secondBG-color);
   -webkit-box-shadow: inset 2px 2px 10px #000000c5;
           box-shadow: inset 2px 2px 10px #000000c5;
   border: 1px solid rgba(0, 0, 0, 0.589) !important;
@@ -134,4 +102,19 @@ div.button-panle button {
 div.button-panle button:hover {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
+}
+
+.codex-editor {
+  background-color: #cccccc;
+  padding: 1rem;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 2px 2px 10px #000000c5;
+          box-shadow: inset 2px 2px 10px #000000c5;
+  border: 1px solid rgba(0, 0, 0, 0.589) !important;
+  border-top: 2px solid rgba(0, 0, 0, 0.589) !important;
+  border-left: 2px solid rgba(0, 0, 0, 0.589) !important;
+}
+
+.codex-editor__redactor {
+  padding-bottom: 100px !important;
 }

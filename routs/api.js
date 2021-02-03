@@ -133,8 +133,6 @@ router.route('/get-article')
     //4)Return Data
     res.send(dbRes);
 
-    console.log(dbRes)
-
   }catch(error){
     console.log(error);
     res.send(JSON.stringify(error));

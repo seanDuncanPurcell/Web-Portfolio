@@ -18,23 +18,23 @@ class ArticleViewer extends React.Component{
     const authorised = (userAdmin || userAuthor) ? true : false;
     if(props.editMode){
       return(
-        <div className='button-pannle'>
-          <button onClick={() => location.assign('/blog') }>Leave</button>
-          <button onClick={this.handleSave}>Save</button>
-          <button onClick={this.handleEdit}>Stop Editing</button>
+        <div className='button-panle'>
+          <button className='btn-lvl-one' onClick={() => location.assign('/blog') }>Leave</button>
+          <button className='btn-lvl-one' onClick={this.handleSave}>Save</button>
+          <button className='btn-lvl-one' onClick={this.handleEdit}>Stop Editing</button>
         </div>
       )
     }else if(authorised) {
       return(
-        <div className='button-pannle'>
-          <button onClick={() => location.assign('/blog') }>Leave</button>
-          <button onClick={this.handleEdit}>Edit</button>
+        <div className='button-panle'>
+          <button className='btn-lvl-one' onClick={() => location.assign('/blog') }>Leave</button>
+          <button className='btn-lvl-one' onClick={this.handleEdit}>Edit</button>
         </div>
       )
     } else {
       return(
-        <div className='button-pannle'>
-          <button onClick={() => location.assign('/blog') }>Leave</button>
+        <div className='button-panle'>
+          <button className='btn-lvl-one' onClick={() => location.assign('/blog') }>Leave</button>
         </div>
       )
     }
@@ -44,7 +44,6 @@ class ArticleViewer extends React.Component{
     const query = location.search;
     const urlQuery = new URLSearchParams(query);
     const id = urlQuery.get('id');
-    console.log('the id is: ' + id)
     let articleData = {};
     if(id){
       const url = `/api/get-article?id=${id}`;
@@ -57,44 +56,32 @@ class ArticleViewer extends React.Component{
     this.editor = new EditorJS({
       holderId: 'editor-container', 
       data: articleData,
-      // tools: {
-      //   header: {
-      //     class: Header,
-      //     inlineToolbar: true,
-      //     shortcut: 'CMD+SHIFT+H',
-      //     config: {
-      //       placeholder: 'Greatness Awaits You!',
-      //       levels: [1, 2, 3, 4, 5, 6],
-      //       defaultLevel: 1
-      //     }
-      //   },
-      //   quote: {
-      //     class: Quote,
-      //     inlineToolbar: true,
-      //     shortcut: 'CMD+SHIFT+O',
-      //     config: {
-      //       quotePlaceholder: 'Enter a quote',
-      //       captionPlaceholder: 'Quote\'s author',
-      //     },
-      //   },
-      //   list: {
-      //     class: List,
-      //     inlineToolbar: true,
-      //   },
-      //   code: CodeTool,
-      //   Marker: {
-      //     class: Marker,
-      //     shortcut: 'CMD+SHIFT+M',
-      //   }
-      // },
+      tools: {
+        header: {
+          class: Header,
+          inlineToolbar: true,
+          shortcut: 'CMD+SHIFT+H',
+          config: {
+            placeholder: 'Greatness Awaits You!',
+            levels: [1, 2, 3, 4, 5, 6],
+            defaultLevel: 1
+          }
+        },
+        underline: Underline,
+        marker: {
+          class: Marker,
+          shortcut: 'CMD+SHIFT+M',
+        }
+      },
       readOnly: true
     });
   }
   
   handleSave() {
-    this.editor.save()
-    .then( svData => {
-      const id = this.props.data._id;
+    const query = location.search;
+    const urlQuery = new URLSearchParams(query);
+    const id = urlQuery.get('id');
+    this.editor.save().then( svData => {
       let url = '/api/set-article'
       if (id) url += `?id=${id}`;
       fetch(url, {
@@ -106,7 +93,7 @@ class ArticleViewer extends React.Component{
       })
       .then( result => result.json() )
       .then( data => {
-        console.log(data._id);
+        console.log(data);
       } )
       .catch( error => console.warn(error))
     })

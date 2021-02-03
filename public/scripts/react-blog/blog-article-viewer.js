@@ -27,26 +27,32 @@ class ArticleViewer extends React.Component {
 
     if (props.editMode) {
       return /*#__PURE__*/React.createElement("div", {
-        className: "button-pannle"
+        className: "button-panle"
       }, /*#__PURE__*/React.createElement("button", {
+        className: "btn-lvl-one",
         onClick: () => location.assign('/blog')
       }, "Leave"), /*#__PURE__*/React.createElement("button", {
+        className: "btn-lvl-one",
         onClick: this.handleSave
       }, "Save"), /*#__PURE__*/React.createElement("button", {
+        className: "btn-lvl-one",
         onClick: this.handleEdit
       }, "Stop Editing"));
     } else if (authorised) {
       return /*#__PURE__*/React.createElement("div", {
-        className: "button-pannle"
+        className: "button-panle"
       }, /*#__PURE__*/React.createElement("button", {
+        className: "btn-lvl-one",
         onClick: () => location.assign('/blog')
       }, "Leave"), /*#__PURE__*/React.createElement("button", {
+        className: "btn-lvl-one",
         onClick: this.handleEdit
       }, "Edit"));
     } else {
       return /*#__PURE__*/React.createElement("div", {
-        className: "button-pannle"
+        className: "button-panle"
       }, /*#__PURE__*/React.createElement("button", {
+        className: "btn-lvl-one",
         onClick: () => location.assign('/blog')
       }, "Leave"));
     }
@@ -56,7 +62,6 @@ class ArticleViewer extends React.Component {
     const query = location.search;
     const urlQuery = new URLSearchParams(query);
     const id = urlQuery.get('id');
-    console.log('the id is: ' + id);
     let articleData = {};
 
     if (id) {
@@ -70,43 +75,32 @@ class ArticleViewer extends React.Component {
     this.editor = new EditorJS({
       holderId: 'editor-container',
       data: articleData,
-      // tools: {
-      //   header: {
-      //     class: Header,
-      //     inlineToolbar: true,
-      //     shortcut: 'CMD+SHIFT+H',
-      //     config: {
-      //       placeholder: 'Greatness Awaits You!',
-      //       levels: [1, 2, 3, 4, 5, 6],
-      //       defaultLevel: 1
-      //     }
-      //   },
-      //   quote: {
-      //     class: Quote,
-      //     inlineToolbar: true,
-      //     shortcut: 'CMD+SHIFT+O',
-      //     config: {
-      //       quotePlaceholder: 'Enter a quote',
-      //       captionPlaceholder: 'Quote\'s author',
-      //     },
-      //   },
-      //   list: {
-      //     class: List,
-      //     inlineToolbar: true,
-      //   },
-      //   code: CodeTool,
-      //   Marker: {
-      //     class: Marker,
-      //     shortcut: 'CMD+SHIFT+M',
-      //   }
-      // },
+      tools: {
+        header: {
+          class: Header,
+          inlineToolbar: true,
+          shortcut: 'CMD+SHIFT+H',
+          config: {
+            placeholder: 'Greatness Awaits You!',
+            levels: [1, 2, 3, 4, 5, 6],
+            defaultLevel: 1
+          }
+        },
+        underline: Underline,
+        marker: {
+          class: Marker,
+          shortcut: 'CMD+SHIFT+M'
+        }
+      },
       readOnly: true
     });
   }
 
   handleSave() {
+    const query = location.search;
+    const urlQuery = new URLSearchParams(query);
+    const id = urlQuery.get('id');
     this.editor.save().then(svData => {
-      const id = this.props.data._id;
       let url = '/api/set-article';
       if (id) url += `?id=${id}`;
       fetch(url, {
@@ -116,7 +110,7 @@ class ArticleViewer extends React.Component {
         },
         body: JSON.stringify(svData)
       }).then(result => result.json()).then(data => {
-        console.log(data._id);
+        console.log(data);
       }).catch(error => console.warn(error));
     });
   }
