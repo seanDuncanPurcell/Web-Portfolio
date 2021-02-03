@@ -1,6 +1,10 @@
 if(postBriefs)
     each item in postBriefs
-        a(id=item.id class="shadow-block reactive-block brief-blog")
+        a(
+            id=item.id 
+            href=`/blog/article?id=${item.id}` 
+            class="shadow-block reactive-block brief-blog"
+        )
             h1 #{item.title}
             p #{item.summery}
 else

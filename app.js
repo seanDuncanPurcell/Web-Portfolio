@@ -51,10 +51,10 @@ const helmetOps = {
       'default-src': ["'self'"],
       'object-src': ["'none'"],
       'script-src': ["'self'"],
-      'script-src-elem': ["'self'", "unpkg.com", "cdn.quilljs.com"],
+      'script-src-elem': ["'self'", "unpkg.com", "cdn.jsdelivr.net"],
       'script-src-attr': ["'self'"],
       'style-src': ["'self'"],
-      'style-src-elem': ["'self'", "cdn.quilljs.com"],
+      'style-src-elem': ["'self'", "cdn.jsdelivr.net"],
       'upgrade-insecure-requests': [],
     }
   },

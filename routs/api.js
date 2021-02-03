@@ -119,6 +119,7 @@ router.route('/get-article')
   try{
     //1)Delcare req consts
     const artId = req.query.id;
+    console.log(artId)
 
     //2)Connect to DB
     await client.connect();
@@ -127,10 +128,12 @@ router.route('/get-article')
     //3)Check for ID
     let dbRes = null;
     if(artId) dbRes = await articleStore.findOne({_id: new db.ObjectId(artId)});
-    else res.status(422).send('id required for artical search');
+    else throw new Error('No ID found.');
 
     //4)Return Data
     res.send(dbRes);
+
+    console.log(dbRes)
 
   }catch(error){
     console.log(error);
