@@ -19,14 +19,18 @@
         justify-content: space-around;
         align-items: center;
 
-        h1{
-            height: fit-content;
-            font-size: 2.5em;
-        }
-        @media only screen and (max-width: 355px) {
-            h1{
-                font-size: 1.5em;
-            }
+        a{
+          color: var(--scndryTxt-color);
+          text-shadow: 0 0 2px rgba(0, 0, 0, 0.658);
+          h1{
+              height: fit-content;
+              font-size: 2.5em;
+          }
+          @media only screen and (max-width: 355px) {
+              h1{
+                  font-size: 1.5em;
+              }
+          }
         }
     }
 

@@ -27,7 +27,12 @@ header.mb-header-footer #header-center {
           align-items: center;
 }
 
-header.mb-header-footer #header-center h1 {
+header.mb-header-footer #header-center a {
+  color: var(--scndryTxt-color);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.658);
+}
+
+header.mb-header-footer #header-center a h1 {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -35,7 +40,7 @@ header.mb-header-footer #header-center h1 {
 }
 
 @media only screen and (max-width: 355px) {
-  header.mb-header-footer #header-center h1 {
+  header.mb-header-footer #header-center a h1 {
     font-size: 1.5em;
   }
 }
@@ -301,4 +306,3 @@ main {
   -webkit-transform: scale(1.005);
           transform: scale(1.005);
 }
-/*# sourceMappingURL=main-base.css.map */

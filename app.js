@@ -24,7 +24,7 @@ const express = require('express');
 const hash = process.env.HASH_ONE;
 const helmet = require('helmet');
 const path = require('path');
-const port = (process.env.PORT || 3000);
+const port = (process.env.PORT || 5000);
 const production = (app.get('Env') === 'production');
 console.log('env is production: ' + production);
 const session = require('express-session');

@@ -146,6 +146,7 @@ router.route('/get-article')
 //used to create and up blog articles in db 
 router.route('/set-article')
 .post( async(req, res) => {
+  let client = null;
   try{
     //1)Check for admin rights
     if(!req.session.admin){
@@ -158,19 +159,23 @@ router.route('/set-article')
     const data = req.body;
   
     //3)Connect to DB
-    const articleStore = await MongoClient
-      .connect(db_url, mongoOps)
-      .db('blogsystem')
-      .collection('articles');
+    client = await MongoClient.connect(db_url, mongoOps);
+    const articleStore = client.db('blogsystem').collection('articles');
   
     //4) If an ID was provided, see check that it is valid.
     if(artId){
       const idValide = await articleStore.findOne({ _id: objId });
   
       //4.a If ID valid then update db, else throw error 
-      let mongoRes = null;
-      if(idValide) mongoRes = await articleStore.replaceOne({ _id: objectId}, data);
-      else res.status(422).send('Failed to update article as its id could not be found in db.');
+      if(idValide) {
+        const mongoRes = await articleStore.replaceOne({ _id: objId}, data);
+        console.log(mongoRes);
+        if(mongoRes.matchedCount === 1){
+          res.status(200).send({ _id: objId, message: 'sussessfully replaced db entry'});
+        }
+      }else {
+        res.status(422).send('Failed to update article as its id could not be found in db.');
+      }
     }
   
     //5 If no ID provided incert new entry into db and return new ID to user
@@ -186,7 +191,7 @@ router.route('/set-article')
 
   }finally{
     client.close();
-    
+
   }
 });
 

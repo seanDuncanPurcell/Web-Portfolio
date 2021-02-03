@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node app",
     "build": "babel src -d public/scripts",
-    "watch": "babel src --watch -d public/scripts"
+    "watch": "babel src --watch -d public/scripts",
+    "updateSubs": "git submodule update --init --recursive"
   },
   "author": "Sean D Purcell",
   "license": "MIT",
