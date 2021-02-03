@@ -7,7 +7,7 @@ TODO
 4) Consider establishing user roles with bubble up privliages.
   -only admin can delete any db enty but non-admin can delet their own db entries.
   --maybe some add some form of signature to articales.
-5) Implement mongoose
+5) IGNOR>>Implement mongoose
 6) DONE>>Implement node-rate-limiter-flexible
 7) DONE>>Implement Helmet
 8) DONE>>PostBriefs needs to be removed from middle wear as it is no long used that way.
@@ -16,7 +16,6 @@ TODO
 
 //declarations
 require('dotenv').config(); //reads hidden/global declarations for .env file
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
 const express = require('express');
@@ -26,7 +25,6 @@ const helmet = require('helmet');
 const path = require('path');
 const port = (process.env.PORT || 5000);
 const production = (app.get('Env') === 'production');
-console.log('env is production: ' + production);
 const session = require('express-session');
   const MongoDBStore = require('connect-mongodb-session')(session);
 
