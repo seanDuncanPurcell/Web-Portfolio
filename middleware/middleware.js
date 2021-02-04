@@ -1,7 +1,10 @@
+const express = require('express');
+  const app = express();
 const {MongoClient} = require('mongodb');
 const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net/admin?retryWrites=true&w=majority`;
 const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const mongoConn = MongoClient.connect(db_url, mongoOps);
+const production = (app.get('Env') === 'production');
 const { RateLimiterMongo } = require('rate-limiter-flexible');
 
 //add session values to res.locals for view rendering
@@ -16,6 +19,7 @@ function sessionTwoLocal(req, res, next) {
     res.locals.loggedin = loggedin;
     res.locals.admin = admin;
   }
+  res.locals.envProduction = production;
   next();
 }
 
