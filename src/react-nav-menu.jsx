@@ -33,7 +33,7 @@ class NavMenu extends React.Component{
                         <title>
                             menu-icon
                         </title>
-                        <path d="M1 14h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1zm0-5h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1zm0-5h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1z" fill="#FFF" fill-rule="evenodd"/>
+                        <path d="M1 14h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1zm0-5h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1zm0-5h14c.552 0 1-.448 1-1s-.448-1-1-1H1c-.552 0-1 .448-1 1s.448 1 1 1z" fill="#FFF" fillRule="evenodd"/>
                     </svg>
                 </button>
                 {this.state.btns}
