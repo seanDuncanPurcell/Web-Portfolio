@@ -50,7 +50,6 @@ class ArticleViewer extends React.Component{
       const responce = await fetch(url);      
       console.log(responce);
       articleData = await responce.json();
-      console.log(articleData);
     }
 
     this.editor = new EditorJS({
@@ -92,9 +91,7 @@ class ArticleViewer extends React.Component{
         body: JSON.stringify(svData)
       })
       .then( result => result.json() )
-      .then( data => {
-        console.log(data);
-      } )
+      .then( article =>  location.replace(`/blog/article?id=${article._id}`) )
       .catch( error => console.warn(error))
     })
   }
