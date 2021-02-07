@@ -92,7 +92,7 @@ class ArticleViewer extends React.Component{
       })
       .then( result => result.json() )
       .then( article =>  location.replace(`/blog/article?id=${article._id}`) )
-      .catch( error => console.warn(error))
+      .catch( error => console.warn(error));
     })
   }
   

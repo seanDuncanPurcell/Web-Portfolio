@@ -83,6 +83,33 @@ header.mb-header-footer > * {
   width: auto;
   -webkit-transition-duration: 500ms;
           transition-duration: 500ms;
+  border: none;
+}
+
+#user-menu * #userName {
+  position: absolute;
+  background-color: var(--mainAlertColor);
+  width: 16ch;
+  height: 50px;
+  margin-top: 5px;
+  -webkit-transform: translateX(-15ch);
+          transform: translateX(-15ch);
+  z-index: -1;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2em;
+  font-weight: 750;
 }
 
 #nav-menu {
@@ -191,6 +218,7 @@ footer.project-deets {
   --scndryTxt-color: rgb(11, 21, 54);
   --scndryTxt-shadow: rgba(11, 21, 54, 0.692);
   --mainHL-color: rgba(255, 255, 255, 0.377);
+  --mainAlertColor: rgb(255, 64, 0);
   --footer-height: 300px;
   --header-height: 100px;
   --main-min-height: calc(100vh - var(--footer-height) - var(--header-height));
@@ -253,6 +281,14 @@ a.btn-lvl-one {
 }
 
 .btn-lvl-one:focus {
+  outline: none;
+}
+
+.btn-case {
+  background: none;
+}
+
+.btn-case:focus {
   outline: none;
 }
 

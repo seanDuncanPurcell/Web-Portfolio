@@ -56,8 +56,29 @@
   right: 0;
   z-index: 2;
     *{
-        width: auto;
-        transition-duration: 500ms;
+      width: auto;
+      transition-duration: 500ms;
+      border: none;
+        #userName{
+          // size and positioning
+          position: absolute;
+          background-color: var(--mainAlertColor);
+          width: 16ch;
+          height: 50px;
+          margin-top: 5px;
+          transform: translateX(-15ch);
+          z-index: -1;
+          
+          //shape and form
+          border-radius: 5px;
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
+          border: 1px solid black;
+          
+          //text format
+          @include flexCenter;
+          font-size: 2em;
+          font-weight: 750;
+        }
     }
   }
 

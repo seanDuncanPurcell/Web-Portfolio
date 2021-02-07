@@ -9,8 +9,6 @@ class NavMenu extends React.Component {
   }
 
   handleClick() {
-    this.user = getUser();
-
     if (this.state.clicked) {
       this.setState({
         btns: [],
@@ -60,4 +58,4 @@ class NavMenu extends React.Component {
 
 }
 
-ReactDOM.render( /*#__PURE__*/React.createElement(NavMenu, null), document.getElementById('header-left'));
+export default NavMenu;

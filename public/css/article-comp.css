@@ -32,6 +32,14 @@ a.btn-lvl-one {
   outline: none;
 }
 
+.btn-case {
+  background: none;
+}
+
+.btn-case:focus {
+  outline: none;
+}
+
 main > section > a {
   text-decoration: none;
   display: -webkit-box;

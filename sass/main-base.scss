@@ -2,7 +2,7 @@
 @import 'mainbase_header-footer';
 @include header-footer;
 
-:root{
+:root{ 
     //Back Ground Color
     --mainBG-color: rgb(39, 38, 36);
     --mainBG-offset-color: rgb(49, 45, 38);
@@ -13,6 +13,7 @@
     --scndryTxt-shadow: rgba(11, 21, 54, 0.692);    
     //Misc.
     --mainHL-color: rgba(255, 255, 255, 0.377);
+    --mainAlertColor: rgb(255, 64, 0);
     //Sizing
     --footer-height: 300px;
     @media only screen and (max-width: 600px) {
