@@ -1,6 +1,6 @@
 [submodule "public/projects/black-jack"]
 	path = public/projects/black-jack
 	url = https://github.com/seanDuncanPurcell/Cards-Games.js.git
-[submodule "public/projects/ec_character-gen/eclipsephase_character-gen"]
-	path = public/projects/ec_character-gen/eclipsephase_character-gen
+[submodule "public/projects/eclipsephase_character-gen"]
+	path = public/projects/eclipsephase_character-gen
 	url = https://github.com/seanDuncanPurcell/eclipsephase_character-gen.git
