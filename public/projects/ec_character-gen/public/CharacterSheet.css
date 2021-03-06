@@ -1,0 +1,152 @@
+*{  
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body{
+  padding: 5px;
+}
+
+/* Top-Level Formating */
+.Char-Builder_Header{
+  margin: 10px;
+  margin-top: 30px;
+}
+
+.Char-Builder_Point-Counter{
+  border: 3px solid red;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  padding: 5px;
+  background-color: rgb(228, 228, 228);
+}
+.Char-Builder_Point-Counter > *{
+  margin: 0 5px;
+}
+
+
+/* Hover Tool Tips */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* Aptitudes Section */
+.character-aptitudes{
+  display: flex;  
+}
+.single-aptitude{
+  display: grid;  
+  grid-template-rows: repeat(4, 1fr);  
+}
+.single-aptitude > p{
+  margin: 0;
+  border-bottom: 1px solid black;
+}
+
+.character-aptitudes, .aptitudes-input{
+  font-size: 1.25em;
+}
+
+/* Skills Section*/
+.skill_block {
+  display: flex;
+  flex-direction: column;
+  width: 80ch;
+  border: 1px solid red;
+}
+
+.skill_row {
+  display: grid;
+  grid-template-columns: 5fr repeat(5, 2fr);  
+}
+
+.skill_row > * {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  height: 100%;
+  margin: 0;
+  padding: 5px;
+}
+
+.skill_cell, .skill_input{
+  text-align: center;
+}
+.skill_input{
+  box-shadow: inset 2px 2px 2px rgba(65, 65, 65, 0.527);
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.skill_text{
+  text-align: end;
+}
+
+.skill_template-label{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.skill_template-label > *{
+  margin-left: 5px;
+}
+
+.skill_header{
+  font-weight: bold;
+  background-color: rgb(124, 124, 124);
+}
+
+/* Background Section */
+.char-bckgrnd{
+  border: 1px solid black;
+  padding: 10px;
+  width: 80ch;
+}
+.char-bckgrnd > h2{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.char-bckgrnd__main-selector, .char-bckgrnd__skill-line{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.char-bckgrnd__main-selector{
+  border: 1px solid red;
+  width: 30ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.char-bckgrnd__skill-line{
+  border: 1px solid green;
+  width: 40ch;
+}
+.char-bckgrnd__skill-line > strong > select{
+  margin-left: 5px;
+}
