@@ -60,7 +60,7 @@
 }
 .single-aptitude{
   display: grid;  
-  grid-template-rows: repeat(4, 1fr);  
+  grid-template-rows: 1fr 1fr 1fr 1fr;  
 }
 .single-aptitude > p{
   margin: 0;
@@ -81,7 +81,7 @@
 
 .skill_row {
   display: grid;
-  grid-template-columns: 5fr repeat(5, 2fr);  
+  grid-template-columns: 5fr 2fr 2fr 2fr 2fr 2fr;  
 }
 
 .skill_row > * {
