@@ -1,0 +1,13 @@
+extends ../main-base.pug
+
+//- block append style
+block append style
+  link(rel="stylesheet", href="/css/character-sheet.css")
+
+block content
+  #charSheetRoot
+  
+//- block append scripts  
+block append scripts
+  script(src="/scripts/character-creater/index.js" type="module")
+      

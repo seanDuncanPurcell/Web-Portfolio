@@ -13,4 +13,9 @@ router.route('/black-jack')
   res.render('projects/project_black-jack');
 });
 
+router.route('/ec_character_builder')
+.get((req, res) => {
+  res.render('projects/ec_character_builder');
+});
+
 module.exports = router;
