@@ -100,7 +100,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session(sess));
 app.use(sessionTwoLocal);
-// app.use(helmet(helmetOps));
+app.use(helmet(helmetOps));
 
 //Routing
 app.use('/', index);
