@@ -1,7 +1,7 @@
 class UserMenu extends React.Component{
-    async constructor(props){
+    constructor(props){
         super(props)
-        const {username, loggedin} = await JSON.parse(sessionStorage.getItem('user'));
+        const {username, loggedin} = JSON.parse(sessionStorage.getItem('user'));
         this.state = {clicked: false, btns: [], userName: username, loggedin: loggedin};
         
         this.handleClick = this.handleClick.bind(this);

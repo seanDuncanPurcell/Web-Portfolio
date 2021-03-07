@@ -84,4 +84,4 @@ class UserMenu extends React.Component {
 
 }
 
-export default UserMenu
+export default UserMenu;
