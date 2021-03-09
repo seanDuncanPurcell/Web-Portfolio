@@ -1,102 +1,94 @@
 import Background from './Background.js';
+import Sleeve from './Sleeve.js';
 //this data block will be dirved from the rule book and can not be altered by players
 const staticData = {
   playerName: {        
     label: 'Player Name',
-    id: 'plynam01',
     type: 'text',
     value: ''
   },
   characterName: {        
     label: 'Character Name',
-    id: 'charnam02',
     type: 'text',
     value: ''
   },
   subjectiveAge: {        
     label: 'Subjective Age',
-    id: 'fisihghari65644f34s6',
     type: 'text',
     value: ''
   },
   objectiveAge: {        
     label: 'Objective Age',
-    id: '45g45g3sadfg5f15s3',
     type: 'text',
     value: ''
   },
-  sleeve: {        
+  sleeve: {
     label: 'Sleeve',
-    type: 'dropDown',
+    type: 'sleeve',
     options: {
-      default: {
-        label: 'Select One',
-        aptitudesMods: {
-          cog: 0,
-          coo: 0,
-          int: 0,
-          ref: 0,
-          sav: 0,
-          som: 0,
-          wil: 0,
-        },
+      falts: {
+        label: 'Flats',
+        description: `Flats are baseline unmodified humans, born with all
+        of the natural defects, hereditary diseases, and other
+        genetic mutations that evolution so lovingly applies.
+        Flats are increasingly rare—most died off with the rest
+        of humanity during the Fall. Most new children are
+        splicers—screened and genefixed at the least—except
+        in habitats where flats are treated as second-class citizens
+        and indentured labor.`,
+        aptitudesMods: [],
+        aptitudesMax: 20,
+        cost: 0,
+        durability: 30,
+        woundThreshold: 6
+      },
+      splicers: {
+        label: 'SPLICERS',
+        description: `Splicers are genefixed humans. Their genome has
+        been cleansed of hereditary diseases and optimized
+        for looks and health, but has not otherwise been
+        substantially upgraded. Splicers make up the majority
+        of transhumanity.`,
+        aptitudesMods: [5],
         aptitudesMax: 25,
-        skillMods: {
-          animalHandling: 0,
-        },
-        cost: 0
-      }, 
-      normal: {
-        label: 'Normal',
-        aptitudesMods: {
-          cog: 0,
-          coo: 0,
-          int: 0,
-          ref: 0,
-          sav: 0,
-          som: 0,
-          wil: 0,
-        },
-        aptitudesMax: 25,
-        skillMods: {
-          climbing: 0
-        },
-        cost: 0
-      }, 
-      gradeTwo: {
-        label: 'Grade 2',
-        aptitudesMods: {
-          cog: 3,
-          coo: 0,
-          int: 0,
-          ref: 0,
-          sav: 0,
-          som: 3,
-          wil: 0,
-        },
+        cost: 10,
+        durability: 30,
+        woundThreshold: 6
+      },
+      exalts: {
+        label: 'EXALTS',
+        description: `Exalt morphs are genetically enhanced humans,
+        designed to emphasize specific traits. Their genetic
+        code has been tweaked to make them healthier,
+        smarter, and more attractive. Their metabolism is
+        modified to predispose them towards staying fit and
+        athletic for the duration of an extended lifespan.`,
+        aptitudesMods: [5, 5, 5, {apt: 'cog', mod: 5}],
         aptitudesMax: 30,
-        skillMods: {
-          animalHandling: 0
-        },
-        cost: 10
-      }, 
-      gradeThree: {
-        label: 'Grade 3',
-        aptitudesMods: {
-          cog: 5,
-          coo: 0,
-          int: 0,
-          ref: 0,
-          sav: 0,
-          som: 5,
-          wil: 0,
-        },
-        aptitudesMax: 40,
-        skillMods: {
-          blades: +10,
-        },
-        cost: 20
-      }, 
+        skillMods: {},
+        cost: 30,
+        durability: 30,
+        woundThreshold: 7
+      },
+      olympians: {
+        label: 'OLYMPIANS',
+        description: `Olympians are human upgrades with improved
+        athletic capabilities like endurance, eye-hand coordination,
+        and cardiovascular functions. Olympians
+        are common among athletes, dancers, freerunners,
+        and soldiers.`,
+        aptitudesMods: [
+          5,
+          {apt: 'cog', mod: 5},
+          {apt: 'ref', mod: 5},
+          {apt: 'som', mod: 5}
+        ],
+        aptitudesMax: 30,
+        skillMods: {},
+        cost: 40,
+        durability: 40,
+        woundThreshold: 8
+      }
     }
   },
   background: {        
@@ -130,12 +122,7 @@ const staticData = {
           , selection: 'Autonomists'
           , mod: 10 }
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 5000
@@ -163,12 +150,7 @@ const staticData = {
           , selection: 'Autonomists'
           , mod: 20 }
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 2,
         creditMod: 2500
@@ -191,12 +173,7 @@ const staticData = {
           , selection: 'Hypercorp'
           , mod: 20 },
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 10000
@@ -247,12 +224,7 @@ const staticData = {
           ]
           , mod: 20 }
         ],
-        rep: {
-          at: 40, c: 40,
-          e: 40, f: 40,
-          g: 40, i: 40,
-          r: 40
-        },
+        rep: 40,
         traits: 0,
         moxieMod: 1,
         creditMod: 2500
@@ -283,12 +255,7 @@ const staticData = {
           , selection: 'Hypercorps'
           , mod: 20 }
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 5000
@@ -318,12 +285,7 @@ const staticData = {
           , selection: 'Hypercorps'
           , mod: 20 }
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 5000
@@ -358,12 +320,7 @@ const staticData = {
           , selection: 'Autonomists'
           , mod: 20 }
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 5000
@@ -392,12 +349,7 @@ const staticData = {
           , selection: 'Autonomists'
           , mod: 10 },
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: ['editedMemories'],
         moxieMod: 3,
         creditMod: 0
@@ -423,12 +375,7 @@ const staticData = {
           , mod: 20 }
 
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 5000
@@ -453,12 +400,7 @@ const staticData = {
           , skillKey: ['academics', 'art', 'interest', 'language', 'profession']
           , mod: 20 }
         ],
-        rep: {
-          at: 50, c: 50,
-          e: 50, f: 50,
-          g: 50, i: 50,
-          r: 50
-        },
+        rep: 50,
         traits: 0,
         moxieMod: 1,
         creditMod: 5000
@@ -1084,6 +1026,14 @@ const staticData = {
       tags: ['Active', 'Combat'],
       aptitudeKey: 'som'
     },
+  },
+  customPoints: {
+    aptitudes: {total: 105, cost: 10},
+    skillsActive:  {total: 400, cost: 1},
+    skillsKnowledge: {total: 300, cost: 1},
+    moxie: {total: 0, cost: 15},
+    credit: {total: 0, cost: 0.001},
+    rep: {total: 0, cost: 0.1}
   }
 }
 
@@ -1103,18 +1053,21 @@ const dynamicData = {
     wil: {name: 'Willpower', abbreviation: 'WIL', value: 5, morphBonus: 0, total: 5}    
   },
   moxie: 0,
-  sleeve: 'default',
+  credit: 0,
+  rep: 0,
+  sleeve: {
+    key: 'falts',
+    aptitudesMods: [],
+    aptitudesMax: 20,
+    durability: 30,
+    woundThreshold: 6
+  },
   background: {
     key: '',
     skillMod: '',
     creditMod: 0,
-    moxieMod: 0,
-    rep: {
-      at: 0, c: 0,
-      e: 0, f: 0,
-      g: 0, i: 0,
-      r: 0
-    },
+    moxie: 0,
+    rep: 0,
     traits: 0
   },
   faction: {
@@ -1135,7 +1088,13 @@ const dynamicData = {
   cp: {
     aptitudes: 35,
     skillsActive: 0,
-    skillsKnowledge: 0
+    skillsKnowledge: 0,
+    overFlow: 0,
+    traits: 0,
+    moxie: 0,
+    credit: 0,
+    rep: 0,
+    sleeve: 0
   }
 }
 
@@ -1191,7 +1150,6 @@ function SimpleDropDown (props){
 }
 
 function Aptitudes (props) {
-  const fixed = props.dataStatic;
   const dynamic = props.dataDynmic;
   function updateCP(event, key){
     const value = event.target.value
@@ -1207,8 +1165,13 @@ function Aptitudes (props) {
   return(
     <section className='character-aptitudes'>
       {Object.keys(dynamic.aptitudes).map((key) => {
-        const maxApt = fixed.sleeve.options[dynamic.sleeve].aptitudesMax
+        const maxApt = dynamic.sleeve.aptitudesMax
         const myData = dynamic.aptitudes[key];
+        let sleeveBonuse = 0 
+        dynamic.sleeve.aptitudesMods.forEach( option => {
+          if (option.apt === key) sleeveBonuse = option.mod
+        })
+        
         let alertStyle = {fontWeight: 'normal', color: 'black'};
         if(maxApt < myData.total){
           alertStyle = {fontWeight: 'bold', color: 'red'};
@@ -1231,7 +1194,7 @@ function Aptitudes (props) {
               step='1'
               onChange={event => updateCP(event, key)}
             />
-            <p>{myData.morphBonus}</p>
+            <p>{sleeveBonuse}</p>
             <p style={alertStyle}>{maxApt}</p>
             <p>{myData.total}</p>
           </label>            
@@ -1252,15 +1215,53 @@ function Aptitudes (props) {
 function Counter (props) {
   const pontsTotal = props.pontsTotal
   const pontsSpent = props.pontsSpent
+  const myClass = (props.className) ? props.className : 'Char-Builder_Point-Counter' 
+  const myLabel = (props.label) ? props.label : 'Points Spent:'
   const style = { color: 'black'}
   if(pontsSpent > pontsTotal) Object.assign( style, {color: 'red', fontWeight: 'bold'})
   return (
-    <div className='Char-Builder_Point-Counter'>
-      <strong>Points Spent:</strong>
+    <div className={myClass}>
+      <strong>{myLabel}</strong>
       <p style={style}>{pontsSpent}</p>
       <p> / </p>
       <p>{pontsTotal}</p>
     </div>
+  )
+}
+
+function BonusExpendature (props) {
+  const Label = props.label
+  const key = props.srcKey
+  const baseStat = props.baseStat
+  const bonusStat = props.bonusStat
+  const cost = (()=>{
+    const baseCost = staticData.customPoints[key].cost
+    return (baseCost >= 1) ? baseCost : 1
+  })()
+  const roi = (()=>{
+    const baseCost = staticData.customPoints[key].cost
+    return (baseCost >= 1) ? 1 : ((1 / baseCost))
+  })()
+  return (
+    <>
+      <label className='bounsExp_input'>
+        <strong>{Label} :</strong>
+        <input
+          className='skill_input'
+          type='number'
+          min={baseStat}
+          value={baseStat + bonusStat}
+          step={roi}
+          onChange={(event) => {
+            const value = event.target.value - baseStat
+            props.handleChange(value)
+          }}
+        />
+      </label>
+      <div className='bounsExp_costs'>
+        <strong>Cost: </strong> <p>{roi} for {cost}</p>
+      </div>
+    </>
   )
 }
 
@@ -1273,7 +1274,6 @@ class Skills extends React.Component{
   }
   SimpleSkill(props){
     const dataDynmic = props.dataDynmic
-    const dataStatic = props.dataStatic
     const fixedSkill = props.fixedSkill
     const rank = props.rank
     const skillKey = props.skillKey
@@ -1281,7 +1281,7 @@ class Skills extends React.Component{
 
     const aptMod = (()=>{
       const aptitude = dataDynmic.aptitudes[fixedSkill.aptitudeKey].total
-      const morphMax = dataStatic.sleeve.options[dataDynmic.sleeve].aptitudesMax
+      const morphMax = dataDynmic.sleeve.aptitudesMax
       return (aptitude > morphMax) ? morphMax : aptitude
     })()
     const total = rank + aptMod + specialMod
@@ -1437,55 +1437,57 @@ class Skills extends React.Component{
           <p className='skill_cell' >Apt. Mod</p>
           <p className='skill_cell' >Special Bonuses</p>
         </label>
-        {skillList.map( skillKey => {
-          const fixedSkill = this.props.dataStatic.skills[skillKey];
+        <div className='skill_scroll-block'>
+          {skillList.map( skillKey => {
+            const fixedSkill = this.props.dataStatic.skills[skillKey];
 
-          //If Normal Skill then render a SimpleSkill
-          if(!fixedSkill.options){
-            const rank = (dataDynmic.skills[skillKey]) ? dataDynmic.skills[skillKey] : 0
-            const specialMod = (()=>{
-              let total = 0
-              const bgOptions = dataDynmic.background.skillMod
-              for(let i = 0; i < bgOptions.length; i++ ){
-                if(bgOptions[i].skillKey === skillKey){
-                  total += bgOptions[i].mod
+            //If Normal Skill then render a SimpleSkill
+            if(!fixedSkill.options){
+              const rank = (dataDynmic.skills[skillKey]) ? dataDynmic.skills[skillKey] : 0
+              const specialMod = (()=>{
+                let total = 0
+                const bgOptions = dataDynmic.background.skillMod
+                for(let i = 0; i < bgOptions.length; i++ ){
+                  if(bgOptions[i].skillKey === skillKey){
+                    total += bgOptions[i].mod
+                  }
                 }
-              }
-              const facOptions = dataDynmic.faction.skillMod
-              for(let i = 0; i < facOptions.length; i++ ){
-                if(facOptions[i].skillKey === skillKey){
-                  total += facOptions[i].mod
+                const facOptions = dataDynmic.faction.skillMod
+                for(let i = 0; i < facOptions.length; i++ ){
+                  if(facOptions[i].skillKey === skillKey){
+                    total += facOptions[i].mod
+                  }
                 }
-              }
-              return total
-            })()
-            return(
-              <this.SimpleSkill
-                fixedSkill={fixedSkill}
-                rank={rank}
-                skillKey={skillKey}
-                specialMod={specialMod}
-                dataStatic={this.props.dataStatic}
-                dataDynmic={dataDynmic}
-                handleChange={this.props.handleChange}
-                key={['over-skill', skillKey].join('_')}
-              />
-            )
-          }//Otherwise its a TemplateSkill 
-          else{
-            return(
-              <this.TemplateSkill 
-                fixedSkill={fixedSkill}
-                skillKey={skillKey}
-                dataStatic={this.props.dataStatic}
-                dataDynmic={dataDynmic}
-                handleChange={this.props.handleChange}
-                handleNewSubSkill={this.props.handleNewSubSkill}
-                key={['over-skill', skillKey].join('_')}
-              />
-            )
-          }
-        })}
+                return total
+              })()
+              return(
+                <this.SimpleSkill
+                  fixedSkill={fixedSkill}
+                  rank={rank}
+                  skillKey={skillKey}
+                  specialMod={specialMod}
+                  dataStatic={this.props.dataStatic}
+                  dataDynmic={dataDynmic}
+                  handleChange={this.props.handleChange}
+                  key={['over-skill', skillKey].join('_')}
+                />
+              )
+            }//Otherwise its a TemplateSkill 
+            else{
+              return(
+                <this.TemplateSkill 
+                  fixedSkill={fixedSkill}
+                  skillKey={skillKey}
+                  dataStatic={this.props.dataStatic}
+                  dataDynmic={dataDynmic}
+                  handleChange={this.props.handleChange}
+                  handleNewSubSkill={this.props.handleNewSubSkill}
+                  key={['over-skill', skillKey].join('_')}
+                />
+              )
+            }
+          })}
+        </div>
       </section>
     )
   }
@@ -1495,19 +1497,49 @@ class CharacterSheet extends React.Component {
   constructor(props){
     super(props)
     this.state = dynamicData
+    this.state.cp.bonusPoints = 0
     this.staticData = staticData
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleNewSubSkill = this.handleNewSubSkill.bind(this)
     this.handleBackground = this.handleBackground.bind(this)
     this.handleFaction = this.handleFaction.bind(this)
+    this.handleSleeve = this.handleSleeve.bind(this)
     this.handleCP = this.handleCP.bind(this)
+    this.handleBonus - this.handleBonus.bind(this)
   }
 
   handleCP(change, attribute){
+    //update individual attribute's total
     const newCP = this.state.cp
     newCP[attribute] = change
+    
+    //update overflow total
+    const totaloverFlowPoint = Object.keys(this.staticData.customPoints)
+    .map( key => {
+      const maxpoints = this.staticData.customPoints[key].total
+      if(maxpoints){
+        const currnentPoints = newCP[key]
+        const cost = this.staticData.customPoints[key].cost
+        const overFlow = (currnentPoints - maxpoints) * cost
+        return (overFlow <= 0) ? 0 : overFlow 
+      }
+      return 0
+    })
+    .reduce( (a ,b) => a + b)
+    newCP.overFlow = totaloverFlowPoint
+    newCP.bonusPoints = newCP.overFlow + newCP.traits + newCP.moxie + newCP.credit + newCP.rep + newCP.sleeve
+
+    //set the state
     this.setState({cp: newCP})
+  }
+
+  handleBonus(value, key){
+    const cost = this.staticData.customPoints[key].cost
+    const newData = this.state
+    newData[key] = value
+    this.setState(newData)
+    this.handleCP(Math.floor(value * cost), key)
   }
 
   handleBackground(data){
@@ -1520,12 +1552,7 @@ class CharacterSheet extends React.Component {
       skillMod: skillMod,
       creditMod: creditMod,
       moxie: moxie,
-      rep: {
-        at: rep.at, c: rep.c,
-        e: rep.e, f: rep.f,
-        g: rep.g, i: rep.i,
-        r: rep.r
-      },
+      rep: rep,
       traits: traits
     }
 
@@ -1643,22 +1670,22 @@ class CharacterSheet extends React.Component {
     this.setState(newState);
   }
 
+  handleSleeve(newSleeve) {
+    this.setState({sleeve: newSleeve})
+  }
+
   componentDidUpdate () {
     //Calc Total for Apts
-    const apts = this.state.aptitudes
-    Object.keys(apts).forEach( key => {
-      const apt = apts[key];
-      let morphBonus = apt.morphBonus;
-      const sleeveBounse = this.staticData.sleeve.options[this.state.sleeve].aptitudesMods[key];
+    Object.keys(this.state.aptitudes).forEach( key => {
+      const apt = this.state.aptitudes[key];
+      let morphBonus = 0
+      const sleeveBonus = this.state.sleeve.aptitudesMods
+      for (let i = 0; i < sleeveBonus.length; i++){
+        if(sleeveBonus[i].apt === key) 
+          morphBonus = sleeveBonus[i].mod 
+      }
       const state = this.state;
       let change = false;
-      
-      //check for new sleeve bounses
-      if(morphBonus !== sleeveBounse){
-        state.aptitudes[key].morphBonus = sleeveBounse;        
-        morphBonus = sleeveBounse;
-        change = true;
-      }
       
       const baseApt = apt.value;
       const total = apt.total;
@@ -1680,27 +1707,36 @@ class CharacterSheet extends React.Component {
       playerName, characterName, subjectiveAge, 
       objectiveAge, sleeve, background, faction
     } = this.staticData;
+    const cp = this.staticData.customPoints
     const formMap = {
-      one: {label: 'Step One', type: 'header'},
+      one: {label: 'Step One:', type: 'header'},
       playerName: playerName,
       characterName: characterName,
       subjectiveAge: subjectiveAge,
       objectiveAge: objectiveAge,
-      two: {label: 'Step Two', type: 'header'},
+      two: {label: 'Step Two:', type: 'header'},
       background: background,
-      three: {label: 'Step Three', type: 'header'},
+      three: {label: 'Step Three:', type: 'header'},
       faction: faction,
-      four: {label: 'Step Four', type: 'header'},
-      aptitudes: {type: 'aptitudes', cp: 105},
-      five: {label: 'Step Five', type: 'header'},
-      skillsActive: {type: 'skills', cp: 400, list: skillArrayByTag('Active')},
-      six: {label: 'Step Six', type: 'header'},
-      skillsKnowledge: {type: 'skills', cp: 300, list: skillArrayByTag('Knowledge')},
-      seven: {label: 'Step Seven', type: 'header'},
-      sleeve: sleeve
+      four: {label: 'Step Four:', type: 'header'},
+      aptitudes: {type: 'aptitudes', cp: cp.aptitudes.total},
+      five: {label: 'Step Five:', type: 'header'},
+      skillsActive: {type: 'skills', cp: cp.skillsActive.total, list: skillArrayByTag('Active')},
+      six: {label: 'Step Six:', type: 'header'},
+      skillsKnowledge: {type: 'skills', cp: cp.skillsKnowledge.total, list: skillArrayByTag('Knowledge')},
+      seven: {label: 'Step Seven:', type: 'header'},
+      sleeve: sleeve,
+      eight: {label: 'Step Eight:', type: 'header'},
+      bounses: {label: 'Misc.', type: 'bonuses'}
     }
     return(
       <>
+        <Counter 
+          pontsSpent={(this.state.cp.bonusPoints)} 
+          pontsTotal={200}
+          className='Char-Builder_Point-Counter Char-Builder_Bonus-Point-Counter'
+          label='Bonus Points Spent:'
+        />
         {Object.keys(formMap).map( (key, index) => {
           const item = formMap[key];
           if (item.type === 'text') {
@@ -1743,9 +1779,12 @@ class CharacterSheet extends React.Component {
           } else if (item.type === 'header') {
             return <h1 className='Char-Builder_Header' key={`header_${key}`}>{item.label}</h1>
           } else if (item.type === 'aptitudes') {
+
+            //if player over spend due not display here, it will be displayed in bouns CP
+            const spent = (this.state.cp.aptitudes > item.cp) ? item.cp : this.state.cp.aptitudes
             return (
               <>
-                <Counter pontsSpent={this.state.cp.aptitudes} pontsTotal={item.cp} />
+                <Counter pontsSpent={spent} pontsTotal={item.cp} />
                 <Aptitudes
                   spendPoints={this.handleCP}
                   dataDynmic={this.state}
@@ -1755,9 +1794,12 @@ class CharacterSheet extends React.Component {
               </>
             )
           } else if (item.type === 'skills') {
+
+            //if player over spend due not display here, it will be displayed in bouns CP
+            const spent = (this.state.cp[key] > item.cp) ? item.cp : this.state.cp[key]
             return (
               <>
-                <Counter pontsSpent={this.state.cp[key]} pontsTotal={item.cp} />
+                <Counter pontsSpent={spent} pontsTotal={item.cp} />
                 <Skills
                   skillList={item.list}
                   spendPoints={ (points) => this.handleCP(points, key)}
@@ -1769,6 +1811,49 @@ class CharacterSheet extends React.Component {
                   handleNewSubSkill={this.handleNewSubSkill}
                 />
               </>
+            )
+          } else if (item.type === 'bonuses') {
+            const background = this.state.background
+            const baseMox = background.moxie
+            const baseCredit = background.creditMod
+            const baseRep = background.rep
+            return (
+              <section className='char-bckgrnd'>
+                <h2>{item.label}</h2>
+                {/* Buy extra moxie */}
+                <BonusExpendature
+                  label={'Moxie'}
+                  srcKey={'moxie'}
+                  baseStat={baseMox}
+                  bonusStat={this.state.moxie}
+                  handleChange={value => this.handleBonus(value, 'moxie')}
+                /> 
+                {/* Buy extra credits */}
+                <BonusExpendature
+                  label={'Credit'}
+                  srcKey={'credit'}
+                  baseStat={baseCredit}
+                  bonusStat={this.state.credit}
+                  handleChange={value => this.handleBonus(value, 'credit')}
+                />
+                {/* Buy extra rep */}
+                <BonusExpendature
+                  label={'Reputation'}
+                  srcKey={'rep'}
+                  baseStat={baseRep}
+                  bonusStat={this.state.rep}
+                  handleChange={value => this.handleBonus(value, 'rep')}
+                />
+              </section>
+            )
+          } else if (item.type === 'sleeve') {
+            return (
+              <Sleeve
+                dataStatic={this.staticData}
+                dataDynamic={this.state}
+                onSubmit={this.handleSleeve}
+                spendCP={ cost => this.handleCP(cost, 'sleeve')}
+              />
             )
           } else {
             return <p>Failed to render element</p>

@@ -53,6 +53,15 @@ class Background extends React.Component {
   }
 
   handleSubmit(){
+    let pass = true
+    this.state.bckgrndOp.skillMod.forEach( option => {
+      if(option.type === 'multiple') {
+        window.alert(`You have to select all your skills before chooseing. -"WHY ARE YOU LIKE THIS!!!" `)
+        pass = false
+        return
+      }
+    })
+    if(!pass) return
     const key = this.state.onDisplay
     const {skillMod, creditMod, moxieMod, rep, traits} = this.state.bckgrndOp
     const data = {
