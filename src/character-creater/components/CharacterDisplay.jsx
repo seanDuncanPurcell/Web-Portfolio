@@ -12,7 +12,7 @@ function AtributeDisplay (props) {
           const aptitude = aptitudes[aptKey]
           const total = (aptitude.total < sleeveMax) ? aptitude.total : sleeveMax
           return (
-            <div className='Char-dsply__Apt-column'>
+            <div className='Char-dsply__Apt-column' key={['aptitude', aptKey].join('_')}>
               <strong>{aptitude.abbreviation}</strong>
               <p>{total}</p>
               <p>{total * 3}</p>
@@ -61,6 +61,7 @@ function TemplateSkill(props){
   const characterData = props.characterData
   const fixedSkill = props.fixedSkill
   const skillKey = props.skillKey
+  const modifires = props.modifires
 
   const subSkills = fixedSkill.options.filter( _key => {
     let charSubSkills = characterData.skills[skillKey]
@@ -109,7 +110,7 @@ function TemplateSkill(props){
             }
             return 0
           })()
-          return backgroundSkillData + factionSkillData
+          return backgroundSkillData + factionSkillData + modifires
         })()
 
         return(
@@ -132,7 +133,7 @@ function SkillDisplay (props) {
   const fixedSkills = props.fixedSkills
   const characterData = props.characterData
   const charSkills = characterData.skills
-  console.log(charSkills)
+  const modifires = props.modifires
   return(
     <section className='Char-dsply__Skill-dsply skill_block'>
       <label 
@@ -150,7 +151,8 @@ function SkillDisplay (props) {
         { Object.keys(fixedSkills).map( skillKey => {
           const fixedSkill = fixedSkills[skillKey]
           const specialMod = (()=>{
-            let total = 0
+            let total = 0 
+            total += modifires
             const bgOptions = characterData.background.skillMod
             for(let i = 0; i < bgOptions.length; i++ ){
               if(bgOptions[i].skillKey === skillKey){
@@ -171,6 +173,7 @@ function SkillDisplay (props) {
                 fixedSkill={fixedSkill}
                 skillKey={skillKey}
                 characterData={characterData}
+                modifires={modifires}
                 key={['overComp', 'templet-skill', skillKey].join('_')}
               />
             )
@@ -214,28 +217,60 @@ function ProfileDisplay (props) {
 function HealthTracking (props) {
   const sleeve = props.characterData.sleeve
   const will = props.characterData.aptitudes.wil.total
+  const myState = props.myState
   return(
     <>
     <h3 className='Char-dsply__Health__Head'>Health Tracking</h3>
     <section className='Char-dsply__Health'>
-      <div><strong>Armor (Energy/Kenetic)</strong><input type="text"/></div>
-      <div><strong>Durability</strong><p>{sleeve.durability}</p></div>
-      <div><strong>Damage: </strong><input type="text"/></div>
+      <div><strong>Armor (Eng./Ken.)</strong>
+        <input value={myState.wounds} type="text" onChange={evt=>props.handleUpLift(evt, 'armor')}/>
+      </div>
+      <div><strong>Durability</strong>
+        <p>{sleeve.durability}</p>
+      </div>
+      <div><strong>Damage: </strong>
+        <input type="number" step='1' value={myState.damage} onChange={evt=>props.handleUpLift(evt, 'damage')}/>
+      </div>
       <div><strong>Wound Threshold</strong><p>{sleeve.durability / 5 }</p></div>
-      <div><strong>Wounds: </strong><input type="number" step='1'/></div>
-      <div><strong>Lucidity</strong><p>{will * 2}</p></div>
-      <div><strong>Stress</strong><input type="text"/></div>
-      <div><strong>Trauma Threshold</strong><p>{Math.ceil(will / 2)}</p></div>
-      <div><strong>Mental Trauma: </strong><input type="number" step='1'/></div>
+      <div><strong>Wounds: </strong>
+        <input type="number" step='1' value={myState.wounds} onChange={evt=>props.handleUpLift(evt, 'wounds')}/>
+      </div>
+      <div><strong>Lucidity</strong>
+        <p>{will * 2}</p>
+      </div>
+      <div><strong>Stress</strong>
+        <input type="number" step='1' value={myState.stress} onChange={evt=>props.handleUpLift(evt, 'stress')}/>
+      </div>
+      <div><strong>Trauma Threshold</strong>
+        <p>{Math.ceil(will / 2)}</p>
+      </div>
+      <div><strong>Mental Trauma: </strong>
+        <input type="number" step='1' value={myState.mentalTrauma} onChange={evt=>props.handleUpLift(evt, 'mentalTrauma')}/>
+      </div>
     </section>
     </>
   )
 }
 
 function WeaponsDisplay (props) {
+  const myValue = props.myValue
+  const handleChange = (event, i, key) => {
+    const val = event.target.value 
+    myValue[i][key] = val
+    props.handleUpLift(myValue)
+  }
+  const deleteMe = i => {
+    myValue.splice(i, 1)
+    props.handleUpLift(myValue)
+  }
+  const addOne = i => {
+    myValue.splice((i + 1), 0, {name: '', skill: '', ap: '', dv: '', modes: '', ammo: '', range: '', note: ''})
+    props.handleUpLift(myValue)
+  }
   return(
     <div className='Char-dsply__Wpt-Dsply'>
       <span className='Char-dsply__Wpt-Head'>
+        <p className='button-container'></p>
         <p>Weapon</p>
         <p>Skill</p>
         <p>AP</p>
@@ -245,36 +280,48 @@ function WeaponsDisplay (props) {
         <p>Range</p>
         <p>Notes:</p>
       </span>
-      <span className='Char-dsply__Wpt-Melee'>
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <textarea rows="3"></textarea>
-      </span>
-      <span className='Char-dsply__Wpt-Melee'>
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <textarea rows="3"></textarea>
-      </span>
-      <span className='Char-dsply__Wpt-Ranged'>
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <textarea rows="3"></textarea>
-      </span>
+      {myValue.map( (wep, i) =>{
+        if(i === 0){
+          return(
+            <span className='Char-dsply__Wpt-Melee'>
+              <div className='button-container'>
+                <button className='add-Weapon' onClick={()=>addOne(i)}>+</button>
+              </div>
+              {Object.keys(wep).map( key => {              
+                if(key === 'note'){
+                  return(
+                    <textarea type="text" onChange={evt=>handleChange(evt, i, key)} value={wep[key]}/> 
+                  )
+                }else{
+                  return(
+                    <input type="text" onChange={evt=>handleChange(evt, i, key)} value={wep[key]}/>               
+                  )                
+                }
+              })}
+            </span>
+          )
+        } else {
+          return(
+            <span className='Char-dsply__Wpt-Melee'>
+              <div className='button-container'>
+                <button className='add-Weapon' onClick={()=>addOne(i)}>+</button>                
+                <button className='delete-Weapon' onClick={()=>deleteMe(i)}>x</button>
+              </div>
+              {Object.keys(wep).map( key => {              
+                if(key === 'note'){
+                  return(
+                    <textarea type="text" onChange={evt=>handleChange(evt, i, key)} value={wep[key]}/> 
+                  )
+                }else{
+                  return(
+                    <input type="text" onChange={evt=>handleChange(evt, i, key)} value={wep[key]}/>               
+                  )                
+                }
+              })}
+            </span>
+          )
+        }
+      })}
     </div>
   )
 }
@@ -282,18 +329,34 @@ function WeaponsDisplay (props) {
 class CharacterDisplay extends React.Component{
   constructor(props){
     super(props)
-    this.state = {modifires: 0}
-    this.handleUplife = this.handleUplife.bind(this)
+    this.state = {
+      healthTracking: {armor: 0, damage: 0, wounds: 0, stress: 0, mentalTrauma: 0},
+      weaponsDisplay: [
+        {name: '', skill: '', ap: '', dv: '', modes: '', ammo: '', range: '', note: ''},
+        {name: '', skill: '', ap: '', dv: '', modes: '', ammo: '', range: '', note: ''}
+      ],
+      modifires: 0
+    }
+    this.handleUpLift = this.handleUpLift.bind(this)
   }
 
-  handleUplife(data, key){
-    const newState = this.state
-    newState[key] = data
+  handleUpLift(value, key, subKey){
+    if(parseInt(value, 10)) value = parseInt(value, 10)
+    let newState = this.state
+    if(subKey) newState[key][subKey] = value
+    else newState[key] = value
     this.setState(newState)
   }
 
+  componentDidUpdate(){
+    const wounds = parseInt(this.state.healthTracking.wounds, 10)
+    const mentTram = parseInt(this.state.healthTracking.mentalTrauma, 10)
+    const totMods = ((wounds + mentTram) * -10)
+    if (this.state.modifires != totMods)
+      this.setState({modifires: totMods})
+  }
+
   render(){
-    console.log(this.props)
     const fixedSkills = this.props.dataStatic.skills
     const characterData = this.props.characterData
     return(
@@ -315,13 +378,16 @@ class CharacterDisplay extends React.Component{
             />
             <HealthTracking
               characterData={characterData}
-              handleUplife={this.handleUplife}
+              myState={this.state.healthTracking}
+              handleUpLift={(evt, subKey) => this.handleUpLift(evt.target.value, 'healthTracking', subKey)}
             />
           </div>
         </div>
         <WeaponsDisplay
           characterData={characterData}
           modifires={this.state.modifires}
+          myValue={this.state.weaponsDisplay}
+          handleUpLift={(value) => this.handleUpLift(value, 'weaponsDisplay')}
         />
         <br/>
         <br/>

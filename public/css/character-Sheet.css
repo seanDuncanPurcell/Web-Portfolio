@@ -165,8 +165,8 @@
 .skill_header {
   font-weight: bold;
   background-color: #7c7c7c;
-  padding-right: 20px;
   border: 2px solid black;
+  padding: none;
 }
 
 /* Background Section */
@@ -278,8 +278,8 @@
 .Char-dsply__Wpt-Dsply span {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 4fr 4fr 2fr 2fr 3fr 3fr 3fr 8fr;
-      grid-template-columns: 4fr 4fr 2fr 2fr 3fr 3fr 3fr 8fr;
+  -ms-grid-columns: 1.7fr 4fr 4fr 2fr 2fr 3fr 3fr 3fr 8fr 1fr;
+      grid-template-columns: 1.7fr 4fr 4fr 2fr 2fr 3fr 3fr 3fr 8fr 1fr;
   gap: 1px;
   margin-bottom: 5px;
   height: -webkit-fit-content;
@@ -294,8 +294,72 @@
   height: 1.75em;
 }
 
+.Char-dsply__Wpt-Dsply span input, .Char-dsply__Wpt-Dsply span textarea {
+  padding: 5px;
+  font-size: 0.7em;
+}
+
 .Char-dsply__Wpt-Dsply span textarea {
   overflow-x: auto;
+}
+
+.Char-dsply__Wpt-Dsply span button:focus {
+  outline: none;
+}
+
+.Char-dsply__Wpt-Dsply span button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.Char-dsply__Wpt-Dsply span .button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  border: none;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.Char-dsply__Wpt-Dsply span .add-Weapon, .Char-dsply__Wpt-Dsply span .delete-Weapon {
+  font-family: 'Times New Roman', Times, serif;
+  opacity: 0;
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 750ms;
+          transition-duration: 750ms;
+  padding: 0;
+}
+
+.Char-dsply__Wpt-Dsply span .add-Weapon {
+  background-color: #19912d;
+}
+
+.Char-dsply__Wpt-Dsply span .delete-Weapon {
+  background-color: #b81636;
+}
+
+.Char-dsply__Wpt-Dsply span:hover .button-container .add-Weapon {
+  opacity: 1;
+}
+
+.Char-dsply__Wpt-Dsply span:hover .button-container .delete-Weapon {
+  opacity: 1;
 }
 
 .Char-dsply__Wpt-Dsply .Char-dsply__Wpt-Head p {
@@ -333,6 +397,10 @@
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+}
+
+.Char-dsply__Skill-dsply .skill_header .skill_cell {
+  border-left: 1px solid black;
 }
 
 .Char-dsply__Skill-dsply .skill_Main {
@@ -382,8 +450,8 @@
   background-color: #6b6b6b;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: 3fr 2fr;
+      grid-template-columns: 3fr 2fr;
   font-size: 1em;
   margin-bottom: 5px;
 }
@@ -392,21 +460,34 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 1em;
 }
 
 .Char-dsply__Health div p, .Char-dsply__Health div input {
-  text-align: left;
-  padding: 5px;
-  width: 100%;
-  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: 5px;
-  background-color: #e2ded9;
-  border: 1px solid black;
+  width: 70%;
   border-radius: 3px;
+}
+
+.Char-dsply__Health div p {
+  border: none;
+  background-color: #c2c2c2;
+  font-weight: bold;
+}
+
+.Char-dsply__Health div input {
+  background-color: white;
+  border: 2px solid black;
 }

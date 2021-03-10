@@ -9,7 +9,8 @@ function AtributeDisplay(props) {
     const aptitude = aptitudes[aptKey];
     const total = aptitude.total < sleeveMax ? aptitude.total : sleeveMax;
     return /*#__PURE__*/React.createElement("div", {
-      className: "Char-dsply__Apt-column"
+      className: "Char-dsply__Apt-column",
+      key: ['aptitude', aptKey].join('_')
     }, /*#__PURE__*/React.createElement("strong", null, aptitude.abbreviation), /*#__PURE__*/React.createElement("p", null, total), /*#__PURE__*/React.createElement("p", null, total * 3));
   }));
 }
@@ -57,6 +58,7 @@ function TemplateSkill(props) {
   const characterData = props.characterData;
   const fixedSkill = props.fixedSkill;
   const skillKey = props.skillKey;
+  const modifires = props.modifires;
   const subSkills = fixedSkill.options.filter(_key => {
     let charSubSkills = characterData.skills[skillKey];
 
@@ -116,7 +118,7 @@ function TemplateSkill(props) {
         return 0;
       })();
 
-      return backgroundSkillData + factionSkillData;
+      return backgroundSkillData + factionSkillData + modifires;
     })();
 
     return /*#__PURE__*/React.createElement(SimpleSkill, {
@@ -134,7 +136,7 @@ function SkillDisplay(props) {
   const fixedSkills = props.fixedSkills;
   const characterData = props.characterData;
   const charSkills = characterData.skills;
-  console.log(charSkills);
+  const modifires = props.modifires;
   return /*#__PURE__*/React.createElement("section", {
     className: "Char-dsply__Skill-dsply skill_block"
   }, /*#__PURE__*/React.createElement("label", {
@@ -159,6 +161,7 @@ function SkillDisplay(props) {
 
     const specialMod = (() => {
       let total = 0;
+      total += modifires;
       const bgOptions = characterData.background.skillMod;
 
       for (let i = 0; i < bgOptions.length; i++) {
@@ -183,6 +186,7 @@ function SkillDisplay(props) {
         fixedSkill: fixedSkill,
         skillKey: skillKey,
         characterData: characterData,
+        modifires: modifires,
         key: ['overComp', 'templet-skill', skillKey].join('_')
       });
     } else {
@@ -215,104 +219,178 @@ function ProfileDisplay(props) {
 function HealthTracking(props) {
   const sleeve = props.characterData.sleeve;
   const will = props.characterData.aptitudes.wil.total;
+  const myState = props.myState;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h3", {
     className: "Char-dsply__Health__Head"
   }, "Health Tracking"), /*#__PURE__*/React.createElement("section", {
     className: "Char-dsply__Health"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Armor (Energy/Kenetic)"), /*#__PURE__*/React.createElement("input", {
-    type: "text"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Armor (Eng./Ken.)"), /*#__PURE__*/React.createElement("input", {
+    value: myState.wounds,
+    type: "text",
+    onChange: evt => props.handleUpLift(evt, 'armor')
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Durability"), /*#__PURE__*/React.createElement("p", null, sleeve.durability)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Damage: "), /*#__PURE__*/React.createElement("input", {
-    type: "text"
+    type: "number",
+    step: "1",
+    value: myState.damage,
+    onChange: evt => props.handleUpLift(evt, 'damage')
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Wound Threshold"), /*#__PURE__*/React.createElement("p", null, sleeve.durability / 5)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Wounds: "), /*#__PURE__*/React.createElement("input", {
     type: "number",
-    step: "1"
+    step: "1",
+    value: myState.wounds,
+    onChange: evt => props.handleUpLift(evt, 'wounds')
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Lucidity"), /*#__PURE__*/React.createElement("p", null, will * 2)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Stress"), /*#__PURE__*/React.createElement("input", {
-    type: "text"
+    type: "number",
+    step: "1",
+    value: myState.stress,
+    onChange: evt => props.handleUpLift(evt, 'stress')
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Trauma Threshold"), /*#__PURE__*/React.createElement("p", null, Math.ceil(will / 2))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Mental Trauma: "), /*#__PURE__*/React.createElement("input", {
     type: "number",
-    step: "1"
+    step: "1",
+    value: myState.mentalTrauma,
+    onChange: evt => props.handleUpLift(evt, 'mentalTrauma')
   }))));
 }
 
 function WeaponsDisplay(props) {
+  const myValue = props.myValue;
+
+  const handleChange = (event, i, key) => {
+    const val = event.target.value;
+    myValue[i][key] = val;
+    props.handleUpLift(myValue);
+  };
+
+  const deleteMe = i => {
+    myValue.splice(i, 1);
+    props.handleUpLift(myValue);
+  };
+
+  const addOne = i => {
+    myValue.splice(i + 1, 0, {
+      name: '',
+      skill: '',
+      ap: '',
+      dv: '',
+      modes: '',
+      ammo: '',
+      range: '',
+      note: ''
+    });
+    props.handleUpLift(myValue);
+  };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "Char-dsply__Wpt-Dsply"
   }, /*#__PURE__*/React.createElement("span", {
     className: "Char-dsply__Wpt-Head"
-  }, /*#__PURE__*/React.createElement("p", null, "Weapon"), /*#__PURE__*/React.createElement("p", null, "Skill"), /*#__PURE__*/React.createElement("p", null, "AP"), /*#__PURE__*/React.createElement("p", null, "DV"), /*#__PURE__*/React.createElement("p", null, "Modes"), /*#__PURE__*/React.createElement("p", null, "Ammo"), /*#__PURE__*/React.createElement("p", null, "Range"), /*#__PURE__*/React.createElement("p", null, "Notes:")), /*#__PURE__*/React.createElement("span", {
-    className: "Char-dsply__Wpt-Melee"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("textarea", {
-    rows: "3"
-  })), /*#__PURE__*/React.createElement("span", {
-    className: "Char-dsply__Wpt-Melee"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("textarea", {
-    rows: "3"
-  })), /*#__PURE__*/React.createElement("span", {
-    className: "Char-dsply__Wpt-Ranged"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("textarea", {
-    rows: "3"
-  })));
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "button-container"
+  }), /*#__PURE__*/React.createElement("p", null, "Weapon"), /*#__PURE__*/React.createElement("p", null, "Skill"), /*#__PURE__*/React.createElement("p", null, "AP"), /*#__PURE__*/React.createElement("p", null, "DV"), /*#__PURE__*/React.createElement("p", null, "Modes"), /*#__PURE__*/React.createElement("p", null, "Ammo"), /*#__PURE__*/React.createElement("p", null, "Range"), /*#__PURE__*/React.createElement("p", null, "Notes:")), myValue.map((wep, i) => {
+    if (i === 0) {
+      return /*#__PURE__*/React.createElement("span", {
+        className: "Char-dsply__Wpt-Melee"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "button-container"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "add-Weapon",
+        onClick: () => addOne(i)
+      }, "+")), Object.keys(wep).map(key => {
+        if (key === 'note') {
+          return /*#__PURE__*/React.createElement("textarea", {
+            type: "text",
+            onChange: evt => handleChange(evt, i, key),
+            value: wep[key]
+          });
+        } else {
+          return /*#__PURE__*/React.createElement("input", {
+            type: "text",
+            onChange: evt => handleChange(evt, i, key),
+            value: wep[key]
+          });
+        }
+      }));
+    } else {
+      return /*#__PURE__*/React.createElement("span", {
+        className: "Char-dsply__Wpt-Melee"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "button-container"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "add-Weapon",
+        onClick: () => addOne(i)
+      }, "+"), /*#__PURE__*/React.createElement("button", {
+        className: "delete-Weapon",
+        onClick: () => deleteMe(i)
+      }, "x")), Object.keys(wep).map(key => {
+        if (key === 'note') {
+          return /*#__PURE__*/React.createElement("textarea", {
+            type: "text",
+            onChange: evt => handleChange(evt, i, key),
+            value: wep[key]
+          });
+        } else {
+          return /*#__PURE__*/React.createElement("input", {
+            type: "text",
+            onChange: evt => handleChange(evt, i, key),
+            value: wep[key]
+          });
+        }
+      }));
+    }
+  }));
 }
 
 class CharacterDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      healthTracking: {
+        armor: 0,
+        damage: 0,
+        wounds: 0,
+        stress: 0,
+        mentalTrauma: 0
+      },
+      weaponsDisplay: [{
+        name: '',
+        skill: '',
+        ap: '',
+        dv: '',
+        modes: '',
+        ammo: '',
+        range: '',
+        note: ''
+      }, {
+        name: '',
+        skill: '',
+        ap: '',
+        dv: '',
+        modes: '',
+        ammo: '',
+        range: '',
+        note: ''
+      }],
       modifires: 0
     };
-    this.handleUplife = this.handleUplife.bind(this);
+    this.handleUpLift = this.handleUpLift.bind(this);
   }
 
-  handleUplife(data, key) {
-    const newState = this.state;
-    newState[key] = data;
+  handleUpLift(value, key, subKey) {
+    if (parseInt(value, 10)) value = parseInt(value, 10);
+    let newState = this.state;
+    if (subKey) newState[key][subKey] = value;else newState[key] = value;
     this.setState(newState);
   }
 
+  componentDidUpdate() {
+    const wounds = parseInt(this.state.healthTracking.wounds, 10);
+    const mentTram = parseInt(this.state.healthTracking.mentalTrauma, 10);
+    const totMods = (wounds + mentTram) * -10;
+    if (this.state.modifires != totMods) this.setState({
+      modifires: totMods
+    });
+  }
+
   render() {
-    console.log(this.props);
     const fixedSkills = this.props.dataStatic.skills;
     const characterData = this.props.characterData;
     return /*#__PURE__*/React.createElement("div", {
@@ -329,10 +407,13 @@ class CharacterDisplay extends React.Component {
       characterData: characterData
     }), /*#__PURE__*/React.createElement(HealthTracking, {
       characterData: characterData,
-      handleUplife: this.handleUplife
+      myState: this.state.healthTracking,
+      handleUpLift: (evt, subKey) => this.handleUpLift(evt.target.value, 'healthTracking', subKey)
     }))), /*#__PURE__*/React.createElement(WeaponsDisplay, {
       characterData: characterData,
-      modifires: this.state.modifires
+      modifires: this.state.modifires,
+      myValue: this.state.weaponsDisplay,
+      handleUpLift: value => this.handleUpLift(value, 'weaponsDisplay')
     }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
       onClick: () => {
         this.props.handleUpLift('characterSheet', 'page');
