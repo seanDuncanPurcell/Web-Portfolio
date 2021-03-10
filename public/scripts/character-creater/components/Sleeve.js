@@ -14,6 +14,7 @@ class Sleeve extends React.Component {
     this.fixed = this.props.dataStatic;
     this.dynam = this.props.dataDynamic;
     this.state = {
+      optionApplied: false,
       onDisplay: _firstKey,
       sleeveOp: {
         label: label,
@@ -32,31 +33,18 @@ class Sleeve extends React.Component {
     this.ApptChoiceChoice = this.ApptChoiceChoice.bind(this);
   }
 
-  handleBackgroundCycle(int) {
+  async handleBackgroundCycle(int) {
     const sleeveArray = Object.keys(this.fixed.sleeve.options);
     let position = sleeveArray.indexOf(this.state.onDisplay);
     if (position + int < 0) position = sleeveArray.length - 1;else if (position + int > sleeveArray.length - 1) position = 0;else position += int;
-    const {
-      label,
-      description,
-      aptitudesMods,
-      aptitudesMax,
-      cost,
-      durability,
-      woundThreshold
-    } = this.props.dataStatic.sleeve.options[sleeveArray[position]];
     this.setState({
+      optionApplied: false,
       onDisplay: sleeveArray[position],
-      sleeveOp: {
-        label: label,
-        description: description,
-        aptitudesMods: aptitudesMods,
-        aptitudesMax: aptitudesMax,
-        cost: cost,
-        durability: durability,
-        woundThreshold: woundThreshold
-      }
-    });
+      sleeveOp: this.fixed.sleeve.options[sleeveArray[position]]
+    }); //refresh static data
+
+    const responce = await fetch(`/api/get_character_configs?id=6046e4b81fd43c02f0bd15ff`);
+    this.fixed = await responce.json();
   }
 
   handleBonusSelect(event, index) {
@@ -98,6 +86,9 @@ class Sleeve extends React.Component {
       durability: durability,
       woundThreshold: woundThreshold
     };
+    this.setState({
+      optionApplied: true
+    });
     this.props.onSubmit(data);
     this.props.spendCP(cost);
   }
@@ -134,8 +125,10 @@ class Sleeve extends React.Component {
 
   render() {
     const dsply = this.state.sleeveOp;
+    let classNameList = 'char-bckgrnd';
+    if (this.state.optionApplied) classNameList += ' char-bckgrnd_highlight';
     return /*#__PURE__*/React.createElement("section", {
-      className: "char-bckgrnd"
+      className: classNameList
     }, /*#__PURE__*/React.createElement("h2", null, "Select Your Starting Sleeve."), /*#__PURE__*/React.createElement("span", {
       className: "char-bckgrnd__main-selector"
     }, /*#__PURE__*/React.createElement("button", {

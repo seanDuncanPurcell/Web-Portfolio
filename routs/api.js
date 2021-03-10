@@ -196,4 +196,33 @@ router.route('/set-article')
   }
 });
 
+router.route('/get_character_configs')
+.get( async(req, res) => {
+  const client = MongoClient(db_url, mongoOps);
+  try{
+    //1)Delcare req consts
+    const configId = req.query.id;
+
+    //2)Connect to DB
+    await client.connect();
+    const articleStore = client.db('rpgCharacterManager').collection('character_generation_configs');
+
+    //3)Check for ID
+    let dbRes = null;
+    if(configId) dbRes = await articleStore.findOne({_id: new db.ObjectId(configId)});
+    else throw new Error('No ID found.');
+
+    //4)Return Data
+    res.send(dbRes);
+
+  }catch(error){
+    console.log(error);
+    res.send(JSON.stringify(error));
+
+  }finally{
+    //last disconect from db
+    client.close();
+  }
+});
+
 module.exports = router;

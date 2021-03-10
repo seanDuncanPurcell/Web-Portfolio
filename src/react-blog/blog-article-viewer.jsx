@@ -10,7 +10,7 @@ class ArticleViewer extends React.Component{
 
     this.handleSave = this.handleSave.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.EditConstrols =this.EditConstrols.bind(this);
+    this.EditConstrols = this.EditConstrols.bind(this);
   }
 
   EditConstrols (props) {

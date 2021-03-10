@@ -5,6 +5,7 @@ class Background extends React.Component {
     this.fixed = Object.assign({}, this.props.dataStatic);
     this.form = Object.assign({}, this.props.form);
     this.state = {
+      optionApplied: false,
       onDisplay: Object.keys(_options)[0],
       bckgrndOp: _options[Object.keys(_options)[0]]
     };
@@ -16,14 +17,18 @@ class Background extends React.Component {
     this.MultipleChoice = this.MultipleChoice.bind(this);
   }
 
-  handleBackgroundCycle(int) {
+  async handleBackgroundCycle(int) {
     const bgArray = Object.keys(this.props.form.options);
     let position = bgArray.indexOf(this.state.onDisplay);
     if (position + int < 0) position = bgArray.length - 1;else if (position + int > bgArray.length - 1) position = 0;else position += int;
     this.setState({
+      optionApplied: false,
       onDisplay: bgArray[position],
-      bckgrndOp: this.props.form.options[bgArray[position]]
+      bckgrndOp: this.form.options[bgArray[position]]
     });
+    const responce = await fetch(`/api/get_character_configs?id=6046e4b81fd43c02f0bd15ff`);
+    const fixed = await responce.json();
+    this.form = fixed[this.props.type];
   }
 
   handleSubSkill(event, index) {
@@ -75,6 +80,9 @@ class Background extends React.Component {
       rep: rep,
       traits: traits
     };
+    this.setState({
+      optionApplied: true
+    });
     this.props.onSelection(data);
   }
 
@@ -125,8 +133,10 @@ class Background extends React.Component {
   render() {
     const dsply = this.state.bckgrndOp;
     const fixedSkills = this.fixed.skills;
+    let classNameList = 'char-bckgrnd';
+    if (this.state.optionApplied) classNameList += ' char-bckgrnd_highlight';
     return /*#__PURE__*/React.createElement("section", {
-      className: "char-bckgrnd"
+      className: classNameList
     }, /*#__PURE__*/React.createElement("h2", null, this.form.label), /*#__PURE__*/React.createElement("span", {
       className: "char-bckgrnd__main-selector"
     }, /*#__PURE__*/React.createElement("button", {
@@ -155,7 +165,7 @@ class Background extends React.Component {
         const fixedSkill = this.fixed.skills[skillOption.skillKey];
         return /*#__PURE__*/React.createElement("span", {
           className: "char-bckgrnd__skill-line",
-          key: ['skill', skillOption.skillKey].join('_')
+          key: ['skill', skillOption.skillKey, index].join('_')
         }, /*#__PURE__*/React.createElement("strong", null, fixedSkill.label, ":"), /*#__PURE__*/React.createElement("p", null, " + ", skillBonus));
       }
     }), /*#__PURE__*/React.createElement("span", {

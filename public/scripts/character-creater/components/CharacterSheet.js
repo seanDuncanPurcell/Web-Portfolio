@@ -1,914 +1,5 @@
 import Background from './Background.js';
-import Sleeve from './Sleeve.js'; //this data block will be dirved from the rule book and can not be altered by players
-
-const staticData = {
-  playerName: {
-    label: 'Player Name',
-    type: 'text',
-    value: ''
-  },
-  characterName: {
-    label: 'Character Name',
-    type: 'text',
-    value: ''
-  },
-  subjectiveAge: {
-    label: 'Subjective Age',
-    type: 'text',
-    value: ''
-  },
-  objectiveAge: {
-    label: 'Objective Age',
-    type: 'text',
-    value: ''
-  },
-  sleeve: {
-    label: 'Sleeve',
-    type: 'sleeve',
-    options: {
-      falts: {
-        label: 'Flats',
-        description: `Flats are baseline unmodified humans, born with all
-        of the natural defects, hereditary diseases, and other
-        genetic mutations that evolution so lovingly applies.
-        Flats are increasingly rare—most died off with the rest
-        of humanity during the Fall. Most new children are
-        splicers—screened and genefixed at the least—except
-        in habitats where flats are treated as second-class citizens
-        and indentured labor.`,
-        aptitudesMods: [],
-        aptitudesMax: 20,
-        cost: 0,
-        durability: 30,
-        woundThreshold: 6
-      },
-      splicers: {
-        label: 'SPLICERS',
-        description: `Splicers are genefixed humans. Their genome has
-        been cleansed of hereditary diseases and optimized
-        for looks and health, but has not otherwise been
-        substantially upgraded. Splicers make up the majority
-        of transhumanity.`,
-        aptitudesMods: [5],
-        aptitudesMax: 25,
-        cost: 10,
-        durability: 30,
-        woundThreshold: 6
-      },
-      exalts: {
-        label: 'EXALTS',
-        description: `Exalt morphs are genetically enhanced humans,
-        designed to emphasize specific traits. Their genetic
-        code has been tweaked to make them healthier,
-        smarter, and more attractive. Their metabolism is
-        modified to predispose them towards staying fit and
-        athletic for the duration of an extended lifespan.`,
-        aptitudesMods: [5, 5, 5, {
-          apt: 'cog',
-          mod: 5
-        }],
-        aptitudesMax: 30,
-        skillMods: {},
-        cost: 30,
-        durability: 30,
-        woundThreshold: 7
-      },
-      olympians: {
-        label: 'OLYMPIANS',
-        description: `Olympians are human upgrades with improved
-        athletic capabilities like endurance, eye-hand coordination,
-        and cardiovascular functions. Olympians
-        are common among athletes, dancers, freerunners,
-        and soldiers.`,
-        aptitudesMods: [5, {
-          apt: 'cog',
-          mod: 5
-        }, {
-          apt: 'ref',
-          mod: 5
-        }, {
-          apt: 'som',
-          mod: 5
-        }],
-        aptitudesMax: 30,
-        skillMods: {},
-        cost: 40,
-        durability: 40,
-        woundThreshold: 8
-      }
-    }
-  },
-  background: {
-    label: 'What is your history?',
-    type: 'background',
-    options: {
-      drifter: {
-        label: 'DRIFTER',
-        description: `You were raised with a social grouping that remained
-        on the move throughout the Sol system. This could
-        have been free traders, pirates, asteroid farmers,
-        scavengers, or just migrant workers. You are used to
-        roaming space travel between habitats and stations.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'navigation',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'pilot',
-          subSkillKey: ['Spacecraft'],
-          selection: 'Spacecraft',
-          mod: 20
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists'],
-          selection: 'Autonomists',
-          mod: 10
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 5000
-      },
-      fallEvacuee: {
-        label: 'FALL EVACUEE',
-        description: `You were born and raised on Earth and evacuated
-        during the horrors of the Fall, leaving your old life
-        (and possibly your friends, family, and loved ones)
-        behind you. You were lucky enough to survive with
-        your body intact and continue to make a life for yourself
-        out in the system.`,
-        skillMod: [{
-          type: 'templateSkill',
-          skillKey: 'pilot',
-          subSkillKey: ['Groundcraft'],
-          selection: 'Groundcraft',
-          mod: 20
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists'],
-          selection: 'Autonomists',
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 2,
-        creditMod: 2500
-      },
-      hyperelite: {
-        label: 'HYPERELITE',
-        description: `You are privileged to have been raised as part of the
-        immortal upper class that rules many inner system
-        habitats and hypercorps. You were pampered with wealth and 
-        influence that most people can only dream of.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'protocol',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Hypercorp'],
-          selection: 'Hypercorp',
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 10000
-      },
-      isolate: {
-        label: 'ISOLATE',
-        description: `You were raised as part of a self-exiled grouping on
-        the fringes of the system. Whether raised as part of
-        a religious group, cult, social experiment, anti-tech
-        cell, or a group that just wanted to be isolated, you
-        spent most if not all of your upbringing isolated
-        from other factions.`,
-        skillMod: [{
-          type: 'multiple',
-          skillKey: ['animalHandling', 'beamWeapons', 'blades', 'climbing', 'clubs', 'constrol', 'deception', 'demolitions', 'disguise', 'exoticMelee', 'exoticRanged', 'flight', 'fray', 'freeFall', 'freeRunning', 'gunnery', 'hardware', 'impersonatoin', 'infiltration', 'infoSec', 'interfacing', 'intimidation', 'investigation', 'kinesice', 'kineticWeapons', 'medicine', 'networking', 'palming', 'perception', 'persuasion', 'pilot', 'programming', 'protocol', 'psiAssault', 'psychosurgery', 'research', 'scrounging', 'seekerWeapons', 'sence', 'sprayWeapons', 'swimming', 'thrownWeapons', 'unarmedConbat'],
-          mod: 20
-        }, {
-          type: 'multiple',
-          skillKey: ['animalHandling', 'beamWeapons', 'blades', 'climbing', 'clubs', 'constrol', 'deception', 'demolitions', 'disguise', 'exoticMelee', 'exoticRanged', 'flight', 'fray', 'freeFall', 'freeRunning', 'gunnery', 'hardware', 'impersonatoin', 'infiltration', 'infoSec', 'interfacing', 'intimidation', 'investigation', 'kinesice', 'kineticWeapons', 'medicine', 'networking', 'palming', 'perception', 'persuasion', 'pilot', 'programming', 'protocol', 'psiAssault', 'psychosurgery', 'research', 'scrounging', 'seekerWeapons', 'sence', 'sprayWeapons', 'swimming', 'thrownWeapons', 'unarmedConbat'],
-          mod: 20
-        }],
-        rep: 40,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 2500
-      },
-      lunarColonist: {
-        label: 'LUNAR COLONIST',
-        description: `You experienced your childhood in one of the cramped
-        dome cities or underground stations on Luna, Earth’s
-        moon. You had a ringside seat to the Fall of Earth.`,
-        skillMod: [{
-          type: 'templateSkill',
-          skillKey: 'pilot',
-          subSkillKey: ['Groundcraft'],
-          selection: 'Groundcraft',
-          mod: 10
-        }, {
-          type: 'multiple',
-          skillKey: ['academic', 'demolitions', 'hardware', 'infosec', 'interfacing', 'medicine', 'profession', 'programming', 'psychosurgery', 'research'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Hypercorps'],
-          selection: 'Hypercorps',
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 5000
-      },
-      marsborn: {
-        label: 'MARSBORN',
-        description: `You were raised in a station on or above Mars, now
-        the most populated planet in the system. Your home
-        town may or may not have survived the Fall.`,
-        skillMod: [{
-          type: 'templateSkill',
-          skillKey: 'pilot',
-          subSkillKey: ['Groundcraft'],
-          selection: 'Groundcraft',
-          mod: 15
-        }, {
-          type: 'multiple',
-          skillKey: ['academic', 'demolitions', 'hardware', 'infosec', 'interfacing', 'medicine', 'profession', 'programming', 'psychosurgery', 'research'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Hypercorps'],
-          selection: 'Hypercorps',
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 5000
-      },
-      oGSpaceColonist: {
-        label: 'ORIGINAL SPACE COLONIST',
-        description: `You or your parents were part of the first “generations”
-        of colonists/workers sent out from Earth to stake a
-        claim in space, so you are familiar with the cramped
-        confines of spaceflight and life aboard older stations
-        and habitats. As a “zero-one g” (zero-gravity, firstgen),
-        you were never part of the elite. People from
-        your background typically have some sort of specialized
-        tech training as vacworkers or habtechs.`,
-        skillMod: [{
-          type: 'multiple',
-          skillKey: ['pilot', 'freefall'],
-          mod: 10
-        }, {
-          type: 'multiple',
-          skillKey: ['academic', 'demolitions', 'hardware', 'infosec', 'interfacing', 'medicine', 'profession', 'programming', 'psychosurgery', 'research'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists'],
-          selection: 'Autonomists',
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 5000
-      },
-      reInstantiate: {
-        label: 'RE-INSTANTIATED',
-        description: `You were born and raised on Earth, but you did not
-        survive the Fall. All that you know is that your body
-        died there, but your backup was transmitted offworld,
-        and you were one of the lucky few to be re-instantiated
-        with a new morph. You may have spent years in dead
-        storage, simulspace, or as an infomorph slave.`,
-        skillMod: [{
-          type: 'templateSkill',
-          skillKey: 'pilot',
-          subSkillKey: ['Groundcraft'],
-          selection: 'Groundcraft',
-          mod: 15
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists'],
-          selection: 'Autonomists',
-          mod: 10
-        }],
-        rep: 50,
-        traits: ['editedMemories'],
-        moxieMod: 3,
-        creditMod: 0
-      },
-      scumborn: {
-        label: 'SCUMBORN',
-        description: `You were raised in the nomadic and chaotic lifestyle
-        common to scum barges. "There is some lovely filth down here" -Your Mom`,
-        skillMod: [{
-          type: 'multiple',
-          skillKey: ['persuasion', 'deception'],
-          mod: 10
-        }, {
-          type: 'singleSkill',
-          skillKey: 'scrounging',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists'],
-          selection: 'Autonomists',
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 5000
-      },
-      uplift: {
-        label: 'UPLIFT',
-        description: `You are not even human. You were born as an uplifted
-        animal: chimpanzee, gorilla, orangutan, parrot, raven,
-        crow, or octopus.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'fray',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'singleSkill',
-          skillKey: 'perception',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'multiple',
-          skillKey: ['academics', 'art', 'interest', 'language', 'profession'],
-          mod: 20
-        }],
-        rep: 50,
-        traits: 0,
-        moxieMod: 1,
-        creditMod: 5000
-      }
-    }
-  },
-  faction: {
-    label: 'What Social Movement Do you Support?',
-    type: 'faction',
-    options: {
-      anarchist: {
-        label: 'ANARCHIST',
-        description: `You are opposed to hierarchy, favoring flat forms of
-        social organization and directly democratic decisionmaking.
-        You believe power is always corrupting and
-        everyone should have a say in the decisions that affect
-        their lives. According to the primitive and restrictive
-        policies of the inner system and Jovian Junta, this
-        makes you an irresponsible hoodlum at best and a terrorist
-        at worst. In your opinion, that’s comedy coming
-        from governments that keep their populations in line
-        with economic oppression and threats of violence.`,
-        skillMod: [{
-          type: 'multiple',
-          skillKey: ['animalHandling', 'beamWeapons', 'blades', 'climbing', 'clubs', 'constrol', 'deception', 'demolitions', 'disguise', 'exoticMelee', 'exoticRanged', 'flight', 'fray', 'freeFall', 'freeRunning', 'gunnery', 'hardware', 'impersonatoin', 'infiltration', 'infoSec', 'interfacing', 'intimidation', 'investigation', 'kinesice', 'kineticWeapons', 'medicine', 'networking', 'palming', 'perception', 'persuasion', 'pilot', 'programming', 'protocol', 'psiAssault', 'psychosurgery', 'research', 'scrounging', 'seekerWeapons', 'sence', 'sprayWeapons', 'swimming', 'thrownWeapons', 'unarmedConbat'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists'],
-          selection: 'Autonomists',
-          mod: 30
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      },
-      argonaut: {
-        label: 'ARGONAUT',
-        description: `You are part of a scientific technoprogressive movement
-        that seeks to solve transhumanity’s injustices and
-        inequalities with technology. You support universal
-        access to technology and healthcare, open-source
-        models of production, morphological freedom, and
-        democratization. You try to avoid factionalism and
-        divisive politics, seeing transhumanity’s splintering as
-        a hindrance to its perpetuation.`,
-        skillMod: [{
-          type: 'multiple',
-          skillKey: ['academic', 'demolitions', 'hardware', 'infosec', 'interfacing', 'medicine', 'profession', 'programming', 'psychosurgery', 'research'],
-          mod: 10
-        }, {
-          type: 'multiple',
-          skillKey: ['academic', 'demolitions', 'hardware', 'infosec', 'interfacing', 'medicine', 'profession', 'programming', 'psychosurgery', 'research'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Scientists'],
-          selection: 'Scientists',
-          mod: 20
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      },
-      barsoomian: {
-        label: 'BARSOOMIAN',
-        description: `You call the Martian outback and wilds your home. You are a
-        “redneck,” a lower-class Martian from the rural areas that often
-        find themselves in conflict with the policies and goals of the hypercorp
-        domes and Tharsis League.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'freeRunning',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'multiple',
-          skillKey: ['animalHandling', 'beamWeapons', 'blades', 'climbing', 'clubs', 'constrol', 'deception', 'demolitions', 'disguise', 'exoticMelee', 'exoticRanged', 'flight', 'fray', 'freeFall', 'freeRunning', 'gunnery', 'hardware', 'impersonatoin', 'infiltration', 'infoSec', 'interfacing', 'intimidation', 'investigation', 'kinesice', 'kineticWeapons', 'medicine', 'networking', 'palming', 'perception', 'persuasion', 'pilot', 'programming', 'protocol', 'psiAssault', 'psychosurgery', 'research', 'scrounging', 'seekerWeapons', 'sence', 'sprayWeapons', 'swimming', 'thrownWeapons', 'unarmedConbat'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists'],
-          selection: 'Autonomists',
-          mod: 20
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      },
-      brinnker: {
-        label: 'BRINKER',
-        description: `You or your faction is reluctant to deal with the rest of the transhumanity
-        and the various goings-on in the rest of the system. Your
-        particular grouping may have sought out self-imposed isolation to
-        pursue their own interests, or they may have been exiled for their
-        unpopular beliefs. Or you may simply be a loner who prefers the
-        vast emptiness of space to socializing with others. You might be a
-        religious cultist, a primitivist, a utopian, or something altogether
-        uninterested in transhumanity.`,
-        skillMod: [{
-          type: 'templateSkill',
-          skillKey: 'pilot',
-          subSkillKey: ['Spacecraft'],
-          selection: 'Spacecraft',
-          mod: 10
-        }, {
-          type: 'multiple',
-          skillKey: ['animalHandling', 'beamWeapons', 'blades', 'climbing', 'clubs', 'constrol', 'deception', 'demolitions', 'disguise', 'exoticMelee', 'exoticRanged', 'flight', 'fray', 'freeFall', 'freeRunning', 'gunnery', 'hardware', 'impersonatoin', 'infiltration', 'infoSec', 'interfacing', 'intimidation', 'investigation', 'kinesice', 'kineticWeapons', 'medicine', 'networking', 'palming', 'perception', 'persuasion', 'pilot', 'programming', 'protocol', 'psiAssault', 'psychosurgery', 'research', 'scrounging', 'seekerWeapons', 'sence', 'sprayWeapons', 'swimming', 'thrownWeapons', 'unarmedConbat'],
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists'],
-          selection: 'Autonomists',
-          mod: 20
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      },
-      criminal: {
-        label: 'CRIMINAL',
-        description: `You are involved with the crime-oriented underworld. You may
-        work with one of the Sol system’s major criminal factions—triads,
-        the Night Cartel, the ID Crew, Nine Lives, Pax Familae—or one
-        of the smaller, local operators with a big stake in a specific habitat.
-        You might be a vetted member-for-life, a reluctant recruit, or just a
-        freelancer looking for the next gig.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'intimidation',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Criminal'],
-          selection: 'Criminal',
-          mod: 30
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      },
-      extropian: {
-        label: 'EXTROPIAN',
-        description: `You are an anarchistic supporter of the free market and private
-        property. You oppose government and favor a system where security
-        and legal matters are handled by private competitors. Whether
-        you consider yourself an anarcho-capitalist or a mutualist (a difference
-        only other Extropians can figure out), you occupy a middle
-        ground between the hypercorps and autonomists, dealing with
-        both and yet trusted by neither.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'persuasion',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Hypercorps'],
-          selection: 'Hypercorps',
-          mod: 20
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      },
-      hypercorp: {
-        label: 'HYPERCORP',
-        description: `You hail from a habitat controlled by the hypercorps. You might
-        be a hypercapitalist entrepeneur, a hedonistic socialite, or a lowly
-        vacworker, but you accept that certain liberties must be sacrificed
-        for security and freedom.`,
-        skillMod: [{
-          type: 'singleSkill',
-          skillKey: 'protocol',
-          subSkillKey: undefined,
-          mod: 10
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Hypercorps'],
-          selection: 'Hypercorps',
-          mod: 20
-        }, {
-          type: 'templateSkill',
-          skillKey: 'networking',
-          subSkillKey: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists'],
-          selection: 'Autonomists',
-          mod: 10
-        }],
-        rep: {
-          at: 0,
-          c: 0,
-          e: 0,
-          f: 0,
-          g: 0,
-          i: 0,
-          r: 0
-        },
-        traits: 0,
-        moxieMod: 0,
-        creditMod: 0
-      }
-    }
-  },
-  skills: {
-    academics: {
-      label: 'Academics',
-      tags: ['Knowledge'],
-      aptitudeKey: 'cog',
-      options: ['Archeology', 'Astrobiology', 'Astronomy', 'Astrophysics', 'Astrosociology', 'Biochemistry', 'Biology', 'Botany', 'Computer Science', 'Cryptography', 'Economics', 'Engineering', 'Genetics', 'Geology', 'Linguistics', 'Mathematics', 'Memetics', 'Nanotechnology', 'Old-Earth-History', 'Physics', 'Political-Science', 'Psychology', 'Sociology', 'Xeno-archeology', 'Xenolinguistics', 'Zoology']
-    },
-    animalHandling: {
-      label: 'Animal Handling',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    art: {
-      label: 'Art',
-      aptitudeKey: 'int',
-      tags: ['Knowledge'],
-      options: ['Architecture', 'Criticism', 'Dance', 'Drama', 'Drawing', 'Painting', 'Performance', 'Sculpture', 'Simulspace-Design', 'Singing', 'Speech', 'Writing']
-    },
-    beamWeapons: {
-      label: 'Beam Weapons',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'coo'
-    },
-    blades: {
-      label: 'Blades',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'som'
-    },
-    climbing: {
-      label: 'Climbing',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'som'
-    },
-    clubs: {
-      label: 'Clubs',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'som'
-    },
-    control: {
-      label: 'Control',
-      tags: ['Active', 'Mental', 'Psi'],
-      aptitudeKey: 'wil'
-    },
-    deception: {
-      label: 'Deception',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    demolitions: {
-      label: 'Demolitions',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'cog'
-    },
-    disguise: {
-      label: 'Disguise',
-      tags: ['Active', 'Pysical'],
-      aptitudeKey: 'int'
-    },
-    exoticMelee: {
-      label: 'Exotic Melee',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'som',
-      options: ['Morning-Star', 'Spear', 'Whip']
-    },
-    exoticRanged: {
-      label: 'Exotic Ranged',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'coo',
-      options: ['Blowgun', 'Crossbow', 'Slingshot']
-    },
-    flight: {
-      label: 'Flight',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'som'
-    },
-    fray: {
-      label: 'Fray',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'ref'
-    },
-    freeFall: {
-      label: 'Free Fall',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'ref'
-    },
-    freeRunning: {
-      label: 'Freerunning',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'som'
-    },
-    gunnery: {
-      label: 'Gunnery',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'int'
-    },
-    hardware: {
-      label: 'Hardware',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'cog',
-      options: ['Aerospace', 'Armorer', 'Electronics', 'Groundcraft', 'Implants', 'Industrial', 'Nautical', 'Robotics']
-    },
-    impersonatoin: {
-      label: 'Impersonation',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    infiltration: {
-      label: 'Infiltration',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'coo'
-    },
-    infoSec: {
-      label: 'Infosec',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'cog'
-    },
-    interest: {
-      label: 'Interest',
-      tags: ['Knowledge'],
-      aptitudeKey: 'cog',
-      options: ['Ancient_Sports', 'Celebrity_Gossip', 'Conspiracies', 'Factor_Trivia', 'Gambling', 'Hypercorp_Politics', 'Lunar_Habitats,', 'Martian_Beers', 'Old_Earth_Nation-States', 'Reclaimer_Blogs', 'Science_Fiction', 'Scum_Drug_Dealers', 'Spaceship_Models', 'Triad_Economics', 'Underground_XP']
-    },
-    interfacing: {
-      label: 'Interfacing',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'cog'
-    },
-    intimidation: {
-      label: 'Intimidation',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    investigation: {
-      label: 'Investigation',
-      tags: ['Active', 'Mental'],
-      aptitudeKey: 'int'
-    },
-    kinesice: {
-      label: 'Kinesics',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    kineticWeapons: {
-      label: 'Kinetic Weapons',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'coo'
-    },
-    language: {
-      label: 'Language',
-      tags: ['Knowledge'],
-      aptitudeKey: 'int',
-      options: ['Arabic', 'Bangali', 'Cantonese', 'English', 'French', 'Hindi', 'Japanese', 'Mandarin', 'Portuguese', 'Russian', 'Spanish']
-    },
-    medicine: {
-      label: 'Medicine',
-      aptitudeKey: 'cog',
-      tags: ['Active', 'Technical'],
-      options: ['Biosculpting', 'Exotic-Biomorphs', 'Gene-Therapy,', 'General-Practice', 'Implant-Surgery', 'Nanomedicine', 'Paramedic', 'Pods', 'Psychiatry', 'Remote-Surgery', 'Trauma-Surgery', 'Uplifts', 'Veterinary']
-    },
-    navigation: {
-      label: 'Navigation',
-      tags: ['Active', 'Mental'],
-      aptitudeKey: 'int'
-    },
-    networking: {
-      label: 'Networking',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav',
-      options: ['Autonomists', 'Criminals', 'Ecologists', 'Firewall', 'Hypercorps', 'Media', 'Scientists']
-    },
-    palming: {
-      label: 'Palming',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'coo'
-    },
-    perception: {
-      label: 'Perception',
-      tags: ['Active', 'Mental'],
-      aptitudeKey: 'int'
-    },
-    persuasion: {
-      label: 'Persuasion',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    pilot: {
-      label: 'Pilot',
-      tags: ['Active', 'Vehicle'],
-      aptitudeKey: 'ref',
-      options: ['Aircraft', 'Anthroform', 'Exotic-Vehicle', 'Groundcraft', 'Spacecraft', 'Watercraft']
-    },
-    profession: {
-      label: 'Profession',
-      tags: ['Knowledge'],
-      aptitudeKey: 'cog',
-      options: ['Accounting', 'Appraisal', 'Asteroid_Prospecting', 'Banking', 'Cool_Hunting', 'Con_Schemes', 'Distribution', 'Forensics', 'Lab_Technician', 'Mining', 'Police_Procedures', 'Psychotherapy', 'Security_Ops', 'Smuggling_Tricks', 'Social_Engineering', 'Squad_Tactics', 'Viral_Marketing', 'XP_Production']
-    },
-    programming: {
-      label: 'Programming',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'cog'
-    },
-    protocol: {
-      label: 'Protocol',
-      tags: ['Active', 'Social'],
-      aptitudeKey: 'sav'
-    },
-    psiAssault: {
-      label: 'Psi Assault',
-      tags: ['Active', 'Mental', 'Psi'],
-      aptitudeKey: 'wil'
-    },
-    psychosurgery: {
-      label: 'Psychosurgery',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'int'
-    },
-    research: {
-      label: 'Research',
-      tags: ['Active', 'Technical'],
-      aptitudeKey: 'cog'
-    },
-    scrounging: {
-      label: 'Scrounging',
-      tags: ['Active', 'Mental'],
-      aptitudeKey: 'int'
-    },
-    seekerWeapons: {
-      label: 'Seeker Weapons',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'coo'
-    },
-    sence: {
-      label: 'Sence',
-      tags: ['Active', 'Mental', 'Psi'],
-      aptitudeKey: 'int'
-    },
-    sprayWeapons: {
-      label: 'Spray Weapons',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'coo'
-    },
-    swimming: {
-      label: 'Swimming',
-      tags: ['Active', 'Physical'],
-      aptitudeKey: 'som'
-    },
-    thrownWeapons: {
-      label: 'Thrown Weapons',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'coo'
-    },
-    unarmedConbat: {
-      label: 'Unarmed Combat',
-      tags: ['Active', 'Combat'],
-      aptitudeKey: 'som'
-    }
-  },
-  customPoints: {
-    aptitudes: {
-      total: 105,
-      cost: 10
-    },
-    skillsActive: {
-      total: 400,
-      cost: 1
-    },
-    skillsKnowledge: {
-      total: 300,
-      cost: 1
-    },
-    moxie: {
-      total: 0,
-      cost: 15
-    },
-    credit: {
-      total: 0,
-      cost: 0.001
-    },
-    rep: {
-      total: 0,
-      cost: 0.1
-    }
-  }
-}; //this data black will be defined by the static date but the values will be set by user, saved to the DB, and then loard back.
+import Sleeve from './Sleeve.js'; //this data black will be defined by the static date but the values will be set by user, saved to the DB, and then loard back.
 
 const dynamicData = {
   playerName: '',
@@ -1013,12 +104,203 @@ const dynamicData = {
     sleeve: 0
   }
 };
+const traits = {
+  positve: [{
+    id: 'MwAj26VBGe59Kdu5',
+    label: 'ADAPTABILITY',
+    description: `Resleeving is a breeze for this character. They adjust
+      to new morphs much more quickly than most other
+      people. Apply a +10 modifier per level for Integration
+      Tests (PHB p. 271) and Alienation Tests (PHB p. 272).`,
+    morph: {},
+    ego: [{
+      lable: 'Level 1',
+      cost: 10,
+      mod: 10
+    }, {
+      lable: 'Level 2',
+      cost: 20,
+      mod: 20
+    }]
+  }, {
+    id: 'IoHW93n7f023dNX8',
+    label: 'ALLIES',
+    description: `The character is part of or has a relationship
+      with some influential group that they can occasionally
+      call on for support. For example, this could
+      be their old gatecrashing crew, former research lab
+      co-workers, a criminal cartel they are part of, or
+      an elite social clique. The gamemaster and player
+      should work out what the character’s relationship
+      is with this group, and why the character can call
+      on them for aid. Gamemaster’s should take care
+      that these allies are not abused, such as calling 
+      on them more than once per game session. The
+      character’s ties to this group are also a two-way
+      street—they will be expected to perform duties for
+      the group on occasion as well (a potential plot seed
+      for scenarios).`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 30,
+      mod: 0
+    }]
+  }, {
+    id: 'ZcnfXBPZGB9Hs24k',
+    label: 'AMBIDEXTROUS',
+    description: `The character can use and manipulate objects
+      equally well with both hands (they do not suffer the
+      off-hand modifier, as noted under Wielding Two or
+      More Weapons, PHB p. 206). If the character has other
+      prehensile limbs (feet, tail, tentacles, etc.), this trait
+      may be applied to a limb other than the hand. This
+      trait may be taken multiple times for multiple limbs.`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 10,
+      mod: 0
+    }]
+  }, {
+    id: 'Bx0tqvOAx7o0NfKy',
+    label: 'ANIMAL EMPATHY',
+    description: `The character has an instinctive feel for handling
+      and working with non-sapient animals of all kinds.
+      Apply a +10 modifier to Animal Handling skill tests
+      or whenever the character makes a test to influence or
+      interact with an animal.`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 5,
+      mod: 10,
+      affectes: ['skills', 'animalHandling']
+    }]
+  }, {
+    id: '5NBRyuU9ILAN0CQY',
+    label: 'BRAVE',
+    description: `This character does not scare easily and will
+      face threats, intimidation, and certain bodily harm
+      without flinching. As a side effect, the character is
+      not always the best at gauging risks, especially when
+      it comes to factoring in danger to others. The character
+      receives a +10 modifier on all tests to resist
+      fear or intimidation.`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 5,
+      mod: 10
+    }]
+  }, {
+    id: 'd0IZfzxzgFTGf96j',
+    label: 'COMMON SENSE',
+    description: `The character has an innate sense of judgment that
+      cuts through other distractions and factors that might
+      cloud a decision. Once per game session, the player
+      may ask the gamemaster what choice they should
+      make or what course of action they should take, and
+      the gamemaster should give them solid advice based
+      on what the character knows. Alternatively, if the
+      character is about to make a disastrous decision, the
+      gamemaster can use the character’s free hint and warn
+      the player they are making a mistake.`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 10,
+      mod: 0
+    }]
+  }, {
+    id: '8FkF3QUd8ENzPp5E',
+    label: 'DANGER SENSE',
+    description: `The character has an intuitive sixth sense that
+      warns them of imminent threats. They receive a +10
+      modifier on Surprise Tests (PHB p. 204).`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 10,
+      mod: 0
+    }]
+  }, {
+    id: 'rPg5230aHgYc2iba',
+    label: 'DIRECTION SENSE',
+    description: `Somehow the character always knows which way
+      is up, north, etc., even when blinded. The character
+      receives a +10 modifier for figuring out complex
+      directions, reading maps, and remembering or retracing
+      a path they have taken.`,
+    morph: {},
+    ego: [{
+      lable: 0,
+      cost: 5,
+      mod: 0
+    }]
+  }, {
+    id: 'BdXH4Lw1MXQJCWCu',
+    label: 'EIDETIC MEMORY',
+    description: `Much like a computer, the character has perfect
+      memory recall. They can remember anything they have
+      sensed, often even from a single glance. This works the
+      same as the eidetic memory implant (PHB p. 301).`,
+    morph: [{
+      lable: 0,
+      cost: 10,
+      mod: 0
+    }],
+    ego: [{
+      lable: 0,
+      cost: 15,
+      mod: 0
+    }]
+  }, {
+    id: '5IeH19PpQl7WcsX9',
+    label: 'EXCEPTIONAL APTITUDE',
+    description: `As an ego trait, the character may raise the
+      maximum for a particular chosen aptitude to 40 rather
+      than 30 (PHB p. 122). As a morph trait, it raises the morph
+      aptitude maximum (PHB p. 124) for a particular chosen
+      aptitude by 10 (30 for flats, 35 for splicers, 40 for all
+      others). Note that this trait just raises the maximum,
+      it does not give the character 10 more aptitude points.
+      This trait may only be taken by a morph or ego once.`,
+    morph: [{
+      lable: 0,
+      cost: 20,
+      mod: 0
+    }],
+    ego: [{
+      lable: 0,
+      cost: 20,
+      mod: 10,
+      affectes: ['sleeve', 'aptitudesMax']
+    }]
+  }, {
+    id: 'ZBgLrFrQwPb5L8l9',
+    label: 'EXPERT',
+    description: `The character is a legend in the use of one particular
+      skill. The character may raise one learned skill over 80,
+      to a maximum of 90, during character creation. This
+      trait does not actually increase the skill, it just raises
+      the maximum. This trait may only be taken once.`,
+    morph: [],
+    ego: [{
+      lable: 0,
+      cost: 10,
+      mod: 0
+    }]
+  }],
+  negative: []
+};
 
 function skillArrayByTag(tag) {
-  const skillKeys = Object.keys(staticData.skills);
+  const fixed = this.staticData;
+  const skillKeys = Object.keys(fixed.skills);
   const skillAry = [];
   skillKeys.forEach(skillKey => {
-    const skill = staticData.skills[skillKey];
+    const skill = fixed.skills[skillKey];
     if (skill.tags.indexOf(tag) !== -1) skillAry.push(skillKey);
   });
 
@@ -1137,6 +419,7 @@ function Counter(props) {
 }
 
 function BonusExpendature(props) {
+  const staticData = props.dataStatic;
   const Label = props.label;
   const key = props.srcKey;
   const baseStat = props.baseStat;
@@ -1153,7 +436,8 @@ function BonusExpendature(props) {
   })();
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
-    className: "bounsExp_input"
+    className: "bounsExp_input",
+    key: key + '_a'
   }, /*#__PURE__*/React.createElement("strong", null, Label, " :"), /*#__PURE__*/React.createElement("input", {
     className: "skill_input",
     type: "number",
@@ -1165,7 +449,8 @@ function BonusExpendature(props) {
       props.handleChange(value);
     }
   })), /*#__PURE__*/React.createElement("div", {
-    className: "bounsExp_costs"
+    className: "bounsExp_costs",
+    key: key + '_b'
   }, /*#__PURE__*/React.createElement("strong", null, "Cost: "), " ", /*#__PURE__*/React.createElement("p", null, roi, " for ", cost)));
 }
 
@@ -1181,6 +466,7 @@ class Skills extends React.Component {
     const dataDynmic = props.dataDynmic;
     const fixedSkill = props.fixedSkill;
     const rank = props.rank;
+    const srcKey = props.srcKey;
     const skillKey = props.skillKey;
     const specialMod = props.specialMod;
 
@@ -1193,7 +479,7 @@ class Skills extends React.Component {
     const total = rank + aptMod + specialMod;
     return /*#__PURE__*/React.createElement("label", {
       className: "skill_row",
-      key: ['skill', skillKey].join('_')
+      key: ['skill', srcKey, skillKey].join('_')
     }, /*#__PURE__*/React.createElement("p", {
       className: "skill_text"
     }, fixedSkill.label), /*#__PURE__*/React.createElement("p", {
@@ -1296,6 +582,7 @@ class Skills extends React.Component {
       return /*#__PURE__*/React.createElement(this.SimpleSkill, {
         fixedSkill: thisSkill,
         rank: rank,
+        srcKey: 'sub-skill',
         skillKey: subSkillKey,
         specialMod: specialMod,
         dataStatic: dataStatic,
@@ -1360,7 +647,7 @@ class Skills extends React.Component {
       className: "skill_cell"
     }, "Special Bonuses")), /*#__PURE__*/React.createElement("div", {
       className: "skill_scroll-block"
-    }, skillList.map(skillKey => {
+    }, skillList.map((skillKey, i) => {
       const fixedSkill = this.props.dataStatic.skills[skillKey]; //If Normal Skill then render a SimpleSkill
 
       if (!fixedSkill.options) {
@@ -1390,12 +677,13 @@ class Skills extends React.Component {
         return /*#__PURE__*/React.createElement(this.SimpleSkill, {
           fixedSkill: fixedSkill,
           rank: rank,
+          srcKey: i,
           skillKey: skillKey,
           specialMod: specialMod,
           dataStatic: this.props.dataStatic,
           dataDynmic: dataDynmic,
           handleChange: this.props.handleChange,
-          key: ['over-skill', skillKey].join('_')
+          key: ['simple-skill', skillKey].join('_')
         });
       } //Otherwise its a TemplateSkill 
       else {
@@ -1417,16 +705,18 @@ class Skills extends React.Component {
 class CharacterSheet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = dynamicData;
+    this.state = this.props.characterTemplate;
+    console.log(this.state);
     this.state.cp.bonusPoints = 0;
-    this.staticData = staticData;
+    this.staticData = this.props.dataStatic;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNewSubSkill = this.handleNewSubSkill.bind(this);
     this.handleBackground = this.handleBackground.bind(this);
     this.handleFaction = this.handleFaction.bind(this);
     this.handleSleeve = this.handleSleeve.bind(this);
     this.handleCP = this.handleCP.bind(this);
-    this.handleBonus - this.handleBonus.bind(this);
+    this.handleBonus = this.handleBonus.bind(this);
+    this.skillArrayByTag = skillArrayByTag.bind(this);
   }
 
   handleCP(change, attribute) {
@@ -1681,7 +971,7 @@ class CharacterSheet extends React.Component {
       skillsActive: {
         type: 'skills',
         cp: cp.skillsActive.total,
-        list: skillArrayByTag('Active')
+        list: this.skillArrayByTag('Active')
       },
       six: {
         label: 'Step Six:',
@@ -1690,7 +980,7 @@ class CharacterSheet extends React.Component {
       skillsKnowledge: {
         type: 'skills',
         cp: cp.skillsKnowledge.total,
-        list: skillArrayByTag('Knowledge')
+        list: this.skillArrayByTag('Knowledge')
       },
       seven: {
         label: 'Step Seven:',
@@ -1707,6 +997,7 @@ class CharacterSheet extends React.Component {
       }
     };
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Counter, {
+      key: ['overComp', 'counter', 'main'].join('_'),
       pontsSpent: this.state.cp.bonusPoints,
       pontsTotal: 200,
       className: "Char-Builder_Point-Counter Char-Builder_Bonus-Point-Counter",
@@ -1728,33 +1019,38 @@ class CharacterSheet extends React.Component {
           options: item.options,
           value: this.state[key],
           onChange: event => this.handleInputChange(event, key),
-          key: [item.type, key].join('_')
+          key: [item.type, key, index].join('_')
         });
       } else if (item.type === 'background') {
         return /*#__PURE__*/React.createElement(Background, {
+          type: item.type,
           onSelection: this.handleBackground,
           form: this.staticData.background,
           dataStatic: this.staticData,
-          key: ['overComp', key, index].join('_')
+          key: [item.type, key, index].join('_')
         });
       } else if (item.type === 'faction') {
         return /*#__PURE__*/React.createElement(Background, {
+          type: item.type,
           onSelection: this.handleFaction,
           form: this.staticData.faction,
-          dataStatic: this.staticData
+          dataStatic: this.staticData,
+          key: ['overComp', key, index].join('_')
         });
       } else if (item.type === 'header') {
         return /*#__PURE__*/React.createElement("h1", {
           className: "Char-Builder_Header",
-          key: `header_${key}`
+          key: `header_${index}`
         }, item.label);
       } else if (item.type === 'aptitudes') {
         //if player over spend due not display here, it will be displayed in bouns CP
         const spent = this.state.cp.aptitudes > item.cp ? item.cp : this.state.cp.aptitudes;
         return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Counter, {
           pontsSpent: spent,
-          pontsTotal: item.cp
+          pontsTotal: item.cp,
+          key: ['overComp', 'counter', index].join('_')
         }), /*#__PURE__*/React.createElement(Aptitudes, {
+          key: ['overComp', key, index].join('_'),
           spendPoints: this.handleCP,
           dataDynmic: this.state,
           dataStatic: this.staticData,
@@ -1764,6 +1060,7 @@ class CharacterSheet extends React.Component {
         //if player over spend due not display here, it will be displayed in bouns CP
         const spent = this.state.cp[key] > item.cp ? item.cp : this.state.cp[key];
         return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Counter, {
+          key: ['overComp', 'counter', index].join('_'),
           pontsSpent: spent,
           pontsTotal: item.cp
         }), /*#__PURE__*/React.createElement(Skills, {
@@ -1774,7 +1071,8 @@ class CharacterSheet extends React.Component {
           handleChange: (event, skill, subSkill) => {
             this.handleInputChange(event, 'skills', skill, subSkill);
           },
-          handleNewSubSkill: this.handleNewSubSkill
+          handleNewSubSkill: this.handleNewSubSkill,
+          key: ['overComp', key, index].join('_')
         }));
       } else if (item.type === 'bonuses') {
         const background = this.state.background;
@@ -1782,20 +1080,24 @@ class CharacterSheet extends React.Component {
         const baseCredit = background.creditMod;
         const baseRep = background.rep;
         return /*#__PURE__*/React.createElement("section", {
-          className: "char-bckgrnd"
+          className: "char-bckgrnd",
+          key: ['overComp', key, index].join('_')
         }, /*#__PURE__*/React.createElement("h2", null, item.label), /*#__PURE__*/React.createElement(BonusExpendature, {
+          dataStatic: this.staticData,
           label: 'Moxie',
           srcKey: 'moxie',
           baseStat: baseMox,
           bonusStat: this.state.moxie,
           handleChange: value => this.handleBonus(value, 'moxie')
         }), /*#__PURE__*/React.createElement(BonusExpendature, {
+          dataStatic: this.staticData,
           label: 'Credit',
           srcKey: 'credit',
           baseStat: baseCredit,
           bonusStat: this.state.credit,
           handleChange: value => this.handleBonus(value, 'credit')
         }), /*#__PURE__*/React.createElement(BonusExpendature, {
+          dataStatic: this.staticData,
           label: 'Reputation',
           srcKey: 'rep',
           baseStat: baseRep,
@@ -1807,16 +1109,24 @@ class CharacterSheet extends React.Component {
           dataStatic: this.staticData,
           dataDynamic: this.state,
           onSubmit: this.handleSleeve,
-          spendCP: cost => this.handleCP(cost, 'sleeve')
+          spendCP: cost => this.handleCP(cost, 'sleeve'),
+          key: ['overComp', key, index].join('_')
         });
       } else {
-        return /*#__PURE__*/React.createElement("p", null, "Failed to render element");
+        return /*#__PURE__*/React.createElement("p", {
+          key: ['overComp', key, index].join('_')
+        }, "Failed to render element");
       }
     }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
       onClick: () => {
         console.log(this.state);
       }
-    }, "Report"), /*#__PURE__*/React.createElement("br", null));
+    }, "Report"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
+      onClick: () => {
+        this.props.handleCharacterUpdate(this.state);
+        this.props.handleUpLift('characerDisplay', 'page');
+      }
+    }, "Character Display"));
   }
 
 }
