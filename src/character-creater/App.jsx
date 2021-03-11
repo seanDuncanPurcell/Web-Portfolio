@@ -63,18 +63,26 @@ const dynamicData = {
 
 
 class App extends React.Component {
-  constructor(params){
-    super(params)
+  constructor(props){
+    super(props)
     this.pages = [
       'characterSheet',
       'characerDisplay',
       'DMView'
     ];
-    this.state = { page: this.pages[1] }
-    this.characterData = dynamicData
+    this.state = { page: this.pages[0] }
+    const _char = this.props.myCharacter
+    this.myCharacter = {}
+    this.myCharacter.characterData = (_char) ? _char.characterData : dynamicData
+    this.myCharacter.playData = (_char) ? _char.playData : undefined
+    console.log(this.myCharacter)
 
     this.handleUpLift = this.handleUpLift.bind(this)
-    this.handleCharacterUpdate = this.handleCharacterUpdate.bind(this)
+    this.handleDataClear = this.handleDataClear.bind(this)
+    this.handleDataUpdate = this.handleDataUpdate.bind(this)
+    this.handlePgNav  = this.handlePgNav.bind(this)
+    this.PageViewer = this.PageViewer.bind(this)
+    this.ControlPannel = this.ControlPannel.bind(this)
   }
 
   handleUpLift(data, key){
@@ -83,16 +91,47 @@ class App extends React.Component {
     this.setState(newState)
   }
 
-  handleCharacterUpdate(data){
-    this.characterData = data
+  handleDataUpdate(data, key){
+    this.myCharacter[key] = data
+    const jsonData = JSON.stringify(this.myCharacter)
+    localStorage.setItem('myCharacter', jsonData)
   }
 
-  render(){
+  handleDataClear(){
+    localStorage.removeItem('myCharacter')
+    location.reload()
+  }
+
+  handlePgNav(i){
+    this.setState({page: this.pages[i]})
+  }
+
+  ControlPannel(){
+    return(
+      <nav className='Top-level__Ctrl-panl'>
+        <div>            
+          <button 
+            className='Top-level__Nav-btn'
+            onClick={()=>this.handlePgNav(1)}
+          >Character Viewer</button>
+          <button 
+            className='Top-level__Nav-btn'
+            onClick={()=>this.handlePgNav(0)}
+          >Character Editor</button>
+        </div>
+        <button className='Top-level__Danger-btn' onClick={this.handleDataClear}>CLEAR ALL DATA</button>
+      </nav>
+    )
+  }
+
+  PageViewer(){
     if(this.state.page === 'characerDisplay'){
       return(
         <>
           <CharacterDisplay
-            characterData={this.characterData}
+            handleDataUpdate={(data)=>this.handleDataUpdate(data, 'playData')}
+            playTemplate={this.myCharacter.playData}
+            characterData={this.myCharacter.characterData}
             dataStatic={this.props.dataStatic}
             handleUpLift={this.handleUpLift}
           />
@@ -102,14 +141,23 @@ class App extends React.Component {
       return(
         <>
           <CharacterSheet
-            handleCharacterUpdate={this.handleCharacterUpdate}
-            characterTemplate={this.characterData}
+            handleDataUpdate={(data)=>this.handleDataUpdate(data, 'characterData')}
+            characterTemplate={this.myCharacter.characterData}
             dataStatic={this.props.dataStatic}
             handleUpLift={this.handleUpLift}
           />
         </>
       )
     }
+  }
+
+  render(){
+    return(
+      <>
+        <this.ControlPannel />
+        <this.PageViewer />
+      </>
+    )
   }
 }
 

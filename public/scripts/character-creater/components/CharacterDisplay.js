@@ -225,7 +225,7 @@ function HealthTracking(props) {
   }, "Health Tracking"), /*#__PURE__*/React.createElement("section", {
     className: "Char-dsply__Health"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Armor (Eng./Ken.)"), /*#__PURE__*/React.createElement("input", {
-    value: myState.wounds,
+    value: myState.armor,
     type: "text",
     onChange: evt => props.handleUpLift(evt, 'armor')
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Durability"), /*#__PURE__*/React.createElement("p", null, sleeve.durability)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Damage: "), /*#__PURE__*/React.createElement("input", {
@@ -342,7 +342,7 @@ function WeaponsDisplay(props) {
 class CharacterDisplay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    const _templateData = {
       healthTracking: {
         armor: 0,
         damage: 0,
@@ -371,6 +371,7 @@ class CharacterDisplay extends React.Component {
       }],
       modifires: 0
     };
+    this.state = this.props.playTemplate ? this.props.playTemplate : _templateData;
     this.handleUpLift = this.handleUpLift.bind(this);
   }
 
@@ -382,12 +383,15 @@ class CharacterDisplay extends React.Component {
   }
 
   componentDidUpdate() {
+    //total wound and tramua mods and update the state
     const wounds = parseInt(this.state.healthTracking.wounds, 10);
     const mentTram = parseInt(this.state.healthTracking.mentalTrauma, 10);
     const totMods = (wounds + mentTram) * -10;
     if (this.state.modifires != totMods) this.setState({
       modifires: totMods
-    });
+    }); //pass data up to app for saving
+
+    this.props.handleDataUpdate(this.state);
   }
 
   render() {
@@ -414,11 +418,7 @@ class CharacterDisplay extends React.Component {
       modifires: this.state.modifires,
       myValue: this.state.weaponsDisplay,
       handleUpLift: value => this.handleUpLift(value, 'weaponsDisplay')
-    }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", {
-      onClick: () => {
-        this.props.handleUpLift('characterSheet', 'page');
-      }
-    }, "Character Display"));
+    }));
   }
 
 }

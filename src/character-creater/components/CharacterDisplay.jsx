@@ -223,7 +223,7 @@ function HealthTracking (props) {
     <h3 className='Char-dsply__Health__Head'>Health Tracking</h3>
     <section className='Char-dsply__Health'>
       <div><strong>Armor (Eng./Ken.)</strong>
-        <input value={myState.wounds} type="text" onChange={evt=>props.handleUpLift(evt, 'armor')}/>
+        <input value={myState.armor} type="text" onChange={evt=>props.handleUpLift(evt, 'armor')}/>
       </div>
       <div><strong>Durability</strong>
         <p>{sleeve.durability}</p>
@@ -329,7 +329,7 @@ function WeaponsDisplay (props) {
 class CharacterDisplay extends React.Component{
   constructor(props){
     super(props)
-    this.state = {
+    const _templateData = {
       healthTracking: {armor: 0, damage: 0, wounds: 0, stress: 0, mentalTrauma: 0},
       weaponsDisplay: [
         {name: '', skill: '', ap: '', dv: '', modes: '', ammo: '', range: '', note: ''},
@@ -337,6 +337,8 @@ class CharacterDisplay extends React.Component{
       ],
       modifires: 0
     }
+
+    this.state = (this.props.playTemplate) ? this.props.playTemplate : _templateData 
     this.handleUpLift = this.handleUpLift.bind(this)
   }
 
@@ -349,11 +351,15 @@ class CharacterDisplay extends React.Component{
   }
 
   componentDidUpdate(){
+    //total wound and tramua mods and update the state
     const wounds = parseInt(this.state.healthTracking.wounds, 10)
     const mentTram = parseInt(this.state.healthTracking.mentalTrauma, 10)
     const totMods = ((wounds + mentTram) * -10)
     if (this.state.modifires != totMods)
       this.setState({modifires: totMods})
+
+    //pass data up to app for saving
+    this.props.handleDataUpdate(this.state)
   }
 
   render(){
@@ -389,11 +395,6 @@ class CharacterDisplay extends React.Component{
           myValue={this.state.weaponsDisplay}
           handleUpLift={(value) => this.handleUpLift(value, 'weaponsDisplay')}
         />
-        <br/>
-        <br/>
-        <button onClick={()=>{
-          this.props.handleUpLift('characterSheet', 'page')          
-        }}>Character Display</button>  
       </div>
     )
   }
