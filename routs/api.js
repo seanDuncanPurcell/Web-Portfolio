@@ -3,6 +3,7 @@ const db_url = `mongodb+srv://${process.env.DB_LOGIN}@cluster0.c3kth.mongodb.net
   const mongoOps = { useNewUrlParser: true, useUnifiedTopology: true };
 const express = require('express');
 const Joi = require('joi');
+const { result } = require('lodash');
 const salt = parseInt(process.env.SALT_ONE);
 const {MongoClient} = require('mongodb');
   const db = require('mongodb');
@@ -115,11 +116,10 @@ router.route('/get-user')
 //provides blog article data from db
 router.route('/get-article')
 .get( async(req, res) => {
-  const client = MongoClient(db_url, mongoOps);
+  const client = await MongoClient(db_url, mongoOps);
   try{
     //1)Delcare req consts
     const artId = req.query.id;
-    console.log(artId)
 
     //2)Connect to DB
     await client.connect();
@@ -170,7 +170,6 @@ router.route('/set-article')
       //4.a If ID valid then update db, else throw error 
       if(idValide) {
         const mongoRes = await articleStore.replaceOne({ _id: objId}, data);
-        console.log(mongoRes);
         if(mongoRes.matchedCount === 1){
           res.status(200).send({ _id: objId, message: 'sussessfully replaced db entry'});
         }
@@ -224,5 +223,109 @@ router.route('/get_character_configs')
     client.close();
   }
 });
+
+//pull comments tree with base on root post
+router.route('/blog-comments')
+.get( async (req, res) => {
+  const client = await MongoClient(db_url, mongoOps);
+  try{
+    //1)Delcare req consts
+    const artId = req.query.id;
+
+    //2)Connect to DB
+    await client.connect();
+    const articleStore = await client.db('blogsystem').collection('comments');
+
+    //3)Check for ID
+    const dbResArray = await articleStore.find({}).toArray();
+    client.close();
+
+    function itemsByProp(array, prop, value){
+      const list =[]
+      array.forEach( item => {
+        if(item[prop] == value){
+          list.push(item)
+        }
+      })
+      return list
+    }
+
+    const comments = itemsByProp(dbResArray, 'pointer', artId )
+
+    const cmtObj = (buildCmtObjList = cmtArray =>{
+      if(cmtArray <= 0) return []
+
+      return cmtArray.map(  item => {
+        const _subArray = itemsByProp(dbResArray, 'pointer', item._id )
+        return cmtItem = { 
+          authorID: item.authorID, 
+          text: item.text, 
+          _id: item._id, 
+          comments:  buildCmtObjList(_subArray)
+        }
+      })
+    })(comments)
+
+    // 4)Return Data
+    res.send(JSON.stringify(cmtObj));
+
+  }catch(error){
+    console.log(error);
+    res.send(JSON.stringify(error));
+
+  }
+}).post( async(req, res) => {
+  let client = null
+  try{
+    //1)Check for admin rights
+    if(!req.session.loggedin){
+      return res.status(401).send('Must be logged into an account to post comments');
+    }
+  
+    //2)Delcare req constants
+    const reqData = req.body;
+    const cmtObj = {
+      authorID: req.session.username,
+      text: reqData.text,
+      pointer: reqData.pointer
+    }
+
+    //3)Connect to DB
+    client = await MongoClient.connect(db_url, mongoOps);
+    const collection = client.db('blogsystem').collection('comments');
+  
+    //4) If an ID was provided, see check that it is valid.
+    if(req.query.id){
+      const cmtID = req.query.id;
+      const idObj = new db.ObjectId(cmtID);
+      const idValide = await collection.findOne({ _id: idObj });
+  
+      //4.a If ID valid then update db, else throw error 
+      if(idValide) {
+        const mongoRes = await collection.replaceOne({ _id: idObj}, cmtObj);
+        if(mongoRes.matchedCount === 1){
+          res.status(200).send({ _id: idObj, message: 'sussessfully replaced db entry'});
+        }
+      }else {
+        res.status(422).send('Failed to update comment as its id could not be found in db.');
+      }
+    }
+  
+    //5 If no ID provided incert new entry into db and return new ID to user
+    if(!req.query.id){
+      const newComment = await collection.insertOne(cmtObj);
+      const jData = JSON.stringify(newComment.insertedId);
+      res.send(jData);
+    }
+
+  }catch(error){
+    console.log(error);
+    res.send(JSON.stringify(error));
+
+  }finally{
+    client.close();
+
+  }
+})
 
 module.exports = router;

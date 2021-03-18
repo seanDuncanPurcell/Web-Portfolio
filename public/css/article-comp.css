@@ -126,3 +126,121 @@ div.button-panle button:hover {
 .codex-editor__redactor {
   padding-bottom: 100px !important;
 }
+
+/* Comment Section*/
+.Comment-box__Main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.Comment-box__Main .img-frame img {
+  background-color: ivory;
+  border: 2px solid black;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  padding: 4px;
+  margin: auto;
+}
+
+.Comment-box__Main .Comment-box__post-img {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 90%;
+          flex: 1 1 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Comment-box__Main .Comment-box__post-img .Comment-box__Sub-content {
+  border-radius: 10px;
+  background-color: linen;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 5px;
+  padding: 5px;
+}
+
+.Comment-box__Controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.Comment-box__Controls * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%;
+  margin: 5px;
+}
+
+.comment_text-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 15px;
+  border-radius: 20px;
+  width: 95%;
+  margin: 5px 2.5%;
+  background-color: #cccccc;
+  -webkit-transition-property: -webkit-box-shadow;
+  transition-property: -webkit-box-shadow;
+  transition-property: box-shadow;
+  transition-property: box-shadow, -webkit-box-shadow;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
+}
+
+.comment_text-area button {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment_text-area textarea {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 75%;
+          flex: 1 1 75%;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.comment_text-area textarea:focus {
+  outline: none;
+}
+
+.Comment-box__Sub-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: whitesmoke;
+}
+
+.Comment-box__Sub-controls button {
+  color: inherit;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.Comment-box__Sub-controls button:hover {
+  text-decoration: underline;
+}
+
+.Comment-box__Sub-controls button:focus {
+  outline: none;
+}

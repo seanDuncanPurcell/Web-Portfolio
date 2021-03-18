@@ -1,3 +1,5 @@
+import CommentBox from './components/CommentBox.js';
+
 function userSessionData() {
   return JSON.parse(sessionStorage.getItem('user'));
 }
@@ -67,7 +69,6 @@ class ArticleViewer extends React.Component {
     if (id) {
       const url = `/api/get-article?id=${id}`;
       const responce = await fetch(url);
-      console.log(responce);
       articleData = await responce.json();
     }
 
@@ -130,7 +131,7 @@ class ArticleViewer extends React.Component {
       editMode: this.state.editMode
     }), /*#__PURE__*/React.createElement("div", {
       id: "editor-container"
-    }));
+    }), /*#__PURE__*/React.createElement(CommentBox, null));
   }
 
 }
