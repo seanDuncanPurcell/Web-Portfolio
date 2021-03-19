@@ -7,6 +7,7 @@ function userSessionData() {
 function CmtOrReply(props) {
   const [txtCont, setTxtCont] = useState();
   const [relpy, setReply] = useState(false);
+  const loggedIn = userSessionData().loggedin;
 
   function handleReply() {
     if (relpy) setReply(false);else setReply(true);
@@ -38,10 +39,10 @@ function CmtOrReply(props) {
     props.onSubmit();
   }
 
-  if (relpy) {
+  if (!loggedIn) return /*#__PURE__*/React.createElement(React.Fragment, null);else if (relpy) {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
       className: "Comment-box__Sub-controls"
-    }, /*#__PURE__*/React.createElement("button", null, "Like"), /*#__PURE__*/React.createElement("p", null, "\u2022"), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("button", {
       onClick: handleReply
     }, "Reply")), /*#__PURE__*/React.createElement("h3", null, user.username), /*#__PURE__*/React.createElement("span", {
       className: "comment_text-area"
@@ -57,7 +58,7 @@ function CmtOrReply(props) {
   } else {
     return /*#__PURE__*/React.createElement("span", {
       className: "Comment-box__Sub-controls"
-    }, /*#__PURE__*/React.createElement("button", null, "Like"), /*#__PURE__*/React.createElement("p", null, "\u2022"), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("button", {
       onClick: handleReply
     }, "Reply"));
   }
@@ -100,9 +101,11 @@ function CommentMainComp(props) {
 class CommentBox extends React.Component {
   constructor(props) {
     super(props);
+    this.pointer = '';
     this.state = {
       reply: false,
-      comments: []
+      comments: [],
+      loggedIn: false
     };
     this.handleComment = this.handleComment.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -110,14 +113,22 @@ class CommentBox extends React.Component {
 
   async componentDidMount() {
     try {
+      //get artical ID
       const query = location.search;
       const urlQuery = new URLSearchParams(query);
-      const id = urlQuery.get('id');
+      const id = urlQuery.get('id'); //us id to set pointer
+
+      this.pointer = id; //us id to set up comment fetch
+
       const url = `/api/blog-comments?id=${id}`;
       const responce = await fetch(url);
-      const commentsObj = await responce.json();
+      const commentsObj = await responce.json(); //check user status
+
+      const loggedIn = userSessionData().loggedin; //set up state to reflect new infor
+
       this.setState({
-        comments: commentsObj
+        comments: commentsObj,
+        loggedIn: loggedIn
       });
     } catch (error) {
       console.warn(error);
@@ -147,23 +158,27 @@ class CommentBox extends React.Component {
 
   render() {
     const array = this.state.comments;
-    const query = location.search;
-    const urlQuery = new URLSearchParams(query);
-    const pointer = urlQuery.get('id');
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
-      className: "Comment-box__Controls"
-    }, /*#__PURE__*/React.createElement("button", null, "Like"), /*#__PURE__*/React.createElement("button", {
-      onClick: this.handleComment
-    }, "Leave A Commment")), /*#__PURE__*/React.createElement(CmtOrReply, {
-      show: this.state.reply,
-      pointer: pointer,
-      onSubmit: this.handleSubmit
-    }), /*#__PURE__*/React.createElement(CommentMainComp, {
-      level: 1,
-      array: array,
-      srcKey: 'cmnt-blck',
-      onSubmit: this.handleSubmit
-    }));
+    const loggedIn = this.state.loggedIn;
+
+    if (loggedIn) {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(CmtOrReply, {
+        show: this.state.reply,
+        pointer: this.pointer,
+        onSubmit: this.handleSubmit
+      }), /*#__PURE__*/React.createElement(CommentMainComp, {
+        level: 1,
+        array: array,
+        srcKey: 'cmnt-blck',
+        onSubmit: this.handleSubmit
+      }));
+    } else {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(CommentMainComp, {
+        level: 1,
+        array: array,
+        srcKey: 'cmnt-blck',
+        onSubmit: this.handleSubmit
+      }));
+    }
   }
 
 }

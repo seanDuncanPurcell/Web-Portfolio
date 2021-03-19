@@ -7,6 +7,7 @@ function userSessionData () {
 function CmtOrReply(props) {
   const [txtCont, setTxtCont] = useState()
   const [relpy, setReply] = useState(false)
+  const loggedIn = userSessionData().loggedin
   function handleReply() {
     if(relpy) setReply(false)
     else setReply(true)
@@ -38,12 +39,13 @@ function CmtOrReply(props) {
     props.onSubmit()
   }
 
-  if(relpy){
+  if(!loggedIn) return <></>
+  else if(relpy){
     return(
       <>
       <span className='Comment-box__Sub-controls'>
-        <button>Like</button>
-        <p>&#8226;</p>
+        {/* <button>Like</button>
+        <p>&#8226;</p> */}
         <button onClick={handleReply}>Reply</button>
       </span>
         <h3>{user.username}</h3>
@@ -64,8 +66,8 @@ function CmtOrReply(props) {
   }else{
     return (
       <span className='Comment-box__Sub-controls'>
-        <button>Like</button>
-        <p>&#8226;</p>
+        {/* <button>Like</button>
+        <p>&#8226;</p> */}
         <button onClick={handleReply}>Reply</button>
       </span>
     )
@@ -114,20 +116,32 @@ function CommentMainComp (props){
 class CommentBox extends React.Component{
   constructor(props){
     super(props)
-    this.state = {reply: false, comments: []}
+    this.pointer = ''
+    this.state = {reply: false, comments: [], loggedIn: false}
     this.handleComment = this.handleComment.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   } 
   
   async componentDidMount () {
     try {
+      //get artical ID
       const query = location.search
       const urlQuery = new URLSearchParams(query)
       const id = urlQuery.get('id')
+
+      //us id to set pointer
+      this.pointer = id
+
+      //us id to set up comment fetch
       const url = `/api/blog-comments?id=${id}`
       const responce = await fetch(url)
       const commentsObj = await responce.json()
-      this.setState({comments: commentsObj})
+
+      //check user status
+      const loggedIn = userSessionData().loggedin
+
+      //set up state to reflect new infor
+      this.setState({comments: commentsObj, loggedIn: loggedIn})
     } catch (error) {
       console.warn(error)
     }
@@ -150,28 +164,36 @@ class CommentBox extends React.Component{
 
   render(){
     const array = this.state.comments
-    const query = location.search
-    const urlQuery = new URLSearchParams(query)
-    const pointer = urlQuery.get('id')
-    return(
-      <>
-        <span className='Comment-box__Controls'>
-          <button>Like</button>
-          <button onClick={this.handleComment}>Leave A Commment</button>
-        </span>
-        <CmtOrReply 
-          show={this.state.reply}
-          pointer={pointer}
-          onSubmit={this.handleSubmit}
-        />
-        <CommentMainComp 
-          level={1}
-          array={array}
-          srcKey={'cmnt-blck'}
-          onSubmit={this.handleSubmit}
-        />
-      </>
-    )
+    const loggedIn = this.state.loggedIn
+
+    if(loggedIn){
+      return(
+        <>
+          <CmtOrReply
+            show={this.state.reply}
+            pointer={this.pointer}
+            onSubmit={this.handleSubmit}
+          />
+          <CommentMainComp 
+            level={1}
+            array={array}
+            srcKey={'cmnt-blck'}
+            onSubmit={this.handleSubmit}
+          />
+        </>
+      )
+    } else {
+      return(
+        <>
+          <CommentMainComp
+            level={1}
+            array={array}
+            srcKey={'cmnt-blck'}
+            onSubmit={this.handleSubmit}
+          />
+        </>
+      )
+    }
   }
 }
 
