@@ -30,7 +30,7 @@
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.13",
-    "pug": "^3.0.0",
+    "pug": "^3.0.2",
     "rate-limiter-flexible": "^2.2.1"
   },
   "devDependencies": {
