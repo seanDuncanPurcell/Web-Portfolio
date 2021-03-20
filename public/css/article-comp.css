@@ -180,6 +180,9 @@ div.button-panle button:hover {
       -ms-flex: 1 1 100%;
           flex: 1 1 100%;
   margin: 5px;
+  padding: 5px;
+  font-size: 1.25em;
+  border-radius: 5px;
 }
 
 .comment_text-area {
