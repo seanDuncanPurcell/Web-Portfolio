@@ -50,7 +50,7 @@ router.route('/new-user')
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
         .allow(''),
       password: Joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{4,30}$'))
+        .pattern(new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*-_])[a-zA-Z0-9!@#$%^&*-_]{6,16}$'))
         .required(),
       repeat_password: Joi.ref('password'),
   });
