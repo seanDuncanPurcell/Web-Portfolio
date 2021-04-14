@@ -6,7 +6,8 @@
       "name": "this.Blog",
       "url": "/blog",
       "description": "The very first project for this sight is the site itself. The blog consistes of a editorjs.io text editor, and a MongoDB Cloud DB.",
-      "git": { "text": "GitHub Repo", "url": "https://github.com/seanDuncanPurcell/Web-Portfolio"}
+      "gitUrl": "https://github.com/seanDuncanPurcell/Web-Portfolio",
+      "blogUrl": "https://mysterious-bastion-02742.herokuapp.com/blog/article?id=601b862da0dc780015264e51"
     },
     {
       "img": {"src": "/img/icon-svg/black-jack-poker-svgrepo-com.svg", "alt": "simplifided reprsentation of a poker table"}, 
@@ -14,7 +15,8 @@
       "name": "Black Jack",
       "url": "/projects/black-jack",
       "description": "This was one of the most serious projects I under took after learning JS. Its 100% vanilla JS CSS & HTML.",
-      "git": { "text": "GitHub Repo", "url": "https://github.com/seanDuncanPurcell/Cards-Games.js"}
+      "gitUrl": "https://github.com/seanDuncanPurcell/Cards-Games.js",
+      "blogUrl": "https://mysterious-bastion-02742.herokuapp.com/blog/article?id=601b862da0dc780015264e51"
     },
     {
       "img": {"src": "/img/icon-svg/space-galaxy-svgrepo-com.svg", "alt": "simplifided reprsentation of a form"}, 
@@ -22,8 +24,8 @@
       "name": "EC Character Generator",
       "url": "/projects/ec_character_builder",
       "description": "A series of steps to generate a character for the Table Top RPG Eclipsephase. This is a dynamic React.js Application.",
-      "git": { "text": "GitHub Repo", "url": "https://github.com/seanDuncanPurcell/Cards-Games.js"},
-      "blog": { "text": "Blog Post", "url": "https://github.com/seanDuncanPurcell/Cards-Games.js"}
+      "gitUrl": "https://github.com/seanDuncanPurcell/Web-Portfolio",
+      "blogUrl": "https://mysterious-bastion-02742.herokuapp.com/blog/article?id=605235195708180015ccac3f"
     }
   ]
 }

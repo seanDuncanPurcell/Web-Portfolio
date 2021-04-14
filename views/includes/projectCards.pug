@@ -10,7 +10,7 @@
   
   if projectCards
     each item in projectCards.projects
-      a.project-card(href=item.url)
+      .project-card
         .card-front
           if item.img.src
             img.card-image(src= item.img.src, alt= item.img.alt)
@@ -18,7 +18,12 @@
             img.card-image(src='/img/icon-svg/code.svg' , alt='angle brackets enclosing a forward slash')
           h2= item.name
         .card-back
-          h2= item.name
+          a.pc_back-title(href=item.url)= item.name
           p!= item.description
+          ul
+            li 
+              a.pc_git-hub(href=item.gitUrl) git hub page
+            li 
+              a.pc_git-hub(href=item.blogUrl) blog page
   else
     p Oh! this is emberissing... (⁄ ⁄•⁄ω⁄•⁄ ⁄) there doesn't seem to be anything here.

@@ -88,9 +88,19 @@
           transform: rotateY(180deg);
 }
 
-#projectCards .project-card .card-back h2 {
+#projectCards .project-card .card-back .pc_back-title {
   text-decoration: underline;
   margin-bottom: 1em;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--scndryTxt-color);
+}
+
+#projectCards .project-card .card-back .pc_git-hub {
+  text-decoration: underline;
+  font-style: italic;
+  font-weight: 100;
+  color: var(--scndryTxt-color);
 }
 
 #projectCards .project-card:hover .card-front {
